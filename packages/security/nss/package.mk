@@ -3,8 +3,8 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nss"
-PKG_VERSION="3.98"
-PKG_SHA256="59bb55a59b02e4004fc26ad0aa1a13fe8d73c6c90c447dd2f2efb73fb81083ed"
+PKG_VERSION="3.114"
+PKG_SHA256="aa927a8610354483b52fdb3c9445f3e2f4a231cc03754ed47e96d2697c2e2329"
 PKG_LICENSE="Mozilla Public License"
 PKG_SITE="http://ftp.mozilla.org/"
 PKG_URL="https://ftp.mozilla.org/pub/security/nss/releases/NSS_${PKG_VERSION//./_}_RTM/src/nss-${PKG_VERSION}-with-nspr-$(get_pkg_version nspr).tar.gz"
@@ -13,6 +13,10 @@ PKG_DEPENDS_TARGET="toolchain nss:host nspr zlib sqlite"
 PKG_LONGDESC="The Network Security Services (NSS) package is a set of libraries designed to support cross-platform development of security-enabled client and server applications"
 PKG_TOOLCHAIN="manual"
 PKG_BUILD_FLAGS="-parallel"
+
+post_patch() {
+  echo "DEFINES += -DNSS_FIPS_DISABLED" >> ${PKG_BUILD}/nss/coreconf/config.mk
+}
 
 make_host() {
   cd ${PKG_BUILD}/nss
