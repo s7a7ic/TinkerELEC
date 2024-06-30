@@ -4,12 +4,12 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="open-vm-tools"
-PKG_VERSION="12.4.0"
-PKG_SHA256="ba091c58f0d61c2896418c7d04506a7ea44c7594401209928270576fa018c23a"
+PKG_VERSION="13.0.0"
+PKG_SHA256="ce855a7d9a0a6561e6009784eb2a34f6a1d98b2a883afce5290cd426f78e7a6d"
 PKG_ARCH="x86_64"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/vmware/open-vm-tools"
-PKG_URL="https://github.com/vmware/open-vm-tools/archive/stable-${PKG_VERSION}.tar.gz"
+PKG_URL="https://github.com/vmware/open-vm-tools/releases/download/stable-${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}-24696409.tar.gz"
 PKG_DEPENDS_TARGET="toolchain fuse3 glib libdnet libtirpc"
 PKG_LONGDESC="open-vm-tools: open source implementation of VMware Tools"
 PKG_TOOLCHAIN="autotools"
@@ -23,16 +23,11 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-docs \
                            --without-gtkmm \
                            --without-ssl \
                            --without-x \
-                           --without-xerces \
                            --without-icu \
                            --without-kernel-modules \
                            --with-fuse=fuse3 \
                            --with-udev-rules-dir=/usr/lib/udev/rules.d/ \
                            --with-sysroot=${SYSROOT_PREFIX}"
-
-configure_package() {
-  PKG_CONFIGURE_SCRIPT="${PKG_BUILD}/open-vm-tools/configure"
-}
 
 post_unpack() {
   # Hack to allow package to be bumped without linking against old libraries
