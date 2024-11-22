@@ -8,7 +8,7 @@ PKG_SHA256="8fd7092629a3596d935cd7567d934979f94272918ec3affd0cc807934ecf22ba"
 PKG_LICENSE="GPLv3+"
 PKG_SITE="https://www.samba.org"
 PKG_URL="https://download.samba.org/pub/samba/stable/${PKG_NAME}-${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="autotools:host gcc:host attr heimdal:host e2fsprogs Python3 libunwind zlib readline popt libaio connman gnutls wsdd2"
+PKG_DEPENDS_TARGET="autotools:host gcc:host heimdal:host attr connman e2fsprogs gnutls libaio libunwind popt Python3 readline talloc wsdd2 zlib"
 PKG_NEED_UNPACK="$(get_pkg_directory heimdal) $(get_pkg_directory e2fsprogs)"
 PKG_LONGDESC="A free SMB / CIFS fileserver and client."
 
