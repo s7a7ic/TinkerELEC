@@ -9,6 +9,9 @@
 
 ### USER INTERFACE SETTINGS ###
 
+# Distribution Home URL
+  DISTRO_HOME_URL="https://libreelec.tv"
+
 # Welcome Message for e.g. SSH Server (up to 5 Lines)
   GREETING0="##############################################"
   GREETING1="#                 LibreELEC                  #"
