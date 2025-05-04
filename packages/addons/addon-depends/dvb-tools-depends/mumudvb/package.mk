@@ -2,8 +2,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mumudvb"
-PKG_VERSION="efc815ccecf5a2b9603027c959a4966fe501f6a5" # 2021-01-06
-PKG_SHA256="b3a6f4a5d2f08d31afa46504dc53644ae21d7dbfa320a216efafcf1e7c44cdba"
+PKG_VERSION="46056b21f790603dfb38ca5c39be84c92f32d99e"
+PKG_SHA256="e904348a36c10a3930384b55a4a31250780456306c9c98cedbdcee277afea3e9"
 PKG_LICENSE="GPL"
 PKG_SITE="http://mumudvb.net/"
 PKG_URL="https://github.com/braice/MuMuDVB/archive/${PKG_VERSION}.tar.gz"
