@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.argustv"
-PKG_VERSION="22.3.1-Piers"
-PKG_SHA256="5622552311a34b12a8f4ecaa74baee283020010059783aadc7578cb7dd442ba8"
-PKG_REV="2"
+PKG_VERSION="21.1.1-Omega"
+PKG_SHA256="8ec41a956a4348ded0ee650aaa20eb5ec746102b77da46515dcdfd5fa724c157"
+PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.argustv"
