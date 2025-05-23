@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mesa"
-PKG_VERSION="25.1.0"
-PKG_SHA256="b1c45888969ee5df997e2542654f735ab1b772924b442f3016d2293414c99c14"
+PKG_VERSION="25.1.1"
+PKG_SHA256="cf942a18b7b9e9b88524dcbf0b31fed3cde18e6d52b3375b0ab6587a14415bce"
 PKG_LICENSE="OSS"
 PKG_SITE="http://www.mesa3d.org/"
 PKG_URL="https://mesa.freedesktop.org/archive/mesa-${PKG_VERSION}.tar.xz"
@@ -23,7 +23,9 @@ PKG_MESON_OPTS_HOST="-Dglvnd=disabled \
                      -Dgallium-vdpau=disabled \
                      -Dplatforms= \
                      -Dglx=disabled \
-                     -Dvulkan-drivers="
+                     -Dvulkan-drivers= \
+                     -Dshared-llvm=disabled \
+                     -Dtools=panfrost"
 
 PKG_MESON_OPTS_TARGET="-Dgallium-drivers=${GALLIUM_DRIVERS// /,} \
                        -Dgallium-extra-hud=false \
@@ -61,20 +63,13 @@ if listcontains "${GRAPHIC_DRIVERS}" "etnaviv"; then
   PKG_DEPENDS_TARGET+=" pycparser:host"
 fi
 
-if listcontains "${GRAPHIC_DRIVERS}" "iris"; then
+if listcontains "${GRAPHIC_DRIVERS}" "(iris|panfrost)"; then
   PKG_DEPENDS_TARGET+=" mesa:host"
-  PKG_MESON_OPTS_TARGET+=" -Dmesa-clc=system"
-fi
-
-if listcontains "${GRAPHIC_DRIVERS}" "panfrost"; then
-  PKG_DEPENDS_TARGET+=" mesa:host"
-  PKG_MESON_OPTS_HOST+=" -Dtools=panfrost"
-  PKG_MESON_OPTS_TARGET+=" -Dprecomp-compiler=system -Dmesa-clc=system"
+  PKG_MESON_OPTS_TARGET+=" -Dmesa-clc=system -Dprecomp-compiler=system"
 fi
 
 if listcontains "${GRAPHIC_DRIVERS}" "(nvidia|nvidia-ng)" ||
-              [ "${OPENGL_SUPPORT}" = "yes" ] &&
-              [ "${DISPLAYSERVER}" != "x11" ]; then
+              [ "${OPENGL_SUPPORT}" = "yes" -a "${DISPLAYSERVER}" != "x11" ]; then
   PKG_DEPENDS_TARGET+=" libglvnd"
   PKG_MESON_OPTS_TARGET+=" -Dglvnd=enabled"
 else
@@ -123,11 +118,8 @@ else
 fi
 
 makeinstall_host() {
-  mkdir -p "${TOOLCHAIN}/bin"
-    cp -a src/compiler/clc/mesa_clc "${TOOLCHAIN}/bin"
-    cp -a src/compiler/spirv/vtn_bindgen2 "${TOOLCHAIN}/bin"
+  host_files="src/compiler/clc/mesa_clc src/compiler/spirv/vtn_bindgen2 src/panfrost/clc/panfrost_compile"
 
-    if listcontains "${GRAPHIC_DRIVERS}" "panfrost"; then
-      cp -a src/panfrost/clc/panfrost_compile "${TOOLCHAIN}/bin"
-    fi
+  mkdir -p "${TOOLCHAIN}/bin"
+    cp -a ${host_files} "${TOOLCHAIN}/bin"
 }
