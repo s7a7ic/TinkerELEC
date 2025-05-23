@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ffmpeg"
-PKG_VERSION="7.1.1"
-PKG_SHA256="733984395e0dbbe5c046abda2dc49a5544e7e0e1e2366bba849222ae9e3a03b1"
+PKG_VERSION="6.0.1"
+PKG_SHA256="9b16b8731d78e596b4be0d720428ca42df642bb2d78342881ff7f5bc29fc9623"
 PKG_LICENSE="GPL-3.0-only"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="http://ffmpeg.org/releases/ffmpeg-${PKG_VERSION}.tar.xz"
@@ -14,9 +14,9 @@ PKG_PATCH_DIRS="libreelec"
 
 case "${PROJECT}" in
   Amlogic)
-    PKG_VERSION="6dbf87aefd7f491210abe1e043a1c228fa1439a0"
-    PKG_FFMPEG_BRANCH="test/7.1.1/main"
-    PKG_SHA256="66aead94c3884c9bc1ff2866f44d87f2f61d106bf203e1c723f83170b7e84297"
+    PKG_VERSION="9011d22fed1834cb7bd946349cc8a5eda748eec7"
+    PKG_FFMPEG_BRANCH="dev/6.0/rpi_import_1"
+    PKG_SHA256="35b6b84a3e6542a4d96f9a0537c8dbf95176cc07452b0a63339a44b1590bf5f2"
     PKG_URL="https://github.com/jc-kynesim/rpi-ffmpeg/archive/${PKG_VERSION}.tar.gz"
     ;;
   RPi)
@@ -26,9 +26,8 @@ case "${PROJECT}" in
   *)
     PKG_PATCH_DIRS+=" v4l2-request v4l2-drmprime"
     case "${PROJECT}" in
-      Allwinner | Rockchip)
+      Allwinner|Rockchip)
         PKG_PATCH_DIRS+=" vf-deinterlace-v4l2m2m"
-        ;;
     esac
     ;;
 esac
@@ -36,9 +35,9 @@ esac
 post_unpack() {
   # Fix FFmpeg version
   if [ "${PROJECT}" = "Amlogic" ]; then
-    echo "${PKG_FFMPEG_BRANCH}-${PKG_VERSION:0:7}" >${PKG_BUILD}/VERSION
+    echo "${PKG_FFMPEG_BRANCH}-${PKG_VERSION:0:7}" > ${PKG_BUILD}/VERSION
   else
-    echo "${PKG_VERSION}" >${PKG_BUILD}/RELEASE
+    echo "${PKG_VERSION}" > ${PKG_BUILD}/RELEASE
   fi
 }
 
@@ -175,6 +174,11 @@ configure_target() {
               --disable-gray \
               --enable-swscale-alpha \
               --disable-small \
+              --enable-dct \
+              --enable-fft \
+              --enable-mdct \
+              --enable-rdft \
+              --disable-crystalhd \
               ${PKG_FFMPEG_V4L2} \
               ${PKG_FFMPEG_VAAPI} \
               ${PKG_FFMPEG_VDPAU} \
