@@ -1,19 +1,13 @@
-# LibreELEC
+# TinkerELEC
 
-LibreELEC is a 'Just enough OS' Linux distribution for the award-winning [Kodi](https://kodi.tv) software on popular mediacentre hardware. Further information on the project can be found on the [LibreELEC website](https://libreelec.tv).
+This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, modified by me to run better on the ASUS Tinker Board S.
 
-**Issues & Support**
+It's based on the master branch commit 6848c7a (6848c7aea52b385f884746152f33499c7319b911) from May 15, 2025.
 
-Please ask questions in the [LibreELEC forum: Help & Support](https://forum.libreelec.tv/forum-3.html) or ask a member of project staff in the #libreelec IRC channel on Libera.Chat. Please report bugs via [GitHub Issues](https://github.com/LibreELEC/LibreELEC.tv/issues).
+Some packages were downgraded and patches were added to be able to run Kodi 21.2 (see commit history).
 
-**Donations**
-
-Contributions towards current project funding goals can be made via [OpenCollective](https://opencollective.com/libreelec/donate).
+Information about this Project can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
 
 **License**
 
-LibreELEC original code is released under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
-
-**Copyright**
-
-As LibreELEC includes code from many upstream projects it has many copyright owners; notably [OpenELEC](https://openelec.tv) which we forked from after disagreeing with project direction and management, and [OpenBricks/GeeXboX](https://github.com/OpenBricks/openbricks/blob/master/AUTHORS) the uncredited source of the original 2009 build system. LibreELEC makes no claim of copyright on any upstream code. However all original LibreELEC authored code is copyright LibreELEC.tv. Patches to upstream code have the same license as the upstream project unless specified otherwise. For a complete copyright list please checkout the source code to examine license headers. Unless expressly stated otherwise all code submitted to the LibreELEC project (in any form) is licensed under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html) and copyright is donated to the project. This approach gives the project freedom to maintain the code without the overhead of preserving contact with every submitter, e.g. GPLv3. You are free to retain copyright by adding your copyright header to each submitted code page. If you submit code that is not your own work it is your responsibility to place a header stating the copyright.
+TinkerELEC original code is released under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
