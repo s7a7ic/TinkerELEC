@@ -1,0 +1,73 @@
+--- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+@@ -29,16 +29,32 @@
+ 		autorepeat;
+ 
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pwrbtn>;
++		pinctrl-0 = <&pwrbtn &case_pwr_btn &case_rst_btn>;
+ 
+ 		button {
+ 			gpios = <&gpio0 RK_PA5 GPIO_ACTIVE_LOW>;
+ 			linux,code = <KEY_POWER>;
+ 			label = "GPIO Key Power";
+-			linux,input-type = <1>;
+ 			wakeup-source;
+ 			debounce-interval = <100>;
+ 		};
++
++		// NesPi+ Case - POWER and RESET buttons
++		button-power {
++			gpios = <&gpio8 RK_PA5 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_POWER>;
++			label = "NesPi+ Key POWER";
++			wakeup-source;
++			debounce-interval = <50>;
++		};
++
++		button-reset {
++			gpios = <&gpio8 RK_PA4 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_RESTART>;
++			label = "NesPi+ Key RESET";
++			wakeup-source;
++			debounce-interval = <50>;
++		};
+ 	};
+ 
+ 	gpio-leds {
+@@ -162,7 +177,7 @@
+ 		dvs-gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>,
+ 				<&gpio0 12 GPIO_ACTIVE_HIGH>;
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&pmic_int &global_pwroff &dvs_1 &dvs_2>;
++		pinctrl-0 = <&pmic_int &global_pwroff &dvs_1 &dvs_2 &pmic_case_int>;
+ 		rockchip,system-power-controller;
+ 		wakeup-source;
+ 
+@@ -382,6 +397,14 @@
+ 		pwrbtn: pwrbtn {
+ 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
++
++		case_pwr_btn: case-pwr-btn {
++			rockchip,pins = <8 RK_PA5 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++
++		case_rst_btn: case-rst-btn {
++			rockchip,pins = <8 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
+ 	};
+ 
+ 	eth_phy {
+@@ -395,6 +418,11 @@
+ 			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+ 
++		// NesPi+ Case - init button control
++		pmic_case_int: pmic-case-int {
++			rockchip,pins = <0 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++
+ 		dvs_1: dvs-1 {
+ 			rockchip,pins = <0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_down>;
+ 		};

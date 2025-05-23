@@ -1,0 +1,23 @@
+--- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+@@ -46,17 +46,17 @@
+ 
+ 		act_led: led-0 {
+ 			gpios = <&gpio1 RK_PD0 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "mmc0";
++			linux,default-trigger = "none";
+ 		};
+ 
+ 		heartbeat_led: led-1 {
+ 			gpios = <&gpio1 RK_PD1 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "heartbeat";
++			linux,default-trigger = "none";
+ 		};
+ 
+ 		pwr_led: led-2 {
+ 			gpios = <&gpio0 RK_PA3 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "default-on";
++			linux,default-trigger = "none";
+ 		};
+ 	};
+ 

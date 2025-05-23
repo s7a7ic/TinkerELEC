@@ -1,0 +1,12 @@
+diff --git a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+index ff2c6de3216..23acfdecee7 100644
+--- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+@@ -478,6 +500,7 @@
+ 	sd-uhs-sdr12;
+ 	sd-uhs-sdr25;
+ 	sd-uhs-sdr50;
++	sd-uhs-sdr104;
+ 	vmmc-supply = <&vcc_io>;
+ 	vqmmc-supply = <&vcc_18>;
+ 	status = "okay";
