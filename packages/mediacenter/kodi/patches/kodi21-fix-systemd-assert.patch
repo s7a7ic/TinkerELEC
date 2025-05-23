@@ -1,0 +1,17 @@
+fix systemd version >= 256 error:
+Assertion 'udev_device' failed at src/libudev/libudev-device.c:407, function udev_device_get_parent(). Aborting.
+https://github.com/xbmc/xbmc/commit/c00ac7605edb7adee4774a04db5e0c654d556a10
+
+--- a/xbmc/platform/linux/peripherals/PeripheralBusUSBLibUdev.cpp
++++ b/xbmc/platform/linux/peripherals/PeripheralBusUSBLibUdev.cpp
+@@ -108,7 +108,9 @@
+ 
+     if (bContinue)
+     {
+-      dev = udev_device_get_parent(udev_device_get_parent(parent));
++      dev = udev_device_get_parent(parent);
++      if (dev)
++        dev = udev_device_get_parent(dev);
+       if (!dev || !udev_device_get_sysattr_value(dev,"idVendor") || !udev_device_get_sysattr_value(dev, "idProduct"))
+         bContinue = false;
+     }
