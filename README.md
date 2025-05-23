@@ -30,6 +30,10 @@ I have an ASUS Tinker Board S which has an integrated Wireless LAN and Bluetooth
 * devices connected over USB aren't detected while system is running and require a reboot
 * this is fixed by general-dwc2-fix-rk3288-reset-on-wake-quirk.patch
 
+## Building Image
+
+`DISTRO=TinkerELEC PROJECT=Rockchip DEVICE=RK3288 ARCH=arm UBOOT_SYSTEM=tinker make image`
+
 ## License
 
 TinkerELEC original code is released under [GPLv2](https://www.gnu.org/licenses/gpl-2.0.html).
