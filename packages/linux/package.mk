@@ -37,6 +37,20 @@ case "${LINUX}" in
     ;;
 esac
 
+#############
+# TinkerELEC patch options
+
+# include tinker board s patches
+if [ "${TINKER_PATCHES}" = "yes" ]; then
+  PKG_PATCH_DIRS+=" tinker-s"
+fi
+
+# include nespi case patches
+if [ "${TINKER_NESPI_PATCHES}" = "yes" ]; then
+  PKG_PATCH_DIRS+=" nespi-case"
+fi
+#############
+
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
 if [ -n "${KERNEL_TOOLCHAIN}" ]; then
