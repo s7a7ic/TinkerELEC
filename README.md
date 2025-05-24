@@ -10,7 +10,17 @@ Information about this Project can be found in the [Project Repository](https://
 
 ## Reason
 
-I have an ASUS Tinker Board S which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS) but the driver support isn't so good as expected on LibreELEC and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
+I have the "ASUS Tinker Board S" which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS), but the driver support isn't so good as expected and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
+
+## Features
+
+* Kodi 21.2
+  * pcre depency patched (pcre2 is used)
+* Linux Kernel 6.12.23
+* Updated packages from LibreELEC master branch
+  * glibc 2.41, libcec 7.0.0, mesa 25.1.1 and many more...
+* Enabled Bluetooth
+* Alternative Wireless Driver
 
 ## Known Problems
 
@@ -21,6 +31,8 @@ I have an ASUS Tinker Board S which has an integrated Wireless LAN and Bluetooth
 **Wireless LAN**
 * has good connection with the alternative driver (no invalid key error)
 * WPA3 isn't working / supported by the driver
+
+## Resolved Problems
 
 **Full Shutdown (kernel)**
 * the device does not fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
