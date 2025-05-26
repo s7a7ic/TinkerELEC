@@ -27,7 +27,7 @@
 +
 +		button-reset {
 +			gpios = <&gpio8 RK_PA4 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_SLEEP>;
++			linux,code = <KEY_RESTART>;
 +			label = "NesPi+ Key RESET";
 +			wakeup-source;
 +			debounce-interval = <50>;
