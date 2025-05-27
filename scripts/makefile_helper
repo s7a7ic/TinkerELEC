@@ -6,9 +6,7 @@
 set -e
 
 # If config/options can't be sourced, abort. PWD isn't the expected ROOT.
-# Only source from config/options what will be used
-BUILD_ROOT=$(PROJECT= DEVICE= ARCH= . config/options "" && echo "${BUILD_ROOT}")
-BUILD_BASE=$(PROJECT= DEVICE= ARCH= . config/options "" && echo "${BUILD_BASE}")
+. config/options ""
 
 if [ -z "${BUILD_BASE}" -o -z "${BUILD_ROOT}" ]; then
   # make sure variables are set before running an rm
