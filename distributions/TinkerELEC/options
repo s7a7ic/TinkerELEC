@@ -4,27 +4,27 @@
   DISTRONAME="TinkerELEC"
 
 # Short distro description
-  DESCRIPTION="TinkerELEC is a fast and user-friendly Kodi Entertainment Center distribution."
+  DESCRIPTION="TinkerELEC is a fast and user-friendly Kodi Entertainment Center distribution for the ASUS Tinker Board S."
 
 # Distribution Source location
   DISTRO_MIRROR="https://sources.libreelec.tv/mirror"
-  DISTRO_SRC="https://sources.libreelec.tv/$DISTRO_VERSION"
+  DISTRO_SRC="https://github.com/s7a7ic/TinkerELEC" # /$DISTRO_VERSION
 
 # Distribution Home URL
-  DISTRO_HOME_URL="https://libreelec.tv"
+  DISTRO_HOME_URL="https://github.com/s7a7ic/TinkerELEC"
 
 # Welcome Message for SSH Server (up to 5 Lines)
   GREETING0="##############################################"
   GREETING1="#                 TinkerELEC                 #"
-  GREETING2="#            https://libreelec.tv            #"
+  GREETING2="#           for ASUS Tinker Board S          #"
   GREETING3="##############################################"
   GREETING4=""
 
 # Root password to integrate in the target system
-  ROOT_PASSWORD="libreelec"
+  ROOT_PASSWORD="tinkerelec"
 
 # Partition labels for USB/SD installation media
-  DISTRO_BOOTLABEL="LIBREELEC"
+  DISTRO_BOOTLABEL="TINKERELEC"
   DISTRO_DISKLABEL="STORAGE"
 
 
@@ -177,10 +177,6 @@
 
 ### KODI ADDONS ###
 
-# Distribution Specific source location
-  DISTRO_MIRROR="http://sources.libreelec.tv/mirror"
-  DISTRO_SRC="http://sources.libreelec.tv/$LIBREELEC_VERSION"
-
 # Addon Server Url
   ADDON_SERVER_URL="https://addons.libreelec.tv"
 
@@ -267,6 +263,12 @@
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
   ADDITIONAL_PACKAGES="btop libgpiod rsync"
 
+############
+
 # TinkerELEC options
   TINKER_PATCHES="yes"
   TINKER_NESPI_PATCHES="yes"
+
+# Skin modifications
+  ESTUARY_SMALL_MENU="yes"
+  ESTUARY_TV_FIRST="yes"
