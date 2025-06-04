@@ -32,15 +32,18 @@ I have the "ASUS Tinker Board S" which has an integrated Wireless LAN and Blueto
 * has good connection with the alternative driver (no invalid key error)
 * WPA3 isn't working / supported by the driver
 
+**Audio**
+* no sound over 3.5mm jack (may be fixed with different configuration?)
+
 ## Resolved Problems
 
 **Full Shutdown (kernel)**
 * the device does not fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* full-shutdown-rk808.patch enables previous full shutdown behaviour
+* [full-shutdown-rk808.patch](projects/Rockchip/patches/linux/tinker-s/full-shutdown-rk808.patch) enables previous full shutdown behaviour
 
 **USB Devices (kernel)**
 * devices connected over USB aren't detected while system is running and require a reboot
-* this is fixed by general-dwc2-fix-rk3288-reset-on-wake-quirk.patch
+* this is fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 ## Building Image
 
