@@ -17,14 +17,14 @@ done
 case "$1" in
   pre)
     # runs before suspending
-    if [ -f $HOME/.config/on_suspend.sh ]; then
-      sh $HOME/.config/on_suspend.sh
+    if [ -f $HOME/.config/scripts/on_suspend.sh ]; then
+      sh $HOME/.config/scripts/on_suspend.sh
     fi
     ;;
   post)
     # runs on resume
-    if [ -f $HOME/.config/on_resume.sh ]; then
-      sh $HOME/.config/on_resume.sh
+    if [ -f $HOME/.config/scripts/on_resume.sh ]; then
+      sh $HOME/.config/scripts/on_resume.sh
     fi
     ;;
 esac
