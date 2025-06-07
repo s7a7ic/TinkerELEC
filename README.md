@@ -15,27 +15,37 @@ I have the "ASUS Tinker Board S" which has an integrated Wireless LAN and Blueto
 ## Features
 
 * Kodi 21.2
-  * pcre depency patched (pcre2 is used)
+  * pcre depency patched out (pcre2 is used)
 * Linux Kernel 6.12.23
 * Updated packages from LibreELEC master branch
-  * glibc 2.41, libcec 7.0.0, mesa 25.1.1 and many more...
 * Enabled Bluetooth
 * Alternative Wireless Driver
+* Support for NesPi Case+ Buttons (soft shutdown, suspend, wake, reboot)
+
+## Image Types
+
+*-tinker.img.gz: this is the default image
+
+*-tinker-nespi.img.gz: this image has builtin support for the NesPi Case+ buttons
 
 ## Known Problems
 
 **Bluetooth**
-* works when enabled by the dts-rk3288-tinker-bt-rtl8723bs.patch
 * can currently only connect to one device, every secondary device gets a timeout on connect
 
 **Wireless LAN**
-* has good connection with the alternative driver (no invalid key error)
 * WPA3 isn't working / supported by the driver
 
 **Audio**
 * no sound over 3.5mm jack (may be fixed with different configuration?)
 
 ## Resolved Problems
+
+**Bluetooth**
+* enabled by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
+
+**Wireless LAN**
+* has good connection with the [alternative driver](packages/linux-drivers/RTL8723BS) (no invalid key error)
 
 **Full Shutdown (kernel)**
 * the device does not fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
