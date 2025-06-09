@@ -267,6 +267,7 @@
 
 # TinkerELEC options
   TINKER_PATCHES="yes"
+  TINKER_WATCHDOG="yes"
   TINKER_NESPI_PATCHES="yes"
 
 # Skin modifications
