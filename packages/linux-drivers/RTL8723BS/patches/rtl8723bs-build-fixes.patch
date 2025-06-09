@@ -13,6 +13,15 @@ diff --git a/rtl8723bs/Makefile b/rtl8723bs/Makefile
 index cab4d5f..253c070 100644
 --- a/rtl8723bs/Makefile
 +++ b/rtl8723bs/Makefile
+@@ -21,7 +21,7 @@
+ EXTRA_CFLAGS += -Wno-date-time	# Fix compile error && warning on gcc 4.9 and later
+ endif
+ 
+-EXTRA_CFLAGS += -I$(src)/include
++ccflags-y += -I$(src)/include
+ 
+ EXTRA_LDFLAGS += --strip-debug
+ 
 @@ -47,7 +47,7 @@ CONFIG_SDIO_HCI = y
  CONFIG_GSPI_HCI = n
  ########################## Features ###########################
