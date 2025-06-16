@@ -14,20 +14,16 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 
 ## Features
 
-- Kodi 21.2 (Omega)
-- Kernel 6.6.71
+- Kodi 21.2 (Omega) and Kernel 6.6.71
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 - Enabled Watchdog
+- Additional packages: btop, rsync
 
 **Support for NesPi Case+ Buttons**
 - Power Button: wake and "soft shutdown" when delatching
 - Reset Button: suspend, wake and reboot (on longpress)
 - Power LED control via /sys/class/leds/led-case interface
-
-**Additional packages in image**
-- btop
-- rsync
 
 ## Updated Packages (from LibreELEC.tv master branch)
 
