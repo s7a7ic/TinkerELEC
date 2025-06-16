@@ -14,4 +14,16 @@ PKG_TOOLCHAIN="manual"
 makeinstall_target() {
   mkdir -p ${INSTALL}/usr/share/kodi/addons/
     cp -a $(get_install_dir kodi)/.noinstall/skin.estuary ${INSTALL}/usr/share/kodi/addons/
+
+  # smaller sidemenu
+  if [ ! "${ESTUARY_SMALL_MENU}" = "no" ]; then
+    echo "### Estuary Skin: smaller sidemenu ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.01-smaller-sidemenu.patch
+  fi
+
+  # tv menu button first
+  if [ ! "${ESTUARY_TV_FIRST}" = "no" ]; then
+    echo "### Estuary Skin: tv menu first ###"
+    patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.02-tv-menu-first.patch
+  fi
 }
