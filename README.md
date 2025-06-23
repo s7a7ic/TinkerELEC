@@ -4,7 +4,10 @@ This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreE
 
 It's based on the libreelec-12.0 branch commit 6a7c6a427773cd9f7f5a93b6f525779c220ad350 from Jun 15, 2025.
 
-More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
+I've previously tried to use LibreELEC master branch as a base, but the system had random crashes with Kodi 21.2. To find the issue I've started again from the libreelec-12.0 branch and sequentially update the packages to test for stability. So far it runs pretty stable for me (on RC2).
+
+> [!NOTE]
+> More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
 
 ## Reason
 
@@ -15,10 +18,12 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 ## Features
 
 - Kodi 21.2 (Omega) and Kernel 6.6.71
+- Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 - Enabled Watchdog
 - Additional packages: btop, rsync
+- Added alsa config for 3.5mm audio jack (need to test if it's still required for pipewire)
 
 **Support for NesPi Case+ Buttons**
 - Power Button: wake and "soft shutdown" when delatching
@@ -28,8 +33,14 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 ## Updated Packages (from LibreELEC.tv master branch)
 
 - libcec 7.0.0
+- pipewire 1.4.5
+- wireplumber 0.5.10
 
 ## Known Problems
+
+**Low Volume with Pipewire**
+* set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
+* set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
 
 **Bluetooth**
 * can currently only connect to one device, every secondary device gets a timeout on connect
