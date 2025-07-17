@@ -9,7 +9,7 @@ PKG_LICENSE="OSS"
 PKG_SITE="https://www.python.org/"
 PKG_URL="https://www.python.org/ftp/python/${PKG_VERSION}/${PKG_NAME::-1}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_HOST="zlib:host bzip2:host libffi:host util-linux:host xz:host autoconf-archive:host"
-PKG_DEPENDS_TARGET="toolchain Python3:host sqlite expat zlib bzip2 xz openssl libffi readline ncurses util-linux"
+PKG_DEPENDS_TARGET="autotools:host gcc:host Python3:host sqlite expat zlib bzip2 xz openssl libffi readline ncurses util-linux"
 PKG_LONGDESC="Python3 is an interpreted object-oriented programming language."
 PKG_TOOLCHAIN="autotools"
 
@@ -116,6 +116,13 @@ pre_configure_target() {
   export PYTHON_MODULES_INCLUDE="${TARGET_INCDIR}"
   export PYTHON_MODULES_LIB="${TARGET_LIBDIR}"
   export DISABLED_EXTENSIONS="${PKG_PY_DISABLED_MODULES}"
+}
+
+post_make_target() {
+  # fix sysconfig paths for cross compiling
+  PKG_SYSCONFIG_FILE=$(find ${PKG_BUILD}/.${TARGET_NAME} -not -path '*/__pycache__/*' -name '_sysconfigdata__*.py')
+  sed -e "s,\([\'|\ ]\)/usr/include,\1${SYSROOT_PREFIX}/usr/include,g" -i ${PKG_SYSCONFIG_FILE}
+  sed -e "s,\([\'|\ ]\)/usr/lib,\1${SYSROOT_PREFIX}/usr/lib,g" -i ${PKG_SYSCONFIG_FILE}
 }
 
 post_makeinstall_target() {
