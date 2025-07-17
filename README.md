@@ -33,8 +33,10 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 ## Updated Packages (from LibreELEC.tv master branch)
 
 - libcec 7.0.0
-- pipewire 1.4.5
-- wireplumber 0.5.10
+- libdrm 2.4.125
+- mesa 25.1.6
+- pipewire 1.4.6 / wireplumber 0.5.10
+- python 3.11.9 (3.12 / 3.13 has compatibility issues with addons)
 
 ## Known Problems
 
