@@ -4,7 +4,7 @@
 PKG_NAME="inputstream.adaptive"
 PKG_VERSION="21.5.15-Omega"
 PKG_SHA256="40f44b1748b4d1bfe92260e2805904154b6388f96babf820bfd900b54db15d57"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/inputstream.adaptive"

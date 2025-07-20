@@ -5,7 +5,7 @@
 PKG_NAME="pvr.filmon"
 PKG_VERSION="21.0.3-Omega"
 PKG_SHA256="323702037d65d2820dbe7c589f395d1d1321a4fec61738745dd104ae569088df"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.filmon"

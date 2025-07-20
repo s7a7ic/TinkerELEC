@@ -5,7 +5,7 @@
 PKG_NAME="audiodecoder.sidplay"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="c7d10dd65baed2db1272ff57fde76f0b268a4a434d57022539c4dc5bf6f8b54e"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/audiodecoder.sidplay"

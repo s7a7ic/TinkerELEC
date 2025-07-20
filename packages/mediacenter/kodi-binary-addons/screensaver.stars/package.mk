@@ -5,7 +5,7 @@
 PKG_NAME="screensaver.stars"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="86a479a4c6d0b27723a701330b83704f223566eabe7a25302ecf8f0a66e5b27e"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/screensaver.stars"

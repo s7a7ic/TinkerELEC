@@ -5,7 +5,7 @@
 PKG_NAME="audiodecoder.dumb"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="57a6442d0b0d20e88eaf9ea95a06d4b84fa584bc7a51d1ea909b4206f0013274"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/audiodecoder.dumb"

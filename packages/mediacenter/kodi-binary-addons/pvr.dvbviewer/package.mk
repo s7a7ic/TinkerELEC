@@ -5,7 +5,7 @@
 PKG_NAME="pvr.dvbviewer"
 PKG_VERSION="21.1.3-Omega"
 PKG_SHA256="9e567eb074b885621266d2eb1e67e79a19f47ef503aad110d9bf92ba2bd75084"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.dvbviewer"
