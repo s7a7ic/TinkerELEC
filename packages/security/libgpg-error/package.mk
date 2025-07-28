@@ -3,18 +3,18 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libgpg-error"
-PKG_VERSION="1.48"
-PKG_SHA256="89ce1ae893e122924b858de84dc4f67aae29ffa610ebf668d5aa539045663d6f"
+PKG_VERSION="1.55"
+PKG_SHA256="95b178148863f07d45df0cea67e880a79b9ef71f5d230baddc0071128516ef78"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://www.gnupg.org"
 PKG_URL="https://www.gnupg.org/ftp/gcrypt/libgpg-error/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="autotools:host gcc:host"
 PKG_LONGDESC="A library that defines common error values for all GnuPG components."
 
 pre_configure_target() {
   PKG_CONFIGURE_OPTS_TARGET="CC_FOR_BUILD=${HOST_CC} --enable-static --disable-shared --disable-nls --disable-rpath --with-gnu-ld --with-pic"
 
-# inspired by openembedded
+  # inspired by openembedded
   case ${TARGET_ARCH} in
     aarch64)
       GPGERROR_TUPLE=aarch64-unknown-linux-gnu
