@@ -2,7 +2,7 @@
   DISTRO_VERSION="devel"
 
 # OS_VERSION: OS Version
-  OS_VERSION="12.0"
+  OS_VERSION="12.2"
 
 # ADDON_VERSION: Addon version
   ADDON_VERSION="12.1.0"
