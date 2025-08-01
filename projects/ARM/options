@@ -63,7 +63,7 @@
   # build with MySQL support (mariadb / none)
     KODI_MYSQL_SUPPORT="no"
 
-  # build xbmc with optical drive support (yes / no)
+  # build Kodi with optical drive support (yes / no)
     KODI_OPTICAL_SUPPORT="no"
 
   # build with AirPlay support (stream videos from iDevices to KODI) (yes / no)
@@ -99,7 +99,7 @@
   # build and install diskmounter support (udevil)
     UDEVIL="no"
 
-  # Xorg Graphic drivers to use (all / r300,r600,nvidia)
+  # Xorg Graphic drivers to use (all / nvidia)
     GRAPHIC_DRIVERS="mesa"
 
   # build and install remote support (yes / no)

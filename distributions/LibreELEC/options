@@ -170,7 +170,7 @@
 
 # Distribution Specific source location
   DISTRO_MIRROR="http://sources.libreelec.tv/mirror"
-  DISTRO_SRC="http://sources.libreelec.tv/$LIBREELEC_VERSION"
+  DISTRO_SRC="http://sources.libreelec.tv/$DISTRO_VERSION"
 
 # Addon Server Url
   ADDON_SERVER_URL="https://addons.libreelec.tv"
@@ -219,7 +219,7 @@
 # mediacenter also automount internally drives at boottime via udev (yes / no)
   UDEVIL="yes"
 
-# Support for partitioning and formating disks in initramfs (yes / no)
+# Support for partitioning and formatting disks in initramfs (yes / no)
 # This adds support for parted and mkfs.ext3/4 to initramfs for OEM usage
   INITRAMFS_PARTED_SUPPORT="no"
 
@@ -257,3 +257,11 @@
 # Space separated list is supported,
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
   ADDITIONAL_PACKAGES=""
+
+# build and install driver addons (yes / no)
+  DRIVER_ADDONS_SUPPORT="no"
+
+# driver addons to install:
+# for a list of additional drivers see packages/linux-driver-addons
+# Space separated list is supported,
+  DRIVER_ADDONS="crazycat digital_devices dvb-latest"
