@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="systemd"
-PKG_VERSION="255.4"
-PKG_SHA256="96e75bd08c57ad401677456fb88ef54a9f05bb1695693013bc6ecce839640fd5"
+PKG_VERSION="255.22"
+PKG_SHA256="182468df5d115075116341d3a668498a109bec722d782b0610263ff8c2dd3475"
 PKG_LICENSE="LGPL2.1+"
 PKG_SITE="http://www.freedesktop.org/wiki/Software/systemd"
 PKG_URL="https://github.com/systemd/systemd-stable/archive/v${PKG_VERSION}.tar.gz"
@@ -127,7 +127,7 @@ post_makeinstall_target() {
   safe_remove ${INSTALL}/usr/lib/tmpfiles.d/home.conf
   safe_remove ${INSTALL}/usr/share/factory
 
-  # remove Network adaper renaming rule, this is confusing
+  # remove Network adapter renaming rule, this is confusing
   safe_remove ${INSTALL}/usr/lib/udev/rules.d/80-net-setup-link.rules
 
   safe_remove ${INSTALL}/usr/lib/udev/rules.d/71-seat.rules
@@ -154,6 +154,10 @@ post_makeinstall_target() {
 
   # adjust systemd-hwdb-update (we have read-only /etc).
   sed '/^ConditionNeedsUpdate=.*$/d' -i ${INSTALL}/usr/lib/systemd/system/systemd-hwdb-update.service
+
+  # remove systemd-creds
+  safe_remove ${INSTALL}/usr/bin/systemd-creds
+  safe_remove ${INSTALL}/usr/lib/tmpfiles.d/credstore.conf
 
   # remove nspawn
   safe_remove ${INSTALL}/usr/bin/systemd-nspawn
