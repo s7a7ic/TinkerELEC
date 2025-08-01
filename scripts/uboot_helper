@@ -7,7 +7,7 @@ import argparse
 
 # When adding new devices to the list please keep them in alphabetical order
 # board-name should contain 'dashes' (-) not 'underscores' (_) and shouldn't contain capitals
-# you can check the formating using an online tool such as https://codebeautify.org/python-formatter-beautifier
+# you can check the formatting using an online tool such as https://codebeautify.org/python-formatter-beautifier
 
 #  'project' : {
 #    'device' : {
@@ -164,6 +164,10 @@ devices = \
         'dtb': '',
         'config': 'p212_defconfig'
       },
+      'alta': {
+        'dtb': 'meson-g12b-a311d-libretech-cc.dtb',
+        'config': 'aml-a311d-cc_defconfig'
+      },
       'bananapi-m2s': {
         'dtb': 'meson-g12b-a311d-bananapi-m2s.dtb',
         'config': 'bananapi-m2s_defconfig'
@@ -228,6 +232,10 @@ devices = \
         'dtb': 'meson-g12b-radxa-zero2.dtb',
         'config': 'radxa-zero2_defconfig'
       },
+      'solitude': {
+        'dtb': 'meson-sm1-s905d3-libretech-cc.dtb',
+        'config': 'aml-s905d3-cc_defconfig'
+      },
       'wetek-core2': {
         'dtb': 'meson-gxm-wetek-core2.dtb',
         'config': 'wetek-core2_defconfig'
@@ -257,6 +265,10 @@ devices = \
       'mq-evk' : {
         'dtb' : 'imx8mq-evk.dtb',
         'config' : 'imx8mq_evk_defconfig'
+      },
+      'phanbell' : {
+        'dtb' : 'imx8mq-phanbell.dtb',
+        'config' : 'imx8mq_phanbell_defconfig'
       },
       'pico-mq' : {
         'dtb' : 'imx8mq-pico-pi.dtb',
@@ -331,6 +343,14 @@ devices = \
       'rock-pi-4-plus': {
         'dtb': 'rk3399-rock-pi-4b-plus.dtb',
         'config': 'rock-pi-4-rk3399_defconfig'
+      },
+      'rock-4c-plus': {
+        'dtb': 'rk3399-rock-4c-plus.dtb',
+        'config': 'rock-4c-plus-rk3399_defconfig'
+      },
+      'rock-4se': {
+       'dtb': 'rk3399-rock-4se.dtb',
+       'config': 'rock-4se-rk3399_defconfig'
       },
       'rock-pi-n10': {
         'dtb': 'rk3399pro-rock-pi-n10.dtb',

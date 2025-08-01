@@ -58,6 +58,7 @@ dep_map=(
   [bash]=bash
   [bc]=bc
   [bzip2]=bzip2
+  [curl]=curl
   [diff]=diffutils
   [gawk]=gawk
   [gcc]=gcc
@@ -70,10 +71,10 @@ dep_map=(
   [patch]=patch
   [perl]=perl
   [rdfind]=rdfind
+  [rsync]=rsync
   [sed]=sed
   [tar]=tar
   [unzip]=unzip
-  [wget]=wget
   [xz]=xz-utils
   [zip]=zip
   [zstd]=zstd
@@ -288,7 +289,7 @@ if [ "${#need_map[@]}" -gt 0 ]; then
   fi
 fi
 
-# check if installed packages satisifed deps
+# check if installed packages satisfied deps
 get_deps
 
 if [ "${#need_map[@]}" -gt 0 ]; then
