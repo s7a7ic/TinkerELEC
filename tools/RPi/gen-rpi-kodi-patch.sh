@@ -4,14 +4,13 @@ set -e
 BIN=$(readlink -f $(dirname $0))
 
 if git rev-parse --is-inside-work-tree &>/dev/null; then
-  echo "Don't run this script inside a git reppository!"
+  echo "Don't run this script inside a git repository!"
   exit 1
 fi
 
 DEPTH=1000
 
-usage()
-{
+usage() {
   local me="$(basename $0)"
 
   echo "Usage:   ${me} <popcornmix-branch> <sha>|<xbmc branch>"

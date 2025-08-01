@@ -2,9 +2,9 @@
 
 **Docker containers**
 - Ubuntu
-  - focal     (Ubuntu 20.04)
   - jammy     (Ubuntu 22.04)
   - noble     (Ubuntu 24.04)
+  - plucky    (Ubuntu 25.04)
 - Debian
   - bookworm  (Debian 12)
 
@@ -13,7 +13,7 @@
 Use the following command to create a docker image and tag it with `libreelec`.
 
 ```
-docker build --pull -t libreelec tools/docker/jammy
+docker build --pull -t libreelec tools/docker/noble
 ```
 
 See https://docs.docker.com/engine/reference/commandline/build/ for details on `docker build` usage.
