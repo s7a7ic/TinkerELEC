@@ -5,7 +5,7 @@
 PKG_NAME="screensaver.pyro"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="4a6b5d7efd789be40226ffe337bac8f64c47335c40085d940d624d42cdaa1be0"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/screensaver.pyro"

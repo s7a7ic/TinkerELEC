@@ -5,7 +5,7 @@
 PKG_NAME="pvr.dvblink"
 PKG_VERSION="21.1.3-Omega"
 PKG_SHA256="7c436b7a9a4e991f99c01e1fbe69761a1792e4aa703ec95e29ecdb9b7f251ae6"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.dvblink"

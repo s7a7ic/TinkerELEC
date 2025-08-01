@@ -5,7 +5,7 @@
 PKG_NAME="pvr.njoy"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="62d856e14b76aa6900c28d4679b13d79d891dc040c4ea87331b0eee373542644"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.njoy"

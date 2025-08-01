@@ -5,7 +5,7 @@
 PKG_NAME="pvr.pctv"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="d3527b88d3956fecf8dda40928bc01bd340a22c25a6c38f758af8d6d85153354"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.pctv"

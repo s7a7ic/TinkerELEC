@@ -5,7 +5,7 @@
 PKG_NAME="pvr.wmc"
 PKG_VERSION="21.0.3-Omega"
 PKG_SHA256="bee42bd2a55d00ab589db9ebcddfa75d9211571fda63d641ba484f5582934364"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.wmc"

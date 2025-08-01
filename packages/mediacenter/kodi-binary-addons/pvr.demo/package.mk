@@ -5,7 +5,7 @@
 PKG_NAME="pvr.demo"
 PKG_VERSION="21.0.3-Omega"
 PKG_SHA256="3c23283d0b1c41164c20377190bcad9065efd1519e490e691df370142e349372"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.demo"

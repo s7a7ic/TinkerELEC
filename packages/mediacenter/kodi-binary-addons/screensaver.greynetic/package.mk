@@ -5,7 +5,7 @@
 PKG_NAME="screensaver.greynetic"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="9ed9dba2040268bfd82648856b3e07da5cf51f39909c71c2579475221477e3a6"
-PKG_REV="1"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/screensaver.greynetic"
