@@ -1,2 +1,1 @@
-1
-- move smbus.so to lib
+initial release
