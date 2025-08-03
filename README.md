@@ -4,7 +4,7 @@ This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreE
 
 It's based on the libreelec-12.0 branch commit 6a7c6a427773cd9f7f5a93b6f525779c220ad350 from Jun 15, 2025.
 
-I've previously tried to use LibreELEC master branch as a base, but the system had random crashes with Kodi 21.2. To find the issue I've started again from the libreelec-12.0 branch and sequentially update the packages to test for stability. So far it runs pretty stable for me (on RC2).
+I've previously tried to use LibreELEC master branch as a base, but the system had random crashes with Kodi 21.2. To find the issue I've started again from the libreelec-12.0 branch and sequentially update the packages to test for stability. So far it runs pretty stable for me (on RC3).
 
 > [!NOTE]
 > More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
@@ -30,13 +30,13 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 - Reset Button: suspend, wake and reboot (on longpress)
 - Power LED control via /sys/class/leds/led-case interface
 
-## Updated Packages (from LibreELEC.tv master branch)
+## Updated Packages (from LibreELEC.tv master and libreelec-12.2 branch)
 
-- libcec 7.0.0
+- libcec 7.1.1
 - libdrm 2.4.125
-- mesa 25.1.6
+- mesa 25.1.7
 - pipewire 1.4.6 / wireplumber 0.5.10
-- python 3.11.9 (3.12 / 3.13 has compatibility issues with addons)
+- python 3.11.13 (3.12 / 3.13 has compatibility issues with addons)
 
 ## Known Problems
 
