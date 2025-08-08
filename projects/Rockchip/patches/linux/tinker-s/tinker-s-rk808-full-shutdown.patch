@@ -26,23 +26,22 @@ index 5eda3c0dbbdf..757ef8181328 100644
  	const struct mfd_cell *cells;
  	int dual_support = 0;
  	int nr_pre_init_regs;
-@@ -677,9 +678,20 @@
+@@ -785,10 +786,20 @@
  	if (ret)
  		return dev_err_probe(dev, ret, "failed to add MFD devices\n");
  
--	if (device_property_read_bool(dev, "rockchip,system-power-controller")) {
-+/*
-+ * Currently the Rockchip SPI driver always sleeps when doing SPI
-+ * transfers. This is not allowed in the SYS_OFF_MODE_POWER_OFF
-+ * handler, so we are using the prepare handler as a workaround.
-+ * This should be removed once the Rockchip SPI driver has been
-+ * adapted.
-+ */
-+if (is_spi)
-+	pwr_off_mode = SYS_OFF_MODE_POWER_OFF_PREPARE;
++	/*
++	 * Currently the Rockchip SPI driver always sleeps when doing SPI
++	 * transfers. This is not allowed in the SYS_OFF_MODE_POWER_OFF
++	 * handler, so we are using the prepare handler as a workaround.
++	 * This should be removed once the Rockchip SPI driver has been
++	 * adapted.
++	 */
++	if (is_spi)
++		pwr_off_mode = SYS_OFF_MODE_POWER_OFF_PREPARE;
 +
-+	if (device_property_read_bool(dev, "rockchip,system-power-controller") ||
-+	    device_property_read_bool(dev, "system-power-controller")) {
+ 	if (device_property_read_bool(dev, "rockchip,system-power-controller") ||
+ 	    device_property_read_bool(dev, "system-power-controller")) {
  		ret = devm_register_sys_off_handler(dev,
 -				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
 +				    pwr_off_mode, SYS_OFF_PRIO_HIGH,
