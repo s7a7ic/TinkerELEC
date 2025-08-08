@@ -7,7 +7,7 @@ PKG_SHA256="a8c3f596aece96da3b00cafb74baafa0d14515eafb8ed1ee3f7f5c2d0ebf02b6"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.qemu.org"
 PKG_URL="https://download.qemu.org/qemu-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_HOST="toolchain:host glib:host pixman:host Python3:host zlib:host"
+PKG_DEPENDS_HOST="toolchain:host distlib:host glib:host pixman:host Python3:host zlib:host"
 PKG_LONGDESC="QEMU is a generic and open source machine emulator and virtualizer."
 PKG_TOOLCHAIN="configure"
 
