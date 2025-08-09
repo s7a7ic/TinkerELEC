@@ -17,7 +17,7 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 
 ## Features
 
-- Kodi 21.2 (Omega) and Kernel 6.6.71
+- Kodi 21.2 (Omega) and Kernel 6.12.23
 - Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
@@ -36,7 +36,7 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 - libdrm 2.4.125
 - mesa 25.1.7
 - pipewire 1.4.6 / wireplumber 0.5.10
-- python 3.11.13 (3.12 / 3.13 has compatibility issues with addons)
+- python 3.11.13 (version >= 3.12 has compatibility issues with addons)
 
 ## Known Problems
 
@@ -48,13 +48,18 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 * can currently only connect to one device, every secondary device gets a timeout on connect
 
 **Wireless LAN**
-* WPA3 isn't working / supported by the driver
+* WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
 
 ## Resolved Problems
 
 **Full Shutdown (kernel)**
 * the device does not fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
 * [full-shutdown-rk808.patch](projects/Rockchip/patches/linux/tinker-s/full-shutdown-rk808.patch) enables previous full shutdown behaviour
+
+## Credits
+
+* https://github.com/libretro/Lakka-LibreELEC
+* https://github.com/SupervisedThinking/LibreELEC-RR
 
 ## License
 
