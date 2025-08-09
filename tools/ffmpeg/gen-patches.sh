@@ -34,12 +34,11 @@ create_patch() {
       ;;
     libreelec)
       REPO="https://github.com/LibreELEC/FFmpeg"
-      REFSPEC="libreelec-misc-${FFMPEG_VERSION}"
+      REFSPEC="6.0-libreelec-misc"
       ;;
     rpi)
       REPO="https://github.com/jc-kynesim/rpi-ffmpeg"
-      REFSPEC="dev/7.1.1/rpi_import_1"
-      PATCH_CREATE_DIFF="yes"
+      REFSPEC="test/6.0.1/main"
       ;;
     *)
       echo "illegal feature set ${FEATURE_SET}"
