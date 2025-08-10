@@ -8,7 +8,7 @@ PKG_SITE="https://github.com/Lebensgefahr/rockchip_wlan"
 PKG_URL="https://github.com/Lebensgefahr/rockchip_wlan/archive/${PKG_VERSION}.tar.gz"
 PKG_LONGDESC="Realtek RTL8723BS Linux driver"
 PKG_IS_KERNEL_PKG="yes"
-PKG_DEPENDS_TARGET="toolchain linux"
+PKG_DEPENDS_TARGET="autotools:host gcc:host linux"
 PKG_NEED_UNPACK="${LINUX_DEPENDS}"
 PKG_TOOLCHAIN="manual"
 
