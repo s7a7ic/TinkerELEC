@@ -53,8 +53,12 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 ## Resolved Problems
 
 **Full Shutdown (kernel)**
-* the device does not fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* [full-shutdown-rk808.patch](projects/Rockchip/patches/linux/tinker-s/full-shutdown-rk808.patch) enables previous full shutdown behaviour
+* doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
+* [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables previous full shutdown behaviour
+
+**USB Device detection when system is running**
+* doesn't detect USB devices plugged in when booted and running
+* fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 ## Credits
 
