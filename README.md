@@ -4,7 +4,7 @@ This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreE
 
 It's based on the libreelec-12.0 branch commit 6a7c6a427773cd9f7f5a93b6f525779c220ad350 from Jun 15, 2025.
 
-I've previously tried to use LibreELEC master branch as a base, but the system had random crashes with Kodi 21.2. To find the issue I've started again from the libreelec-12.0 branch and sequentially update the packages to test for stability. So far it runs pretty stable for me (on RC3).
+I've previously tried to use LibreELEC master branch as a base, but the system had random crashes with Kodi 21.2. To find the issue I've started again from the libreelec-12.0 branch and sequentially update the packages to test for stability.
 
 > [!NOTE]
 > More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
@@ -46,6 +46,7 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 
 **Bluetooth**
 * can currently only connect to one device, every secondary device gets a timeout on connect
+* kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)
 
 **Wireless LAN**
 * WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
