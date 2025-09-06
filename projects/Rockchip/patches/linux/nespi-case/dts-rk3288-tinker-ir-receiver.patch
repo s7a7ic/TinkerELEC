@@ -1,0 +1,16 @@
+--- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+@@ -70,6 +70,13 @@
+ 			<&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
+ 	};
+ 
++	ir: ir-receiver {
++		compatible = "gpio-ir-receiver";
++		gpios = <&gpio8 RK_PB0 1>;
++		linux,rc-map-name = "rc-rc6-mce";
++		status = "okay";
++	};
++
+ 	sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
