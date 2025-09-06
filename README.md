@@ -13,7 +13,8 @@ I've previously tried to use LibreELEC master branch as a base, but the system h
 
 I have the **ASUS Tinker Board S** which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS), but the driver support isn't so good as expected and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
 
-Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functionality of the front panel buttons. I have planed to add an infrared receiver and temperature aware fan control integrated inside the case.
+Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functionality of the front panel buttons and I've added an IR-Receiver to be able to use my TV-Remote to control Kodi.
+I have planed to add an temperature aware fan control integrated inside the case.
 
 ## Features
 
@@ -29,6 +30,10 @@ Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functional
 - Power Button: wake and "soft shutdown" when delatching
 - Reset Button: suspend, wake and reboot (on longpress)
 - Power LED control via /sys/class/leds/led-case interface
+- [NesPi Case Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/patches/linux/nespi-case/dts-rk3288-tinker-nespi-case.patch)
+
+**Infrared Receiver**
+- [IR Receiver Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/patches/linux/nespi-case/dts-rk3288-tinker-ir-receiver.patch)
 
 ## Updated Packages (from LibreELEC.tv master and libreelec-12.2 branch)
 
