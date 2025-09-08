@@ -5,7 +5,7 @@
 
 . /etc/profile
 
-# see https://wiki.archlinux.org/index.php/Power_Management#Hooks_in_.2Fusr.2Flib.2Fsystemd.2Fsystem-sleep
+# see https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate#Sleep_hooks
 
 for script in $HOME/.config/sleep.d/*.power; do
   if [ -f $script ]; then
