@@ -1,32 +1,10 @@
---- a/xml/Home.xml
-+++ b/xml/Home.xml
-@@ -934,6 +934,14 @@
- 					</itemlayout>
- 					<content>
- 						<item>
-+							<label>$LOCALIZE[19020]</label>
-+							<property name="menu_id">$NUMBER[12000]</property>
-+							<onclick>ActivateWindow(TVChannels)</onclick>
-+							<thumb>icons/sidemenu/livetv.png</thumb>
-+							<property name="id">livetv</property>
-+							<visible>!Skin.HasSetting(HomeMenuNoTVButton)</visible>
-+						</item>
-+						<item>
- 							<label>$LOCALIZE[342]</label>
- 							<onclick condition="Library.HasContent(movies) + Skin.HasSetting(home_no_categories_widget) + !System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://movies/,return)</onclick>
- 							<onclick condition="Library.HasContent(movies) + Skin.HasSetting(home_no_categories_widget) + System.GetBool(myvideos.flatten)">ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
-@@ -980,14 +988,6 @@
- 							<visible>!Skin.HasSetting(HomeMenuNoMusicVideoButton)</visible>
- 						</item>
- 						<item>
--							<label>$LOCALIZE[19020]</label>
--							<property name="menu_id">$NUMBER[12000]</property>
--							<onclick>ActivateWindow(TVChannels)</onclick>
--							<thumb>icons/sidemenu/livetv.png</thumb>
--							<property name="id">livetv</property>
--							<visible>!Skin.HasSetting(HomeMenuNoTVButton)</visible>
--						</item>
--						<item>
- 							<label>$LOCALIZE[19021]</label>
- 							<property name="menu_id">$NUMBER[13000]</property>
- 							<onclick>ActivateWindow(RadioChannels)</onclick>
+--- a/xml/DialogButtonMenu.xml
++++ b/xml/DialogButtonMenu.xml
+@@ -40,6 +40,7 @@
+ 					</item>
+ 					<item>
+ 						<label>$LOCALIZE[13011]</label>
++						<onclick>dialog.close(all,true)</onclick>
+ 						<onclick>Suspend()</onclick>
+ 						<visible>System.CanSuspend</visible>
+ 					</item>
