@@ -1,0 +1,11 @@
+--- a/xbmc/powermanagement/PowerManager.cpp
++++ b/xbmc/powermanagement/PowerManager.cpp
+@@ -238,7 +238,7 @@
+   g_application.UpdateLibraries();
+   CServiceBroker::GetWeatherManager().Refresh();
+   CServiceBroker::GetPVRManager().OnWake();
+-  RestorePlayerState();
++  //RestorePlayerState();
+ 
+   CServiceBroker::GetAnnouncementManager()->Announce(ANNOUNCEMENT::System, "OnWake");
+ }
