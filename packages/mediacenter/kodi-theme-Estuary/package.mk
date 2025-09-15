@@ -26,4 +26,7 @@ makeinstall_target() {
     echo "### Estuary Skin: tv menu first ###"
     patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.02-tv-menu-first.patch
   fi
+
+  echo "### Estuary Skin: close dialog on suspend ###"
+  patch -d ${INSTALL}/usr/share/kodi/addons/skin.estuary -p1 < ${PKG_DIR}/files/kodi-theme-Estuary-100.03-close-suspend-dialog.patch
 }
