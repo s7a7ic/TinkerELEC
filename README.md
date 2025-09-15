@@ -13,13 +13,12 @@ I've previously tried to use LibreELEC master branch as a base, but the system h
 
 I have the **ASUS Tinker Board S** which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS), but the driver support isn't so good as expected and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
 
-Also I'm using the NesPi Case+ and wanted to have the "safe shutdown" functionality of the front panel buttons and I've added an IR-Receiver to be able to use my TV-Remote to control Kodi.
-I have planed to add an temperature aware fan control integrated inside the case.
+I'm using the "NesPi Case+" and created patches for the device tree to use the "safe shutdown" functionality of the front panel buttons, added an IR-Receiver to be able to use my TV-Remote to control Kodi and planing to add a temperature aware fan control integrated inside the case.
 
 ## Features
 
 - Kodi 21.2 (Omega) and Kernel 6.12.23
-  - Modified Estuary Skin
+  - [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
     - smaller sidemenu and more vertical space
     - tv menu as first option
     - close power dialog on suspend
