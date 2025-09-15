@@ -19,6 +19,7 @@ I have planed to add an temperature aware fan control integrated inside the case
 ## Features
 
 - Kodi 21.2 (Omega) and Kernel 6.12.23
+  - Modified Estuary Skin (smaller sidemenu, more vertical space and tv menu as first option)
 - Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
@@ -35,13 +36,16 @@ I have planed to add an temperature aware fan control integrated inside the case
 **Infrared Receiver**
 - [IR Receiver Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/patches/linux/nespi-case/dts-rk3288-tinker-ir-receiver.patch)
 
-## Updated Packages (from LibreELEC.tv master and libreelec-12.2 branch)
+## Updated Packages
+
+from LibreELEC.tv master and libreelec-12.2 branch
 
 - libcec 7.1.1
 - libdrm 2.4.125
 - mesa 25.1.9
 - pipewire 1.4.7 / wireplumber 0.5.10
 - python 3.11.13 (version >= 3.12 has compatibility issues with addons)
+- and others
 
 ## Known Problems
 
@@ -51,10 +55,13 @@ I have planed to add an temperature aware fan control integrated inside the case
 
 **Bluetooth**
 * can currently only connect to one device, every secondary device gets a timeout on connect
-* kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)
+* ~~kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)~~
 
 **Wireless LAN**
 * WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
+
+**Kodi**
+* playback after suspend won't continue, as the only way to disable it for now was to [patch](packages/mediacenter/kodi/patches/kodi-999.99-disable-resume-playerstate-after-suspend.patch) it in kodi
 
 ## Resolved Problems
 
