@@ -19,7 +19,10 @@ I have planed to add an temperature aware fan control integrated inside the case
 ## Features
 
 - Kodi 21.2 (Omega) and Kernel 6.12.23
-  - Modified Estuary Skin (smaller sidemenu, more vertical space and tv menu as first option)
+  - Modified Estuary Skin
+    - smaller sidemenu and more vertical space
+    - tv menu as first option
+    - close power dialog on suspend
 - Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
