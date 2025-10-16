@@ -13,7 +13,7 @@ I've previously tried to use LibreELEC master branch as a base, but the system h
 
 I have the **ASUS Tinker Board S** which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS), but the driver support isn't so good as expected and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
 
-I'm using the "NesPi Case+" and created patches for the device tree to use the "safe shutdown" functionality of the front panel buttons, added an IR-Receiver to be able to use my TV-Remote to control Kodi and planing to add a temperature aware fan control integrated inside the case.
+I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the device tree to use the "safe shutdown" functionality of the front panel buttons, added an IR-Receiver to be able to use my TV-Remote to control Kodi and planing to add a temperature aware fan control integrated inside the case.
 
 ## Features
 
@@ -63,7 +63,7 @@ from LibreELEC.tv master and libreelec-12.2 branch
 * WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
 
 **Kodi**
-* playback after suspend won't continue, as the only way to disable it for now was to [patch](packages/mediacenter/kodi/patches/kodi-999.99-disable-resume-playerstate-after-suspend.patch) it in kodi
+* playback after suspend won't continue, as the only way to disable it for now was to [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch) it in kodi
 
 ## Resolved Problems
 
