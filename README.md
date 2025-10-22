@@ -21,7 +21,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   - [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
     - smaller sidemenu and more vertical space
     - tv menu as first option
-    - close power dialog on suspend
+    - ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
 - Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
