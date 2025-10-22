@@ -11,9 +11,9 @@ I've previously tried to use LibreELEC master branch as a base, but the system h
 
 ## Reason
 
-I have the **ASUS Tinker Board S** which has an integrated Wireless LAN and Bluetooth Chip (RTL8723BS), but the driver support isn't so good as expected and the RK3288 SoC has some regressions with current Linux Kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
+I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes (patches, different drivers).
 
-I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the device tree to use the "safe shutdown" functionality of the front panel buttons, added an IR-Receiver to be able to use my TV-Remote to control Kodi and planing to add a temperature aware fan control integrated inside the case.
+I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the device tree to use the "safe shutdown" functionality of the front panel buttons. Also, an IR receiver was added to be able to use a TV remote to control Kodi. I plan to add a temperature-aware fan control integrated inside the case.
 
 ## Features
 
@@ -26,7 +26,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 - Enabled Watchdog
-- Additional packages: btop, rsync
+- Additional packages: btop, emmctool, rsync
 - Added alsa config for 3.5mm audio jack (need to test if it's still required for pipewire)
 
 **Support for NesPi Case+ Buttons**
@@ -45,7 +45,7 @@ from LibreELEC.tv master and libreelec-12.2 branch
 - libcec 7.1.1
 - libdrm 2.4.127
 - mesa 25.2.5
-- pipewire 1.4.7 / wireplumber 0.5.10
+- pipewire 1.5.81 / wireplumber 0.5.12
 - python 3.11.13 (version >= 3.12 has compatibility issues with addons)
 - and others
 
@@ -55,15 +55,17 @@ from LibreELEC.tv master and libreelec-12.2 branch
 * set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
 * set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
 
-**Bluetooth**
-* can currently only connect to one device, every secondary device gets a timeout on connect
+**Bluetooth (internal)**
+* can currently only connect to one device; every secondary device gets a timeout on connect
 * ~~kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)~~
+* can be fixed with a Bluetooth USB-Dongle
 
 **Wireless LAN**
 * WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
 
 **Kodi**
-* playback after suspend won't continue, as the only way to disable it for now was to [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch) it in kodi
+* playback after suspend won't always continue, depending on the add-on or media last played
+* so it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 
 ## Resolved Problems
 
@@ -71,9 +73,16 @@ from LibreELEC.tv master and libreelec-12.2 branch
 * doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables previous full shutdown behaviour
 
-**USB Device detection when system is running**
-* doesn't detect USB devices plugged in when booted and running
+**USB Device detection when system is running (kernel)**
+* system doesn't detect USB devices plugged in when fully booted and running
 * fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
+
+## Install to EMMC
+
+To install a TinkerELEC image from SDCARD onto the internal emmc storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool) (modified to be used on Tinker Board S, included in TinkerELEC).
+
+> [!CAUTION]
+> Use `emmctool` with care. Can wipe data from emmc storage.
 
 ## Credits
 
