@@ -1,6 +1,6 @@
 # TinkerELEC
 
-This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, modified by me to run better on the **ASUS Tinker Board S**.
+This is a fork of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, modified by me to run better on the **ASUS Tinker Board S** (Rockchip RK3288).
 
 It's based on the libreelec-12.0 branch commit 6a7c6a427773cd9f7f5a93b6f525779c220ad350 from Jun 15, 2025.
 
@@ -17,7 +17,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Features
 
-- Kodi 21.2 (Omega) and Kernel 6.12.23
+- Kodi 21.3 (Omega) and Kernel 6.12.23
   - [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
     - smaller sidemenu and more vertical space
     - tv menu as first option
