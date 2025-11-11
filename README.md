@@ -43,9 +43,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 from LibreELEC.tv master and libreelec-12.2 branch
 
 - libcec 7.1.1
-- libdrm 2.4.127
-- mesa 25.2.5
-- pipewire 1.5.81 / wireplumber 0.5.12
+- libdrm 2.4.128
+- mesa 25.2.6
+- pipewire 1.5.83 / wireplumber 0.5.12
 - python 3.11.13 (version >= 3.12 has compatibility issues with addons)
 - and others
 
