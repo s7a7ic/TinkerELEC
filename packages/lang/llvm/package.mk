@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="llvm"
-PKG_VERSION="20.1.8"
-PKG_SHA256="6898f963c8e938981e6c4a302e83ec5beb4630147c7311183cf61069af16333d"
+PKG_VERSION="21.1.5"
+PKG_SHA256="1794be4bf974e99a3fe1da4b2b9b1456c02ae9479c942f365441d8d207bd650c"
 PKG_LICENSE="Apache-2.0"
 PKG_SITE="http://llvm.org/"
 PKG_URL="https://github.com/llvm/llvm-project/releases/download/llvmorg-${PKG_VERSION}/llvm-project-${PKG_VERSION/-/}.src.tar.xz"
@@ -99,21 +99,25 @@ pre_configure_host() {
 }
 
 post_make_host() {
-  ninja ${NINJA_OPTS} llvm-config llvm-objcopy llvm-tblgen
+  ninja ${NINJA_OPTS} llc llvm-ar llvm-as llvm-config llvm-cov llvm-dis \
+                      llvm-link llvm-nm llvm-objcopy llvm-objdump \
+                      llvm-profdata llvm-readobj llvm-size llvm-strip \
+                      llvm-tblgen opt
 
   if listcontains "${GRAPHIC_DRIVERS}" "(iris|panfrost)"; then
-    ninja ${NINJA_OPTS} llvm-as llvm-link llvm-spirv opt
+    ninja ${NINJA_OPTS} llvm-spirv
   fi
 }
 
 post_makeinstall_host() {
   mkdir -p ${TOOLCHAIN}/bin
-    cp -a bin/llvm-config ${TOOLCHAIN}/bin
-    cp -a bin/llvm-objcopy ${TOOLCHAIN}/bin
-    cp -a bin/llvm-tblgen ${TOOLCHAIN}/bin
+    cp -a bin/{llc,llvm-ar,llvm-as,llvm-config,llvm-cov,llvm-dis} "${TOOLCHAIN}/bin"
+    cp -a bin/{llvm-link,llvm-nm,llvm-objcopy,llvm-objdump} "${TOOLCHAIN}/bin"
+    cp -a bin/{llvm-profdata,llvm-readobj,llvm-size,llvm-strip} "${TOOLCHAIN}/bin"
+    cp -a bin/{llvm-tblgen,opt} "${TOOLCHAIN}/bin"
 
   if listcontains "${GRAPHIC_DRIVERS}" "(iris|panfrost)"; then
-    cp -a bin/{llvm-as,llvm-link,llvm-spirv,opt} "${TOOLCHAIN}/bin"
+    cp -a bin/llvm-spirv "${TOOLCHAIN}/bin"
   fi
 }
 
