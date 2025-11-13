@@ -20,12 +20,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Next Goals
 
-- change versioning scheme
-- modify `emmctool` to clone/copy storage partition from emmc to sdcard
-- prepare kernel-6.17 branch for further testing and fixing crashes
-  - rtl8723bs staging driver test: wifi had less dropouts but still got the "ivalid-key" error at first
-  - internal bt can now connect to multiple devices in parallel
-  - system crashed or rebooted randomly
+- Change versioning scheme
+- Modify `emmctool` to clone/copy storage partition from emmc to sdcard
+- Prepare kernel-6.17 branch for further testing and fixing crashes
+  - rtl8723bs staging driver test: wifi had fewer dropouts but still got the "invalid-key" error at first
+  - Internal bluetooth can now connect to multiple devices in parallel
+  - System crashed or rebooted randomly
+- Add Retroarch and Moonlight for gaming purposes
 
 ## Features
 
@@ -64,29 +65,29 @@ from LibreELEC.tv master and libreelec-12.2 branch
 ## Known Problems
 
 **Low Volume with Pipewire**
-* set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
-* set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
+* Set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
+* Set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
 
 **Bluetooth (internal)**
-* can currently only connect to one device; every secondary device gets a timeout on connect
-* works on kernel 6.17.7 or can be fixed with a Bluetooth USB dongle
-* ~~kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)~~
+* Can currently only connect to one device; every secondary device gets a timeout on connect
+* Works on kernel 6.17.7 or can be fixed with a Bluetooth USB dongle
+* ~~Kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)~~
 
 **Wireless LAN**
 * WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
 
 **Kodi**
-* playback after suspend won't always continue, depending on the add-on or media last played
-* so it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* Playback after suspend won't always continue, depending on the add-on or media last played
+* So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 
 ## Resolved Problems
 
 **Full Shutdown (kernel)**
-* doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
+* System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables previous full shutdown behaviour
 
 **USB Device detection when system is running (kernel)**
-* system doesn't detect USB devices plugged in when fully booted and running
+* System doesn't detect USB devices plugged in when fully booted and running
 * fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 ## Install to EMMC
@@ -94,12 +95,11 @@ from LibreELEC.tv master and libreelec-12.2 branch
 To install a TinkerELEC image from SDCARD onto the internal emmc storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool) (modified to be used on Tinker Board S, included in TinkerELEC).
 
 > [!CAUTION]
-> Use `emmctool` with care. Can wipe data from emmc storage.
+> Use `emmctool` with care. Can wipe data from emmc/sdcard storage.
 
 ## Credits
 
-* https://github.com/libretro/Lakka-LibreELEC
-* https://github.com/SupervisedThinking/LibreELEC-RR
+Like any Linux distribution, this project is not the work of one person. It is the work of many persons all over the world who have developed the open source bits without which this project could not exist. Special thanks to [CoreELEC](https://github.com/CoreELEC/CoreELEC), [Lakka](https://github.com/libretro/Lakka-LibreELEC), [LibreELEC](https://github.com/LibreELEC/LibreELEC.tv), [ROCKNIX](https://github.com/ROCKNIX/distribution), [SupervisedThinking](https://github.com/SupervisedThinking/LibreELEC-RR) and to developers and contributors across the open source community.
 
 ## License
 
