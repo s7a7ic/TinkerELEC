@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
-# Copyright (C) 2025-present ROCKNIX (https://github.com/ROCKNIX)
 
 PKG_NAME="btop"
-PKG_VERSION="v1.4.0"
+PKG_VERSION="v1.4.5"
+PKG_SHA256="0ffe03d3e26a3e9bbfd5375adf34934137757994f297d6b699a46edd43c3fc02"
 PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://github.com/aristocratos/btop"
 PKG_URL="https://github.com/aristocratos/btop/archive/${PKG_VERSION}.tar.gz"
