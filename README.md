@@ -40,7 +40,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 - Enabled Watchdog
 - Additional packages: btop, emmctool, rsync
-- Added alsa config for 3.5mm audio jack (need to test if it's still required for pipewire)
+- Added alsa config for 3.5mm audio jack
 
 **Support for NesPi Case+ Buttons**
 - Power Button: wake and "soft shutdown" when delatching
@@ -89,6 +89,10 @@ from LibreELEC.tv master and libreelec-12.2 branch
 **USB Device detection when system is running (kernel)**
 * System doesn't detect USB devices plugged in when fully booted and running
 * fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
+
+**Audio over 3.5mm Jack**
+* Added required [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf)
+* The output source in Kodi and pipewire is called "USB Audio ..."
 
 ## Install to EMMC
 
