@@ -16,29 +16,29 @@ PKG_PATCH_DIRS="${LINUX}"
 
 case "${LINUX}" in
   amlogic)
-    PKG_VERSION="86731a2a651e58953fc949573895f2fa6d456841" # 6.16-rc3
-    PKG_SHA256="008b00968a8bfc0627580b82a2d30c7304336a4f92a58e80cdbc2d4723e01840"
+    PKG_VERSION="6c7871823908a4330e145d635371582f76ce1407" # 6.17.4
+    PKG_SHA256="6a5561e8e0c315e4a8b2e873934ae219e3ca4208f49daf1ad17db84735931c2d"
     PKG_URL="https://github.com/torvalds/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     PKG_PATCH_DIRS="default"
     ;;
   raspberrypi)
-    PKG_VERSION="5a72e3ae00ecdd02244e867c2880a3ac0653ee25" # 6.12.40
-    PKG_SHA256="ef92cb35db68978a76f527988a11046c8598d2a512a03de67c8cde5467ddcecb"
+    PKG_VERSION="78fd5c93f1568d0dac7c56ee3d497739a63b058e" # 6.12.56
+    PKG_SHA256="b4c9cd51586c21f32f5a6750c35e999270a5bbe6da7ab3ceaef0cbc3a1f91ab3"
     PKG_URL="https://github.com/raspberrypi/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
-    PKG_PATCH_DIRS="raspberrypi rtlwifi/6.13 rtlwifi/6.14 rtlwifi/6.15"
+    PKG_PATCH_DIRS="raspberrypi rtlwifi/6.13 rtlwifi/6.14 rtlwifi/6.15 rtlwifi/6.18"
     ;;
   rockchip)
-    PKG_VERSION="76eeb9b8de9880ca38696b2fb56ac45ac0a25c6c" # 6.17-rc5
-    PKG_SHA256="b2ff7ef05755dadd0cfc526ef59ec80954a89ec6dc71e978ea09cb0420551950"
+    PKG_VERSION="e5f0a698b34ed76002dc5cff3804a61c80233a7a" # 6.17.0
+    PKG_SHA256="78282d8f57cb0efef15cd8f3e9838615f2ffc8a913f5b5a90321eb6669dfd568"
     PKG_URL="https://github.com/chewitt/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
-    PKG_PATCH_DIRS="default rockchip rtlwifi/6.17"
+    PKG_PATCH_DIRS="default rockchip rtlwifi/6.18"
     ;;
   *)
-    PKG_VERSION="6.12.23"
-    PKG_SHA256="d8d95404f8deeb7ff6992c0df855025062e9e8182bca6daa27ef2e9275d27749"
+    PKG_VERSION="6.17.7"
+    PKG_SHA256="ddf2ea0d4439e1d57136be3623102af9458f601f5b1cb77e83246e88aea09d0e"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     case ${DEVICE} in
@@ -129,7 +129,7 @@ makeinstall_host() {
 }
 
 pre_make_target() {
-  ( 
+  (
     cd ${ROOT}
     rm -rf ${BUILD}/initramfs
     rm -f ${STAMPS_INSTALL}/initramfs/install_target ${STAMPS_INSTALL}/*/install_init
@@ -160,17 +160,30 @@ pre_make_target() {
     ${PKG_BUILD}/scripts/config --disable CONFIG_CIFS
   fi
 
-  # enable/disable iscsi support
-  [ "${ISCSI_SUPPORT}" = yes ] && OPTION="--enable" || OPTION="--disable"
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_SCSI_ISCSI_ATTRS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_TCP
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_BOOT_SYSFS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT_FIND
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT
-
   # disable wireguard support if not enabled
   if [ ! "${WIREGUARD_SUPPORT}" = yes ]; then
     ${PKG_BUILD}/scripts/config --disable CONFIG_WIREGUARD
+  fi
+
+  # disable vfd support if not enabled
+  if [ ! "${VFD_SUPPORT}" = yes ]; then
+    ${PKG_BUILD}/scripts/config --disable CONFIG_PANEL_CHANGE_MESSAGE
+  else
+    # enable the module and set distro boot message
+    ${PKG_BUILD}/scripts/config --enable CONFIG_AUXDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LINEDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_KEYPAD
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_I2C
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_SPI
+    ${PKG_BUILD}/scripts/config --enable CONFIG_PANEL_CHANGE_MESSAGE
+    ${PKG_BUILD}/scripts/config --set-str CONFIG_PANEL_BOOT_MESSAGE "${VFD_MESSAGE}"
+    ${PKG_BUILD}/scripts/config --enable CONFIG_INPUT_MATRIXKMAP
+    # enable led activity triggers
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_TIMER # Colon
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_NETDEV # LAN/WLAN
+    ${PKG_BUILD}/scripts/config --enable CONFIG_USB_LEDS_TRIGGER_USBPORT # USB
+    ${PKG_BUILD}/scripts/config --enable CONFIG_MMC # SD
   fi
 
   if [ "${TARGET_ARCH}" = "x86_64" ]; then
@@ -238,7 +251,7 @@ make_target() {
   DTC_FLAGS=-@ kernel_make ${KERNEL_TARGET} ${KERNEL_MAKE_EXTRACMD} modules
 
   if [ "${PKG_BUILD_PERF}" = "yes" ]; then
-    ( 
+    (
       cd tools/perf
 
       # arch specific perf build args
