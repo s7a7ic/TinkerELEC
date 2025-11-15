@@ -20,6 +20,14 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Modify `emmctool` or create a similar tool to simply clone the storage partition in both ways between emmc and sdcard
 * Add Retroarch and Moonlight for gaming purposes
 
+### Kernel 6.17.x branch notes
+
+* RTL8723BS: Removed the alternative wifi driver to use the kernel staging driver
+  * first results: wifi had fewer dropouts but still got the "invalid-key" error on connect
+* Internal bluetooth now connects to multiple devices in parallel
+* Suspend does not work, system just reboots or hangs
+* System fully shuts down without kernel patch
+
 ## Features
 
 * Kodi 21.3 (Omega) and Kernel 6.12.23
