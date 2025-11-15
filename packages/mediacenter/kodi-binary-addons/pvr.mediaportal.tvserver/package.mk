@@ -5,7 +5,7 @@
 PKG_NAME="pvr.mediaportal.tvserver"
 PKG_VERSION="21.0.5-Omega"
 PKG_SHA256="38727f8ea1ac350ced769b21919eb4b1409479f82ceeadf5140dbbdb7d5af415"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.mediaportal.tvserver"
