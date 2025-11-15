@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="gtk3"
-PKG_VERSION="3.24.49"
-PKG_SHA256="5ea52c6a28f0e5ecf2e9a3c2facbb30d040b73871fcd5f33cd1317e9018a146e"
+PKG_VERSION="3.24.51"
+PKG_SHA256="0013877c6bd23c2dbe42ad7c70a053d0e449be66736574e37867c49c5f905a4f"
 PKG_LICENSE="LGPL"
 PKG_SITE="https://www.gtk.org/"
 PKG_URL="https://download.gnome.org/sources/gtk/${PKG_VERSION:0:4}/gtk-${PKG_VERSION}.tar.xz"
