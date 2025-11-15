@@ -22,10 +22,12 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 - Change versioning scheme
 - Modify `emmctool` to clone/copy storage partition from emmc to sdcard
-- Prepare kernel-6.17 branch for further testing and fixing crashes
-  - rtl8723bs staging driver test: wifi had fewer dropouts but still got the "invalid-key" error at first
+- Get source closer to master branch, exept essential packages required for Kodi 21
+- Results with kernel-6.17.x branch
+  - rtl8723bs staging driver test: wifi had fewer dropouts but still got the "invalid-key" error on connect
   - Internal bluetooth can now connect to multiple devices in parallel
-  - System crashed or rebooted randomly
+  - Suspend does not work, system just reboots or hangs
+  - System fully shuts down without kernel patch
 - Add Retroarch and Moonlight for gaming purposes
 
 ## Features
@@ -38,9 +40,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 - Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 - Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 - Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
-- Enabled Watchdog
 - Additional packages: btop, emmctool, rsync
-- Added alsa config for 3.5mm audio jack
+- Added alsa [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf) for 3.5mm audio jack
+- Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-gpu-500mhz-opp.patch)
 
 **Support for NesPi Case+ Buttons**
 - Power Button: wake and "soft shutdown" when delatching
@@ -57,7 +59,7 @@ from LibreELEC.tv master and libreelec-12.2 branch
 
 - libcec 7.1.1
 - libdrm 2.4.128
-- mesa 25.2.6
+- mesa 25.2.7
 - pipewire 1.5.83 / wireplumber 0.5.12
 - python 3.11.13 (version >= 3.12 has compatibility issues with addons)
 - and others
@@ -70,11 +72,11 @@ from LibreELEC.tv master and libreelec-12.2 branch
 
 **Bluetooth (internal)**
 * Can currently only connect to one device; every secondary device gets a timeout on connect
-* Works on kernel 6.17.7 or can be fixed with a Bluetooth USB dongle
+* Works on kernel 6.17 or can be fixed with a Bluetooth USB dongle
 * ~~Kodi sometimes crashes when gamepad disconnects (maybe related to pipewire, but was [patched](https://github.com/xbmc/xbmc/pull/26454)?)~~
 
 **Wireless LAN**
-* WPA3 isn't working / supported by the driver -> waiting for Kernel 6.17 wich should include changes of the RTL8723BS staging driver
+* WPA3 isn't supported by the alternative driver -> waiting for Kernel 6.17+ wich includes changes of the RTL8723BS staging driver
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
@@ -85,6 +87,7 @@ from LibreELEC.tv master and libreelec-12.2 branch
 **Full Shutdown (kernel)**
 * System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables previous full shutdown behaviour
+* Patch is no longer required with kernel >=6.17.7
 
 **USB Device detection when system is running (kernel)**
 * System doesn't detect USB devices plugged in when fully booted and running
