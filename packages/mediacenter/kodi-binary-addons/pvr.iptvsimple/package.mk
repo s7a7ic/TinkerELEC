@@ -5,7 +5,7 @@
 PKG_NAME="pvr.iptvsimple"
 PKG_VERSION="21.11.0-Omega"
 PKG_SHA256="377fb3c69d39866c0b3b8a3a7d4c790241b15997b140f45443209c4e44e62418"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.iptvsimple"

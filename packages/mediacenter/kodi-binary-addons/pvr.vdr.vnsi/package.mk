@@ -5,7 +5,7 @@
 PKG_NAME="pvr.vdr.vnsi"
 PKG_VERSION="21.1.3-Omega"
 PKG_SHA256="4608cfd2339cfc52470575f7caf153a97502cb360b44fcef2921c0623a931ef8"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.vdr.vnsi"

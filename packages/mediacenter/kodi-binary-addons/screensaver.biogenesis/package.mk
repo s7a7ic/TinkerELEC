@@ -5,7 +5,7 @@
 PKG_NAME="screensaver.biogenesis"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="fdd5a5abf98318e01e22c88f81ae3838b2f3b76f99b39e01fc94af528a200849"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/screensaver.biogenesis"

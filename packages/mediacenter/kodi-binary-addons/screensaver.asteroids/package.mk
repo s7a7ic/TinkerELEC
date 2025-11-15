@@ -5,7 +5,7 @@
 PKG_NAME="screensaver.asteroids"
 PKG_VERSION="21.0.2-Omega"
 PKG_SHA256="468527220845a411af4dd021a907c6449327015fb848e61adfb46b47edde331a"
-PKG_REV="2"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/screensaver.asteroids"
