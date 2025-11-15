@@ -16,7 +16,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 ## Next Goals
 
 * Update to Kernel 6.17+ and fix issues
-* Get source closer to master branch, exept essential packages required for Kodi 21
+* Get source closer to LibreELEC master branch, exept essential packages required for Kodi 21
 * Modify `emmctool` or create a similar tool to simply clone the storage partition in both ways between emmc and sdcard
 * Add Retroarch and Moonlight for gaming purposes
 
