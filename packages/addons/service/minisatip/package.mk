@@ -2,9 +2,9 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="minisatip"
-PKG_VERSION="2.0.6"
-PKG_SHA256="145d8c34df53df10dbdfda009d4a82f0550af83557594228805649b6b9f519ef"
-PKG_REV="1"
+PKG_VERSION="2.0.39"
+PKG_SHA256="4ec41f8e27dd82b26e5b20d07ccca3e7e9c70aea4deec262a663652d1eafd88c"
+PKG_REV="7"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/catalinii/minisatip"
@@ -19,11 +19,9 @@ PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Minisatip"
 PKG_ADDON_TYPE="xbmc.service"
 
-PKG_CONFIGURE_OPTS_TARGET="--enable-static \
-                           --disable-netcv \
+PKG_CONFIGURE_OPTS_TARGET="--disable-netcv \
                            --enable-dvbca \
-                           --enable-dvbcsa \
-                           --with-xml2=$(get_install_dir libxml2)/usr/include/libxml2"
+                           --enable-dvbcsa"
 
 pre_configure_target() {
   TARGET_CONFIGURE_OPTS=$(echo ${TARGET_CONFIGURE_OPTS} | sed -e "s|--disable-static||" -e "s|--enable-shared||")
