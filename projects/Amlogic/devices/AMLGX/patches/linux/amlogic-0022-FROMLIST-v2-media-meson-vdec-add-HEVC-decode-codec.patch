@@ -1,7 +1,7 @@
-From 00829e834a4cd6594b076550fd18be30ddba5b0e Mon Sep 17 00:00:00 2001
+From c26db2710e8c104599c8a2f3c9cc495b60865bbc Mon Sep 17 00:00:00 2001
 From: Maxime Jourdan <mjourdan@baylibre.com>
 Date: Mon, 23 Jan 2023 11:07:04 +0000
-Subject: [PATCH 22/53] FROMLIST(v2): media: meson: vdec: add HEVC decode codec
+Subject: [PATCH 22/52] FROMLIST(v2): media: meson: vdec: add HEVC decode codec
 
 Add initial HEVC codec for the Amlogic GXBB/GXL/GXM SoCs using
 the common "HEVC" decoder driver.
@@ -15,8 +15,8 @@ Signed-off-by: Benjamin Roszak <benjamin545@gmail.com>
  drivers/staging/media/meson/vdec/codec_hevc.h |   13 +
  drivers/staging/media/meson/vdec/esparser.c   |    3 +-
  drivers/staging/media/meson/vdec/hevc_regs.h  |    1 +
- .../staging/media/meson/vdec/vdec_platform.c  |   37 +
- 6 files changed, 1516 insertions(+), 2 deletions(-)
+ .../staging/media/meson/vdec/vdec_platform.c  |   49 +
+ 6 files changed, 1528 insertions(+), 2 deletions(-)
  create mode 100644 drivers/staging/media/meson/vdec/codec_hevc.c
  create mode 100644 drivers/staging/media/meson/vdec/codec_hevc.h
 
@@ -1546,7 +1546,7 @@ index 0392f41a1eed..e7eabdd2b119 100644
  #define HEVC_SAO_MMU_VH1_ADDR 0xd8ec
  
 diff --git a/drivers/staging/media/meson/vdec/vdec_platform.c b/drivers/staging/media/meson/vdec/vdec_platform.c
-index f1df637681e5..083adf0d07d9 100644
+index 8a7e5b3f5d00..870e61dedd81 100644
 --- a/drivers/staging/media/meson/vdec/vdec_platform.c
 +++ b/drivers/staging/media/meson/vdec/vdec_platform.c
 @@ -11,10 +11,23 @@
@@ -1592,7 +1592,26 @@ index f1df637681e5..083adf0d07d9 100644
  	}, {
  		.pixfmt = V4L2_PIX_FMT_H264,
  		.min_buffers = 2,
-@@ -70,6 +95,18 @@ static const struct amvdec_format vdec_formats_gxm[] = {
+@@ -59,6 +84,18 @@ static const struct amvdec_format vdec_formats_gxl[] = {
+ 
+ static const struct amvdec_format vdec_formats_gxlx[] = {
+ 	{
++		.pixfmt = V4L2_PIX_FMT_HEVC,
++		.min_buffers = 4,
++		.max_buffers = 24,
++		.max_width = 3840,
++		.max_height = 2160,
++		.vdec_ops = &vdec_hevc_ops,
++		.codec_ops = &codec_hevc_ops,
++		.firmware_path = "meson/vdec/gxl_hevc.bin",
++		.pixfmts_cap = { V4L2_PIX_FMT_NV12M, 0 },
++		.flags = V4L2_FMT_FLAG_COMPRESSED |
++			 V4L2_FMT_FLAG_DYN_RESOLUTION,
++	}, {
+ 		.pixfmt = V4L2_PIX_FMT_H264,
+ 		.min_buffers = 2,
+ 		.max_buffers = 24,
+@@ -86,6 +123,18 @@ static const struct amvdec_format vdec_formats_gxm[] = {
  		.pixfmts_cap = { V4L2_PIX_FMT_NV12M, 0 },
  		.flags = V4L2_FMT_FLAG_COMPRESSED |
  			 V4L2_FMT_FLAG_DYN_RESOLUTION,

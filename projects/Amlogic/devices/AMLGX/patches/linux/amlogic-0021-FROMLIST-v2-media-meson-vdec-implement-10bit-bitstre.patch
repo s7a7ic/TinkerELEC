@@ -1,7 +1,7 @@
-From 73aa203801527e081409ead1c5708552ecc5f82b Mon Sep 17 00:00:00 2001
+From fb1dc1ba9b1efa6419b124435836aaf5f91f821d Mon Sep 17 00:00:00 2001
 From: Benjamin Roszak <benjamin545@gmail.com>
 Date: Mon, 23 Jan 2023 10:56:46 +0000
-Subject: [PATCH 21/53] FROMLIST(v2): media: meson: vdec: implement 10bit
+Subject: [PATCH 21/52] FROMLIST(v2): media: meson: vdec: implement 10bit
  bitstream handling
 
 In order to support 10bit bitstream decoding, buffers and MMU
@@ -453,10 +453,10 @@ index baf0dba3c418..ef6dd05d89c8 100644
  		return -EAGAIN;
  	}
 diff --git a/drivers/staging/media/meson/vdec/vdec.h b/drivers/staging/media/meson/vdec/vdec.h
-index 0906b8fb5cc6..a48170fe4cff 100644
+index 7a5d8e871d70..ca8a872bcf9d 100644
 --- a/drivers/staging/media/meson/vdec/vdec.h
 +++ b/drivers/staging/media/meson/vdec/vdec.h
-@@ -244,6 +244,7 @@ struct amvdec_session {
+@@ -243,6 +243,7 @@ struct amvdec_session {
  	u32 width;
  	u32 height;
  	u32 colorspace;
