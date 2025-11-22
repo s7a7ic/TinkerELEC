@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mariadb-connector-c"
-PKG_VERSION="3.3.9"
-PKG_SHA256="062b9ec5c26cbb236a78f0ba26981272053f59bdfc113040bab904a9da36d31f"
+PKG_VERSION="3.4.7"
+PKG_SHA256="cf81cd1c71c3199da9d2125aee840cb6083d43e1ea4c60c4be5045bfc7824eba"
 PKG_LICENSE="LGPL"
 PKG_SITE="https://mariadb.org/"
 PKG_URL="https://github.com/mariadb-corporation/mariadb-connector-c/archive/v${PKG_VERSION}.tar.gz"
@@ -12,10 +12,12 @@ PKG_LONGDESC="mariadb-connector: library to connect to mariadb/mysql database se
 PKG_BUILD_FLAGS="-gold"
 
 PKG_CMAKE_OPTS_TARGET="-DWITH_EXTERNAL_ZLIB=ON
+                       -DWITH_UNIT_TESTS=OFF
                        -DCLIENT_PLUGIN_DIALOG=STATIC
                        -DCLIENT_PLUGIN_MYSQL_CLEAR_PASSWORD=STATIC
                        -DCLIENT_PLUGIN_MYSQL_OLD_PASSWORD=STATIC
                        -DCLIENT_PLUGIN_REMOTE_IO=OFF
+                       -DDEFAULT_SSL_VERIFY_SERVER_CERT=OFF
                       "
 
 post_makeinstall_target() {
