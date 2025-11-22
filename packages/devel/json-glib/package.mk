@@ -2,8 +2,8 @@
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="json-glib"
-PKG_VERSION="1.8.0"
-PKG_SHA256="97bc058fad49ebf5195ec539240370454ef6589d2b97bf626d7a9e2353d25e3f"
+PKG_VERSION="1.10.8"
+PKG_SHA256="7a114bdac0b2611a7207e981c37fa9b1e70d9cb642470cd9e967b135428cec52"
 PKG_LICENSE="LGPL-2.1"
 PKG_SITE="https://github.com/GNOME/json-glib"
 PKG_URL="https://github.com/GNOME/json-glib/archive/${PKG_VERSION}.tar.gz"
@@ -11,6 +11,6 @@ PKG_DEPENDS_TARGET="toolchain glib"
 PKG_LONGDESC="JSON-GLib implements a full suite of JSON-related tools using GLib and GObject."
 
 PKG_MESON_OPTS_TARGET="-Dintrospection=disabled \
-                       -Dgtk_doc=disabled \
+                       -Ddocumentation=disabled \
                        -Dman=false \
                        -Dtests=false"
