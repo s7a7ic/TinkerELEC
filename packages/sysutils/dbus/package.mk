@@ -3,12 +3,12 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="dbus"
-PKG_VERSION="1.15.8"
-PKG_SHA256="84fc597e6ec82f05dc18a7d12c17046f95bad7be99fc03c15bc254c4701ed204"
+PKG_VERSION="1.16.2"
+PKG_SHA256="0ba2a1a4b16afe7bceb2c07e9ce99a8c2c3508e5dec290dbb643384bd6beb7e2"
 PKG_LICENSE="GPL"
 PKG_SITE="https://dbus.freedesktop.org"
 PKG_URL="https://dbus.freedesktop.org/releases/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
-PKG_DEPENDS_TARGET="toolchain expat systemd"
+PKG_DEPENDS_TARGET="meson:host gcc:host expat systemd"
 PKG_LONGDESC="D-Bus is a message bus, used for sending messages between applications."
 
 PKG_MESON_OPTS_TARGET="--libexecdir=/usr/lib/dbus \
@@ -16,7 +16,7 @@ PKG_MESON_OPTS_TARGET="--libexecdir=/usr/lib/dbus \
                        -Dapparmor=disabled \
                        -Dasserts=false \
                        -Dchecks=true \
-                       -Dembedded_tests=false \
+                       -Dintrusive_tests=false \
                        -Dinstalled_tests=false \
                        -Dmodular_tests=disabled \
                        -Dxml_docs=disabled \

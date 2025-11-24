@@ -3,13 +3,13 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ncurses"
-PKG_VERSION="6.4"
-PKG_SHA256="6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159"
+PKG_VERSION="6.5-20250517"
+PKG_SHA256="13e78548b31adef93e3b9735bf728fac5a84969873333c7833614db61891353e"
 PKG_LICENSE="MIT"
 PKG_SITE="http://www.gnu.org/software/ncurses/"
-PKG_URL="http://invisible-mirror.net/archives/ncurses/ncurses-${PKG_VERSION}.tar.gz"
+PKG_URL="http://invisible-mirror.net/archives/ncurses/current/ncurses-${PKG_VERSION}.tgz"
 PKG_DEPENDS_HOST="ccache:host"
-PKG_DEPENDS_TARGET="toolchain zlib ncurses:host"
+PKG_DEPENDS_TARGET="autotools:host gcc:host zlib ncurses:host"
 PKG_LONGDESC="A library is a free software emulation of curses in System V Release 4.0, and more."
 PKG_BUILD_FLAGS="+pic"
 
@@ -58,13 +58,22 @@ PKG_CONFIGURE_OPTS_TARGET="--without-ada \
                            --disable-warnings \
                            --disable-home-terminfo \
                            --disable-assertions \
-                           --enable-leaks"
+                           --enable-leaks \
+                           --enable-sigwinch \
+                           --cache-file=config.cache"
 
 PKG_CONFIGURE_OPTS_HOST="--enable-termcap \
                          --with-termlib \
                          --with-shared \
                          --enable-pc-files \
                          --without-manpages"
+
+pre_configure_target() {
+  cat >config.cache <<EOF
+cf_cv_builtin_bool=yes
+cf_cv_header_stdbool_h=yes
+EOF
+}
 
 post_makeinstall_target() {
   local f

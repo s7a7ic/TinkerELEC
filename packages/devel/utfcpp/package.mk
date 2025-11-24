@@ -2,8 +2,8 @@
 # Copyright (C) 2023-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="utfcpp"
-PKG_VERSION="4.0.4"
-PKG_SHA256="7c8a403d0c575d52473c8644cd9eb46c6ba028d2549bc3e0cdc2d45f5cfd78a0"
+PKG_VERSION="4.0.8"
+PKG_SHA256="f808b26d8c3a59def27fea207182ece77a8930bd121a69f80d328ecf3cfef925"
 PKG_LICENSE="BSL"
 PKG_SITE="https://github.com/nemtrif/utfcpp"
 PKG_URL="https://github.com/nemtrif/utfcpp/archive/refs/tags/v${PKG_VERSION}.tar.gz"

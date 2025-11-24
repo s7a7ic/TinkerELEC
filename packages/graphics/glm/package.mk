@@ -2,8 +2,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="glm"
-PKG_VERSION="1.0.0"
-PKG_SHA256="e51f6c89ff33b7cfb19daafb215f293d106cd900f8d681b9b1295312ccadbd23"
+PKG_VERSION="1.0.2"
+PKG_SHA256="19edf2e860297efab1c74950e6076bf4dad9de483826bc95e2e0f2c758a43f65"
 PKG_LICENSE="MIT"
 PKG_SITE="https://glm.g-truc.net/"
 PKG_URL="https://github.com/g-truc/glm/archive/refs/tags/${PKG_VERSION}.tar.gz"
