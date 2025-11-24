@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libxslt"
-PKG_VERSION="1.1.39"
-PKG_SHA256="2a20ad621148339b0759c4d4e96719362dee64c9a096dbba625ba053846349f0"
+PKG_VERSION="1.1.43"
+PKG_SHA256="5a3d6b383ca5afc235b171118e90f5ff6aa27e9fea3303065231a6d403f0183a"
 PKG_LICENSE="MIT"
 PKG_SITE="http://xmlsoft.org/xslt/"
 PKG_URL="https://download.gnome.org/sources/libxslt/$(get_pkg_version_maj_min)/libxslt-${PKG_VERSION}.tar.xz"
@@ -14,15 +14,14 @@ PKG_LONGDESC="A XSLT C library."
 PKG_BUILD_FLAGS="+pic"
 
 PKG_CMAKE_OPTS_ALL="-DBUILD_SHARED_LIBS=ON \
-                    -DLIBXSLT_WITH_DEBUGGER=ON \
+                    -DLIBXSLT_WITH_DEBUGGER=OFF \
                     -DLIBXSLT_WITH_CRYPTO=OFF \
-                    -DLIBXSLT_WITH_MEM_DEBUG=OFF \
-                    -DLIBXSLT_WITH_MODULES=ON \
+                    -DLIBXSLT_WITH_MODULES=OFF \
                     -DLIBXSLT_WITH_PROFILER=ON \
                     -DLIBXSLT_WITH_PYTHON=OFF \
                     -DLIBXSLT_WITH_TESTS=OFF \
                     -DLIBXSLT_WITH_THREADS=ON \
-                    -DLIBXSLT_WITH_XSLT_DEBUG=ON"
+                    -DLIBXSLT_WITH_XSLT_DEBUG=OFF"
 
 PKG_CMAKE_OPTS_HOST=${PKG_CMAKE_OPTS_ALL}
 
