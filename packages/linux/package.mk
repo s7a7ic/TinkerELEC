@@ -117,7 +117,7 @@ makeinstall_host() {
 }
 
 pre_make_target() {
-  ( 
+  (
     cd ${ROOT}
     rm -rf ${BUILD}/initramfs
     rm -f ${STAMPS_INSTALL}/initramfs/install_target ${STAMPS_INSTALL}/*/install_init
@@ -148,17 +148,30 @@ pre_make_target() {
     ${PKG_BUILD}/scripts/config --disable CONFIG_CIFS
   fi
 
-  # enable/disable iscsi support
-  [ "${ISCSI_SUPPORT}" = yes ] && OPTION="--enable" || OPTION="--disable"
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_SCSI_ISCSI_ATTRS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_TCP
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_BOOT_SYSFS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT_FIND
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT
-
   # disable wireguard support if not enabled
   if [ ! "${WIREGUARD_SUPPORT}" = yes ]; then
     ${PKG_BUILD}/scripts/config --disable CONFIG_WIREGUARD
+  fi
+
+  # disable vfd support if not enabled
+  if [ ! "${VFD_SUPPORT}" = yes ]; then
+    ${PKG_BUILD}/scripts/config --disable CONFIG_PANEL_CHANGE_MESSAGE
+  else
+    # enable the module and set distro boot message
+    ${PKG_BUILD}/scripts/config --enable CONFIG_AUXDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LINEDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_KEYPAD
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_I2C
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_SPI
+    ${PKG_BUILD}/scripts/config --enable CONFIG_PANEL_CHANGE_MESSAGE
+    ${PKG_BUILD}/scripts/config --set-str CONFIG_PANEL_BOOT_MESSAGE "${VFD_MESSAGE}"
+    ${PKG_BUILD}/scripts/config --enable CONFIG_INPUT_MATRIXKMAP
+    # enable led activity triggers
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_TIMER # Colon
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_NETDEV # LAN/WLAN
+    ${PKG_BUILD}/scripts/config --enable CONFIG_USB_LEDS_TRIGGER_USBPORT # USB
+    ${PKG_BUILD}/scripts/config --enable CONFIG_MMC # SD
   fi
 
   if [ "${TARGET_ARCH}" = "x86_64" ]; then
@@ -226,7 +239,7 @@ make_target() {
   DTC_FLAGS=-@ kernel_make ${KERNEL_TARGET} ${KERNEL_MAKE_EXTRACMD} modules
 
   if [ "${PKG_BUILD_PERF}" = "yes" ]; then
-    ( 
+    (
       cd tools/perf
 
       # arch specific perf build args
