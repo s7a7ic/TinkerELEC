@@ -16,7 +16,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 ## Next Goals
 
 * Update to Kernel 6.17+ and fix issues
-* Get source closer to LibreELEC master branch, exept essential packages required for Kodi 21
+* Get source closer to LibreELEC master branch
+  * **essential packages for Kodi 21 (list maybe incomplete)**
+    * ffmpeg 6.0.1, Python 3.11.13, systemd 255.22, taglib 1.13.1
 * Modify `emmctool` or create a similar tool to simply clone the storage partition in both ways between emmc and sdcard
 * Add Retroarch and Moonlight for gaming purposes
 
@@ -84,7 +86,7 @@ To install a TinkerELEC image from SDCARD onto the internal emmc storage, you ca
 
 ## Credits
 
-Like any Linux distribution, this project is not the work of one person. It is the work of many persons all over the world who have developed the open source bits without which this project could not exist. Special thanks to [CoreELEC](https://github.com/CoreELEC/CoreELEC), [Lakka](https://github.com/libretro/Lakka-LibreELEC), [LibreELEC](https://github.com/LibreELEC/LibreELEC.tv), [ROCKNIX](https://github.com/ROCKNIX/distribution), [SupervisedThinking](https://github.com/SupervisedThinking/LibreELEC-RR) and to developers and contributors across the open source community.
+Like any Linux distribution, this project is not the work of one person. It is the work of many persons all over the world who have developed the open source bits without which this project could not exist. Special thanks to [Armbian](https://github.com/armbian/build), [CoreELEC](https://github.com/CoreELEC/CoreELEC), [Lakka](https://github.com/libretro/Lakka-LibreELEC), [LibreELEC](https://github.com/LibreELEC/LibreELEC.tv), [ROCKNIX](https://github.com/ROCKNIX/distribution), [SupervisedThinking](https://github.com/SupervisedThinking/LibreELEC-RR) and to developers and contributors across the open source community.
 
 ## License
 
