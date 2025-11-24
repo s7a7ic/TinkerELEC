@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="xf86-video-intel"
-PKG_VERSION="b74b67f0f321875492968f7097b9d6e82a66d7df"
-PKG_SHA256="cc4855308af8eedd414c60f0638ef19e1b695e83f9dc1d62146cdab3d5915aba"
+PKG_VERSION="4a64400ec6a7d8c0aba0e6a39b16a5e86d0af843"
+PKG_SHA256="d01b788dd2506432d7b203ef80f0c96f28f129a0ef68a8371fe2e9346fc42d1d"
 PKG_ARCH="x86_64"
 PKG_LICENSE="OSS"
 PKG_SITE="https://www.x.org/wiki/IntelGraphicsDriver/"
