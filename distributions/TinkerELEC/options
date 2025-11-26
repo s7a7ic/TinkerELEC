@@ -1,15 +1,19 @@
 ### DISTRO INFORMATION ###
 
-# Name of the Distro to build (full name, without special characters)
+# Distro name (full name, without special characters)
   DISTRONAME="TinkerELEC"
 
-# short project description
-  DESCRIPTION="TinkerELEC is a fast and user-friendly Kodi Entertainment Center distribution."
+# Short distro description
+  DESCRIPTION="TinkerELEC is a fast and user-friendly Kodi Entertainment Center distribution for the Asus Tinker Board S."
 
+# Distribution Source location
+  DISTRO_MIRROR="https://sources.libreelec.tv/mirror"
+  DISTRO_SRC="https://sources.libreelec.tv/$DISTRO_VERSION"
 
-### USER INTERFACE SETTINGS ###
+# Distribution Home URL
+  DISTRO_HOME_URL="https://github.com/s7a7ic/TinkerELEC"
 
-# Welcome Message for e.g. SSH Server (up to 5 Lines)
+# Welcome Message for SSH Server (up to 5 Lines)
   GREETING0="##############################################"
   GREETING1="#                 TinkerELEC                 #"
   GREETING2="#           for ASUS Tinker Board S          #"
@@ -23,6 +27,8 @@
   DISTRO_BOOTLABEL="TINKERELEC"
   DISTRO_DISKLABEL="STORAGE"
 
+# VFD panel boot message (use UPPERCASE and padding)
+  VFD_MESSAGE="    TINKERELEC"
 
 ### BUILDSYSTEM SETTINGS ####
 
@@ -87,6 +93,11 @@
 # debug tty path
   DEBUG_TTY="/dev/tty3"
 
+# local console login prompt (yes / no)
+  LOCAL_LOGIN="no"
+
+# Enable SSH on boot (yes / no)
+  SSH_ENABLED_DEFAULT="no"
 
 ### KODI SETTINGS ###
 # Mediacenter to use (kodi / no)
@@ -167,10 +178,6 @@
   KODI_PIPEWIRE_SUPPORT="yes"
 
 ### KODI ADDONS ###
-
-# Distribution Specific source location
-  DISTRO_MIRROR="http://sources.libreelec.tv/mirror"
-  DISTRO_SRC="http://sources.libreelec.tv/$DISTRO_VERSION"
 
 # Addon Server Url
   ADDON_SERVER_URL="https://addons.libreelec.tv"
@@ -253,7 +260,7 @@
 # additional packages to install:
 # Space separated list is supported,
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
-  ADDITIONAL_PACKAGES="btop rsync kodi-buttonmaps"
+  ADDITIONAL_PACKAGES="btop rsync kodi-buttonmaps evtest game.libretro.mupen64plus-nx"
 
 # build and install driver addons (yes / no)
   DRIVER_ADDONS_SUPPORT="no"

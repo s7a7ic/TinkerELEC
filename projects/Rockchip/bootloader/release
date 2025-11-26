@@ -20,4 +20,9 @@ if [ -n "${UBOOT_SYSTEM}" ]; then
   fi
 fi
 
-cp -av "${SRCDIR}"/"${DEVICE,,}"*.dtb "${DSTDIR}"
+if [ "${DEVICE//X/}" = "TinkerBoardS" ]; then
+  DEVICE="RK3288"
+fi
+
+DTB_PREFIX="${DEVICE//X/}"
+cp -av "${SRCDIR}"/"${DTB_PREFIX,,}"*.dtb "${DSTDIR}"
