@@ -2,10 +2,11 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
-The system reached a very stable state on rc5 (see [features](#features) for more info).
-
 > [!NOTE]
 > More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
+
+> [!CAUTION]
+> This fork was not tested on any other device. I build images only for the Tinker Board S from the source code!
 
 ## Reason
 
@@ -16,10 +17,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 ## Next Goals
 
 * Update to Kernel 6.17+ and fix issues
-* Get source closer to LibreELEC master branch
-  * **essential packages for Kodi 21 (list maybe incomplete)**
-    * ffmpeg 6.0.1, Python 3.11.13, systemd 255.22, taglib 1.13.1
-* Modify `emmctool` or create a similar tool to simply clone the storage partition in both ways between emmc and sdcard
 * Add Retroarch and Moonlight for gaming purposes
 
 ## Features
@@ -34,8 +31,10 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 * Added alsa [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-gpu-500mhz-opp.patch)
-* Additional packages: btop, emmctool, rsync
-* Updated packages from the LibreELEC master branch
+* Additional packages: btop, rsync, libretro-mupen64plus-nx
+* Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
+  * ffmpeg 6.0.1, Python 3.11.13, systemd 255.22, taglib 1.13.1
+  * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
 **Support for NesPi Case+ Buttons**
 * [NesPi Case Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/patches/linux/nespi-case/dts-rk3288-tinker-nespi-case.patch)
