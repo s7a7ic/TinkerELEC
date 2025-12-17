@@ -47,12 +47,6 @@ fi
 if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
   PKG_DEPENDS_TARGET+=" ${OPENGLES}"
   PLATFORM+="-mesa"
-
-    if [ "${OPENGL_SUPPORT}" != "yes" ]; then
-        if [[ "${PKG_MAKE_OPTS_TARGET}" != *"FORCE_GLES3=1"* ]]; then
-            PKG_MAKE_OPTS_TARGET+=" FORCE_GLES=1"
-        fi
-    fi
   PKG_MAKE_OPTS_TARGET+=" FORCE_GLES3=1"
 fi
 
