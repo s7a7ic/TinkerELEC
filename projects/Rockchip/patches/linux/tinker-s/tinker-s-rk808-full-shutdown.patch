@@ -13,7 +13,7 @@ diff --git a/drivers/mfd/rk8xx-core.c b/drivers/mfd/rk8xx-core.c
 index 5eda3c0dbbdf..757ef8181328 100644
 --- a/drivers/mfd/rk8xx-core.c
 +++ b/drivers/mfd/rk8xx-core.c
-@@ -692,10 +692,11 @@
+@@ -693,10 +693,11 @@
  }
  EXPORT_SYMBOL_GPL(rk8xx_shutdown);
  
@@ -26,7 +26,7 @@ index 5eda3c0dbbdf..757ef8181328 100644
  	const struct mfd_cell *cells;
  	int dual_support = 0;
  	int nr_pre_init_regs;
-@@ -785,10 +786,20 @@
+@@ -797,10 +798,20 @@
  	if (ret)
  		return dev_err_probe(dev, ret, "failed to add MFD devices\n");
  
@@ -40,8 +40,8 @@ index 5eda3c0dbbdf..757ef8181328 100644
 +	if (is_spi)
 +		pwr_off_mode = SYS_OFF_MODE_POWER_OFF_PREPARE;
 +
- 	if (device_property_read_bool(dev, "rockchip,system-power-controller") ||
- 	    device_property_read_bool(dev, "system-power-controller")) {
+ 	if (device_property_read_bool(dev, "system-power-controller") ||
+ 	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
  		ret = devm_register_sys_off_handler(dev,
 -				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
 +				    pwr_off_mode, SYS_OFF_PRIO_HIGH,
@@ -52,7 +52,7 @@ diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
 index 69a6b297d723..a2029decd654 100644
 --- a/drivers/mfd/rk8xx-i2c.c
 +++ b/drivers/mfd/rk8xx-i2c.c
-@@ -189,7 +189,7 @@ static int rk8xx_i2c_probe(struct i2c_client *client)
+@@ -213,7 +213,7 @@ static int rk8xx_i2c_probe(struct i2c_client *client)
     	return dev_err_probe(&client->dev, PTR_ERR(regmap),
     			     "regmap initialization failed\n");
 
@@ -78,7 +78,7 @@ diff --git a/include/linux/mfd/rk808.h b/include/linux/mfd/rk808.h
 index 69cbea78b430..be15b84cff9e 100644
 --- a/include/linux/mfd/rk808.h
 +++ b/include/linux/mfd/rk808.h
-@@ -1349,7 +1349,7 @@
+@@ -1351,7 +1351,7 @@
  };
  
  void rk8xx_shutdown(struct device *dev);
