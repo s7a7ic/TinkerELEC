@@ -19,6 +19,16 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Update to Kernel 6.17+ and fix issues
 * Add Retroarch and Moonlight for gaming purposes
 
+## Kernel 6.18.x branch notes
+
+* RTL8723BS: Removed the alternative wifi driver to use the updated kernel staging driver
+  * wifi sometimes has the "invalid-key" error after boot, but is more stable than on older kernels
+  * connection can be re-established by reboot, power cycle or manual multiple connection attempts via LibreELEC-Settings
+* Bluetooth: internal bluetooth can now connect to multiple devices in parallel
+* Power Management:
+  * Automatic system reboot after shutdown is fixed by the [full shutdown patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch)
+  * Suspend works, but only without the dwc2 usb patch -> usb devices plugged in after system boot won't be detected
+
 ## Features
 
 * Kodi 21.3 (Omega) and Kernel 6.12.23
