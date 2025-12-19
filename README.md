@@ -16,8 +16,11 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Next Goals
 
-* Update to Kernel 6.17+ and fix issues
-* Add Retroarch and Moonlight for gaming purposes
+* Update to Kernel 6.18+ and fix issues
+  * fix usb dwc2 detection on running system and still be able to suspend
+* Emulation
+  * get mupen64plus-nx working
+  * add Retroarch and Moonlight for gaming purposes
 
 ## Features
 
@@ -53,7 +56,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Bluetooth (internal)**
 * Can currently only connect to one device; every secondary device gets a timeout on connect
-* Works on kernel 6.17 or can be fixed with a Bluetooth USB dongle
+* Works on kernel 6.17+ or can be fixed with a Bluetooth USB dongle
 
 **Wireless LAN**
 * WPA3 isn't supported by the alternative driver
@@ -66,11 +69,16 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Full Shutdown (kernel)**
 * System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables previous full shutdown behaviour
+* System automatically boots on Kernel 6.17+ after some time (about 30 seconds)
+* [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
+
+**Wireless LAN**
+* Stable WIFI connection with the [alternative driver](packages/tinkerelec/linux-drivers/RTL8723BS) on newer kernels (6.12.23, 6.18.1)
+* Building of the rtl8723bs kernel staging driver is disabled via [patch](projects/Rockchip/patches/linux/tinker-s/linux-disable-rtl8723bs-staging-driver.patch)
 
 **USB Device detection when system is running (kernel)**
 * System doesn't detect USB devices plugged in when fully booted and running
-* fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
+* (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 **Audio over 3.5mm Jack**
 * Added required [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf)
