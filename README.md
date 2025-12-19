@@ -1,5 +1,7 @@
 # TinkerELEC
 
+Last patch enabled: 3, 18
+
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
 > [!NOTE]
@@ -26,7 +28,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * RTL8723BS: Removed the alternative wifi driver to use the updated kernel staging driver
   * wifi sometimes has the "invalid-key" error after boot, but is more stable than on older kernels
-  * connection can be re-established by reboot, power cycle or manual multiple connection attempts via LibreELEC-Settings
+  * connection can be re-established by reboot, power cycle or multiple manual connection attempts via LibreELEC-Settings
 * Bluetooth: internal bluetooth can now connect to multiple devices in parallel
 * Power Management:
   * Automatic system reboot after shutdown is fixed by the [full shutdown patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch)
@@ -79,7 +81,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Full Shutdown (kernel)**
 * System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* System automatically boots on Kernel 6.17+ after some time (about 30 seconds)
+* With Kernel 6.17+ the device automatically boots after some time (~30 seconds)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
 
 **Wireless LAN**
