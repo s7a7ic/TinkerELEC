@@ -3,8 +3,8 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="alsa-utils"
-PKG_VERSION="1.2.14"
-PKG_SHA256="0794c74d33fed943e7c50609c13089e409312b6c403d6ae8984fc429c0960741"
+PKG_VERSION="1.2.15.1"
+PKG_SHA256="5ad79f349e59c30c9a4929ad4995ebee33267473e0e632d7c1a30e2b093d3327"
 PKG_LICENSE="GPL"
 PKG_SITE="https://www.alsa-project.org/"
 PKG_URL="https://www.alsa-project.org/files/pub/utils/alsa-utils-${PKG_VERSION}.tar.bz2"
