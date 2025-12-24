@@ -24,7 +24,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Kernel 6.18.x branch notes
 
-* RTL8723BS: Removed the alternative wifi driver to use the updated kernel staging driver
+* RTL8723BS kernel staging driver
   * wifi sometimes has the "invalid-key" error after boot, but is more stable than on older kernels
   * connection can be re-established by reboot, power cycle or multiple manual connection attempts via LibreELEC-Settings
 * Bluetooth: internal bluetooth can now connect to multiple devices in parallel
@@ -34,7 +34,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Features
 
-* Kodi 21.3 (Omega) and Kernel 6.12.23
+* Kodi 21.3 (Omega) and Kernel 6.18.2
   * [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
     * smaller sidemenu and more vertical space
     * tv menu as first option
@@ -63,9 +63,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Low Volume with Pipewire**
 * Set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
 * Set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
-
-**Bluetooth (internal)**
-* On kernel version below 6.17 it connects only to one device; every secondary device gets a timeout on connect
 
 **Wireless LAN**
 * WPA3 isn't supported by the alternative driver
