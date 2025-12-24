@@ -16,9 +16,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Next Goals
 
-* Update to Kernel 6.18+ and fix issues
+* Further testing of kernel-6.18.x branch
   * fix usb dwc2 detection on running system and still be able to suspend
-* Emulation
+* Emulation / Gaming
   * get mupen64plus-nx working
   * add Retroarch and Moonlight for gaming purposes
 
@@ -34,7 +34,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 * Added alsa [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-gpu-500mhz-opp.patch)
-* Additional packages: btop, rsync, libretro-mupen64plus-nx
+* Additional packages: btop, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
   * ffmpeg 6.0.1, Python 3.11.13, systemd 255.22, taglib 1.13.1
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
@@ -55,8 +55,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
 
 **Bluetooth (internal)**
-* Can currently only connect to one device; every secondary device gets a timeout on connect
-* Works on kernel 6.17+ or can be fixed with a Bluetooth USB dongle
+* On kernel version below 6.17 it connects only to one device; every secondary device gets a timeout on connect
 
 **Wireless LAN**
 * WPA3 isn't supported by the alternative driver
@@ -74,7 +73,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Wireless LAN**
 * Stable WIFI connection with the [alternative driver](packages/tinkerelec/linux-drivers/RTL8723BS) on newer kernels (6.12.23, 6.18.1)
-* Building of the rtl8723bs kernel staging driver is disabled via [patch](projects/Rockchip/patches/linux/tinker-s/linux-disable-rtl8723bs-staging-driver.patch)
+* Loading of the kernel staging driver is disabled via [config file](packages/tinkerelec/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
 
 **USB Device detection when system is running (kernel)**
 * System doesn't detect USB devices plugged in when fully booted and running
