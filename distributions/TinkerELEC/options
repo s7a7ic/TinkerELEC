@@ -260,7 +260,7 @@
 # additional packages to install:
 # Space separated list is supported,
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
-  ADDITIONAL_PACKAGES="btop rsync kodi-buttonmaps evtest game.libretro.mupen64plus-nx"
+  ADDITIONAL_PACKAGES="btop rsync kodi-buttonmaps evtest"
 
 # build and install driver addons (yes / no)
   DRIVER_ADDONS_SUPPORT="no"
