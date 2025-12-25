@@ -21,3 +21,8 @@ makeinstall_target() {
   mkdir -p ${INSTALL}/$(get_full_module_dir)/kernel/drivers/net/wireless/realtek/rtl8723bs
     cp *.ko ${INSTALL}/$(get_full_module_dir)/kernel/drivers/net/wireless/realtek/rtl8723bs
 }
+
+post_makeinstall_target() {
+  mkdir -p ${INSTALL}/usr/config
+    cp -PR ${PKG_DIR}/config/modprobe.d ${INSTALL}/usr/config
+}
