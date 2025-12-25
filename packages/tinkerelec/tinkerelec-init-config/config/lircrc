@@ -1,0 +1,17 @@
+begin
+  prog = irexec
+  button = KEY_F1
+  config = kodi-send -a "FullScreen"
+end
+
+begin
+  prog = irexec
+  button = KEY_F5
+  config = /storage/.config/scripts/handle_ir.sh inhibit
+end
+
+begin
+  prog = irexec
+  button = KEY_F6
+  config = /storage/.config/scripts/handle_ir.sh power
+end
