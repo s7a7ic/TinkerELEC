@@ -291,3 +291,4 @@
 # Skin modifications
   ESTUARY_SMALL_MENU="yes"
   ESTUARY_TV_FIRST="yes"
+  ESTUARY_NO_SHUTDOWN="yes"
