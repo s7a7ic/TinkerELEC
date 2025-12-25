@@ -36,7 +36,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages: btop, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
-  * ffmpeg 6.0.1, Python 3.11.13, systemd 255.22, taglib 1.13.1
+  * ffmpeg 6.0.1, Python 3.11.13, taglib 1.13.1
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
 **Support for NesPi Case+ Buttons**
