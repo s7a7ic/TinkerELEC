@@ -18,6 +18,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * Further testing of kernel-6.18.x branch
   * fix usb dwc2 detection on running system and still be able to suspend
+  * fix random freeze and reboot (often after suspend/resume)
 * Emulation / Gaming
   * get mupen64plus-nx working
   * add Retroarch and Moonlight for gaming purposes
@@ -28,12 +29,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
     * smaller sidemenu and more vertical space
     * tv menu as first option
-    * shutdown option removed from power menu (power button)
+    * shutdown option removed from power menu in favor of using the power button
     * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 * Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Alternative Wireless Driver for [RTL8723BS](packages/tinkerelec/linux-drivers/RTL8723BS)
 * Added alsa [config file](projects/Rockchip/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
+* Enabled BFQ I/O scheduler
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/patches/linux/tinker-s/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages: btop, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
@@ -76,7 +78,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/patches/linux/tinker-s/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
 
 **Wireless LAN**
-* Stable WIFI connection with the [alternative driver](packages/tinkerelec/linux-drivers/RTL8723BS) on newer kernels (6.12.23, 6.18.1)
+* Stable WIFI connection with the [alternative driver](packages/tinkerelec/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.18)
 * Loading of the kernel staging driver is disabled via [config file](packages/tinkerelec/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
 
 **USB Device detection when system is running (kernel)**
