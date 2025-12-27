@@ -3,8 +3,8 @@
 # Copyright (C) 2025-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="plymouth-lite"
-PKG_VERSION="0.6.0-5"
-PKG_SHA256="476816c34bb75715b3709a7ed0d29d93e63624858f1803e5746dc350b6081607"
+PKG_VERSION="9e2ff28ea32e8ab0410435d25e198136e6ad82dc"
+PKG_SHA256="1efbcf4758795791e45bf3512c44bf5898acd6072369189ffbdbb07f470156e8"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/sailfishos/plymouth-lite"
 PKG_URL="https://github.com/sailfishos/plymouth-lite/archive/${PKG_VERSION}.tar.gz"
