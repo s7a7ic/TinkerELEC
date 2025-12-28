@@ -29,29 +29,38 @@ case "${LINUX}" in
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     PKG_PATCH_DIRS="raspberrypi rtlwifi/6.13 rtlwifi/6.14 rtlwifi/6.15"
     ;;
-  *)
+  rockchip)
+    PKG_VERSION="78d82960b939df64cf7d26ca5ed34eb87f44c9e5" # 6.18.2
+    PKG_SHA256="a11985db0126ba0e80e34a97d4a6e3b77cf13c89a3af76733a44b8c4f8d5b767"
+    PKG_URL="https://github.com/chewitt/linux/archive/${PKG_VERSION}.tar.gz"
+    PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
+    PKG_PATCH_DIRS="default rockchip"
+    ;;
+  tinkerboard)
+    PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_VERSION="6.12.23"
     PKG_SHA256="d8d95404f8deeb7ff6992c0df855025062e9e8182bca6daa27ef2e9275d27749"
+    PKG_PATCH_DIRS="default rockchip-old-6.12"
+    ;;
+  *)
+    PKG_VERSION="6.18.2"
+    PKG_SHA256="558c6bbab749492b34f99827fe807b0039a744693c21d3a7e03b3a48edaab96a"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
+    case ${DEVICE} in
+      RK3288|RK3328|RK3399)
+        PKG_PATCH_DIRS+=" rockchip-old"
+        ;;
+    esac
     ;;
 esac
-
-PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
-
-#############
-# TinkerELEC patch options
-
-# include tinker board s patches
-if [ "${TINKER_PATCHES}" = "yes" ]; then
-  PKG_PATCH_DIRS+=" tinker-s"
-fi
 
 # include nespi case patches
 if [ "${TINKER_NESPI_PATCHES}" = "yes" ]; then
   PKG_PATCH_DIRS+=" nespi-case"
 fi
-#############
+
+PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
 if [ -n "${KERNEL_TOOLCHAIN}" ]; then
   PKG_DEPENDS_TARGET+=" gcc-${KERNEL_TOOLCHAIN}:host"
