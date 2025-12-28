@@ -31,9 +31,9 @@ if [ "${PROJECT}" = "Generic" -a -z "${DEVICE}" ]; then
   export DEVICE="Generic"
 fi
 
-# default to RK3288 device if building Rockchip project without device set
+# default to TinkerBoard device if building Rockchip project without device set
 if [ "${PROJECT}" = "Rockchip" -a -z "${DEVICE}" ]; then
-  export DEVICE="RK3288"
+  export DEVICE="TinkerBoard"
 fi
 
 # determines TARGET_ARCH, if not forced by user

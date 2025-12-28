@@ -20,5 +20,8 @@ if [ -n "${UBOOT_SYSTEM}" ]; then
   fi
 fi
 
-DTB_PREFIX="${DEVICE//X/}"
+if [ "${DEVICE//X/}" != "TinkerBoard" ]; then
+  DTB_PREFIX="${DEVICE//X/}"
+fi
+
 cp -av "${SRCDIR}"/"${DTB_PREFIX,,}"*.dtb "${DSTDIR}"
