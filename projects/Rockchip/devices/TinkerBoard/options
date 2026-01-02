@@ -16,7 +16,7 @@
     LINUX="tinkerboard"
 
   # Configuration for u-boot
-  #  UBOOT_SYSTEM="tinker"
+    UBOOT_SYSTEM="rk3288"
 
   # Kernel target
     KERNEL_TARGET="zImage"

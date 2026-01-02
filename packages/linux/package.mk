@@ -36,19 +36,13 @@ case "${LINUX}" in
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     PKG_PATCH_DIRS="default rockchip"
     ;;
-  tinkerboard)
-    PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
-    PKG_VERSION="6.12.23"
-    PKG_SHA256="d8d95404f8deeb7ff6992c0df855025062e9e8182bca6daa27ef2e9275d27749"
-    PKG_PATCH_DIRS="default rockchip-old-6.12"
-    ;;
   *)
-    PKG_VERSION="6.18.2"
-    PKG_SHA256="558c6bbab749492b34f99827fe807b0039a744693c21d3a7e03b3a48edaab96a"
+    PKG_VERSION="6.16.12"
+    PKG_SHA256="7ca4debc5ca912ebb8a76944a5c118afd5d09e31ef43c494adb14273da29a26e"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     case ${DEVICE} in
-      RK3288|RK3328|RK3399)
+      RK3288|RK3328|RK3399|TinkerBoard)
         PKG_PATCH_DIRS+=" rockchip-old"
         ;;
     esac
