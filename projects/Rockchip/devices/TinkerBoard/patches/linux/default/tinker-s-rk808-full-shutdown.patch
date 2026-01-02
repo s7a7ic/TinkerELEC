@@ -40,8 +40,8 @@ index 5eda3c0dbbdf..757ef8181328 100644
 +	if (is_spi)
 +		pwr_off_mode = SYS_OFF_MODE_POWER_OFF_PREPARE;
 +
- 	if (device_property_read_bool(dev, "rockchip,system-power-controller") ||
- 	    device_property_read_bool(dev, "system-power-controller")) {
+ 	if (device_property_read_bool(dev, "system-power-controller") ||
+ 	    device_property_read_bool(dev, "rockchip,system-power-controller")) {
  		ret = devm_register_sys_off_handler(dev,
 -				    SYS_OFF_MODE_POWER_OFF_PREPARE, SYS_OFF_PRIO_HIGH,
 +				    pwr_off_mode, SYS_OFF_PRIO_HIGH,
@@ -52,7 +52,7 @@ diff --git a/drivers/mfd/rk8xx-i2c.c b/drivers/mfd/rk8xx-i2c.c
 index 69a6b297d723..a2029decd654 100644
 --- a/drivers/mfd/rk8xx-i2c.c
 +++ b/drivers/mfd/rk8xx-i2c.c
-@@ -189,7 +189,7 @@ static int rk8xx_i2c_probe(struct i2c_client *client)
+@@ -213,7 +213,7 @@ static int rk8xx_i2c_probe(struct i2c_client *client)
     	return dev_err_probe(&client->dev, PTR_ERR(regmap),
     			     "regmap initialization failed\n");
 
