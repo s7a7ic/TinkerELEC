@@ -159,10 +159,16 @@ check_for_update() {
 }
 
 # create list of packages
-if [ -n "${1}" ]; then
-  PACKAGE_LIST="$(find packages/ -type d -name ${1})/package.mk"
-  if [ ! -f "${PACKAGE_LIST}" ]; then
-    die "Package not found: ${1}"
+if [ $# -gt 0 ]; then
+  for pkg in $*; do
+    for dir in $(find packages/ -type d -name ${pkg}); do
+      if [ -f "${dir}/package.mk" ]; then
+        PACKAGE_LIST+=" ${dir}/package.mk"
+      fi
+    done
+  done
+  if [ -z "${PACKAGE_LIST}" ]; then
+    die "Packages not found: $*"
   fi
 else
   PACKAGE_LIST="$(
