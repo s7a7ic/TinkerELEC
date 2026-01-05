@@ -203,7 +203,7 @@ post_makeinstall_target() {
   safe_remove ${INSTALL}/usr/lib/systemd/systemd-time-wait-sync
 
   # remove the userdbctl load-credentials script - no service (addon) require the creation of static users
-  safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-userdb-load-credentials.service
+#  safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-userdb-load-credentials.service
 
   # tune journald.conf
   sed -e "s,^.*Compress=.*$,Compress=no,g" -i ${INSTALL}/etc/systemd/journald.conf
