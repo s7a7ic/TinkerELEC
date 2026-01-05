@@ -18,10 +18,12 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * Fix Problems
   * kernel 6.16+: fix usb dwc2 device detection on running system and still be able to suspend
-  * fix random freeze and reboot (often after suspend/resume); some package or gcc?
+  * fix random freeze and reboot (often after suspend/resume); maybe fixed with mesa downgrade (testing)
 * Emulation / Gaming
+  * add Retroarch
+  * add Moonlight for game streaming
   * get mupen64plus-nx working
-  * add Retroarch and Moonlight for gaming purposes
+  * enhance game launching capability in kodi
 
 ## Features
 
@@ -75,7 +77,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Full Shutdown (kernel)**
 * System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* System automatically boots on Kernel 6.17+ after some time (about 30 seconds)
+* System automatically boots on Kernel 6.16+ after some time (about 30 seconds)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
 
 **Wireless LAN**
