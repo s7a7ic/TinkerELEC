@@ -4,9 +4,10 @@ This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC
 
 > [!NOTE]
 > More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
+> Debian 12 (Bookworm) is used to build images from this source code.
 
 > [!CAUTION]
-> This fork was not tested on any other device. I build images only for the Tinker Board S from the source code!
+> This fork was not tested on any other device than the **Tinker Board S**!
 
 ## Reason
 
