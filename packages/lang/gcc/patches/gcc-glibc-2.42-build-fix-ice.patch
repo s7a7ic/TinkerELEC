@@ -1,0 +1,139 @@
+From 7813d94393f60ac641265cb3fc3a446f9f3aea7e Mon Sep 17 00:00:00 2001
+From: Jakub Jelinek <jakub@redhat.com>
+Date: Thu, 6 Jun 2024 22:12:11 +0200
+Subject: c: Fix up pointer types to may_alias structures [PR114493]
+
+The following testcase ICEs in ipa-free-lang, because the
+fld_incomplete_type_of
+          gcc_assert (TYPE_CANONICAL (t2) != t2
+                      && TYPE_CANONICAL (t2) == TYPE_CANONICAL (TREE_TYPE (t)));
+assertion doesn't hold.
+This is because t is a struct S * type which was created while struct S
+was still incomplete and without the may_alias attribute (and TYPE_CANONICAL
+of a pointer type is a type created with can_alias_all = false argument),
+while later on on the struct definition may_alias attribute was used.
+fld_incomplete_type_of then creates an incomplete distinct copy of the
+structure (but with the original attributes) but pointers created for it
+are because of the "may_alias" attribute TYPE_REF_CAN_ALIAS_ALL, including
+their TYPE_CANONICAL, because while that is created with !can_alias_all
+argument, we later set it because of the "may_alias" attribute on the
+to_type.
+
+This doesn't ICE with C++ since PR70512 fix because the C++ FE sets
+TYPE_REF_CAN_ALIAS_ALL on all pointer types to the class type (and its
+variants) when the may_alias is added.
+
+The following patch does that in the C FE as well.
+
+2024-06-06  Jakub Jelinek  <jakub@redhat.com>
+
+	PR c/114493
+	* c-decl.cc (c_fixup_may_alias): New function.
+	(finish_struct): Call it if "may_alias" attribute is
+	specified.
+
+	* gcc.dg/pr114493-1.c: New test.
+	* gcc.dg/pr114493-2.c: New test.
+
+(cherry picked from commit d5a3c6d43acb8b2211d9fb59d59482d74c010f01)
+---
+ gcc/c/c-decl.cc                   | 15 +++++++++++++++
+ gcc/testsuite/gcc.dg/pr114493-1.c | 19 +++++++++++++++++++
+ gcc/testsuite/gcc.dg/pr114493-2.c | 26 ++++++++++++++++++++++++++
+ 3 files changed, 60 insertions(+)
+ create mode 100644 gcc/testsuite/gcc.dg/pr114493-1.c
+ create mode 100644 gcc/testsuite/gcc.dg/pr114493-2.c
+
+diff --git a/gcc/c/c-decl.cc b/gcc/c/c-decl.cc
+index 7dcb1141bf79..318e9c5b2530 100644
+--- a/gcc/c/c-decl.cc
++++ b/gcc/c/c-decl.cc
+@@ -9115,6 +9115,17 @@ is_flexible_array_member_p (bool is_last_field,
+ }
+ 
+ 
++/* TYPE is a struct or union that we're applying may_alias to after the body is
++   parsed.  Fixup any POINTER_TO types.  */
++
++static void
++c_fixup_may_alias (tree type)
++{
++  for (tree t = TYPE_POINTER_TO (type); t; t = TYPE_NEXT_PTR_TO (t))
++    for (tree v = TYPE_MAIN_VARIANT (t); v; v = TYPE_NEXT_VARIANT (v))
++      TYPE_REF_CAN_ALIAS_ALL (v) = true;
++}
++
+ /* Fill in the fields of a RECORD_TYPE or UNION_TYPE node, T.
+    LOC is the location of the RECORD_TYPE or UNION_TYPE's definition.
+    FIELDLIST is a chain of FIELD_DECL nodes for the fields.
+@@ -9409,6 +9420,10 @@ finish_struct (location_t loc, tree t, tree fieldlist, tree attributes,
+       warning_at (loc, 0, "union cannot be made transparent");
+     }
+ 
++  if (lookup_attribute ("may_alias", TYPE_ATTRIBUTES (t)))
++    for (x = TYPE_MAIN_VARIANT (t); x; x = TYPE_NEXT_VARIANT (x))
++      c_fixup_may_alias (x);
++
+   tree incomplete_vars = C_TYPE_INCOMPLETE_VARS (TYPE_MAIN_VARIANT (t));
+   for (x = TYPE_MAIN_VARIANT (t); x; x = TYPE_NEXT_VARIANT (x))
+     {
+diff --git a/gcc/testsuite/gcc.dg/pr114493-1.c b/gcc/testsuite/gcc.dg/pr114493-1.c
+new file mode 100644
+index 000000000000..446f33eac3b8
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/pr114493-1.c
+@@ -0,0 +1,19 @@
++/* PR c/114493 */
++/* { dg-do compile { target lto } } */
++/* { dg-options "-O2 -flto" } */
++
++void foo (void);
++struct S;
++struct S bar (struct S **);
++struct S qux (const struct S **);
++
++struct __attribute__((__may_alias__)) S {
++  int s;
++};
++
++struct S
++baz (void)
++{
++  foo ();
++  return (struct S) {};
++}
+diff --git a/gcc/testsuite/gcc.dg/pr114493-2.c b/gcc/testsuite/gcc.dg/pr114493-2.c
+new file mode 100644
+index 000000000000..93e3d6e5bc40
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/pr114493-2.c
+@@ -0,0 +1,26 @@
++/* PR c/114493 */
++/* { dg-do compile { target lto } } */
++/* { dg-options "-O2 -flto -std=c2x" } */
++
++void foo (void);
++struct S;
++struct S bar (struct S **);
++struct S qux (const struct S **);
++
++void
++corge (void)
++{
++  struct S { int s; } s;
++  s.s = 0;
++}
++
++struct __attribute__((__may_alias__)) S {
++  int s;
++};
++
++struct S
++baz (void)
++{
++  foo ();
++  return (struct S) {};
++}
+-- 
+cgit 
+
