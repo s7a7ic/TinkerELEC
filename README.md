@@ -14,16 +14,18 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the device tree to be able to use the intended functionality of the front panel buttons. Also, an IR receiver was added to be able to use a TV remote to control Kodi. I plan to add a temperature-aware fan control integrated inside the case.
 
-## Next Goals
+## Goals
+
+* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega)
 
 * Fix Problems
   * kernel 6.16+: fix usb dwc2 device detection on running system and still be able to suspend
-  * fix random freeze and reboot (often after suspend/resume); maybe fixed with mesa downgrade (testing)
+
 * Emulation / Gaming
-  * add Retroarch
-  * add Moonlight for game streaming
-  * get mupen64plus-nx working
-  * enhance game launching capability in kodi
+  * Add Retroarch and a launcher to start from Kodi
+  * Enhance game launching capability in kodi (something like Advanced Emulator Launcher)
+  * Maybe: add Moonlight for game streaming
+  * Maybe: mupen64plus-nx - fix startup and optimize performance
 
 ## Features
 
@@ -91,6 +93,11 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Audio over 3.5mm Jack**
 * Added required [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf)
 * The output source in Kodi and pipewire is called "USB Audio ..."
+
+**Random SEGFAULT (system freeze + crash)**
+* I've identified gcc 15 as the culprid for random (hard to reproduce) system crashes and decided to stay on gcc 13.2.0 to keep the system stable
+* Added some [patches for gcc 13](packages/lang/gcc/patches/) to build and run an updated system (with glibc 2.42)
+* To debug and maybe patch gcc 15 is not reasonable for me at this time
 
 ## Install to EMMC
 
