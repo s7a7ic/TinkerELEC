@@ -17,7 +17,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Goals
 
-* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega)
+* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
 
 * Fix Problems
   * kernel 6.16+: fix usb dwc2 device detection on running system and still be able to suspend
@@ -45,7 +45,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages included in image: btop, evtest, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
-  * ffmpeg 6.0.1, Python 3.11.13, taglib 1.13.1
+  * ffmpeg 6.0.1, taglib 1.13.1
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
 **Support for NesPi Case+ Buttons**
