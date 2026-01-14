@@ -19,8 +19,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
 
-* Fix Problems
-  * kernel 6.16+: fix usb dwc2 device detection on running system and still be able to suspend
+* Release 21.3.2
+  * kernel 6.18 + patches
+  * fix usb dwc2 device detection on running system and still be able to suspend
 
 * Emulation / Gaming
   * Add Retroarch and a launcher to start from Kodi
