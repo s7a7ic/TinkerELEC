@@ -37,6 +37,10 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
     * tv menu as first option
     * shutdown option removed from power menu in favor of using the power button
     * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
+  * Patches
+    * sleep timer (shutdown/suspend) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+    * reduced cpu load on idle
+    * fix bluetooth sound lag with pipewire (patch from nexus branch)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 * Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
@@ -73,6 +77,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
 * So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* AirPlay was disabled because of the error "zeroconf not enabled" with updated packages; I'm using [Snapcast](https://github.com/snapcast/snapcast) for this task
 
 **System**
 * Splash screen won't show on shutdown or reboot, after the system was resumed from suspend
@@ -99,7 +104,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Random SEGFAULT (system freeze + crash)**
 * I've identified gcc 15 as the culprid for random (hard to reproduce) system crashes and decided to stay on gcc 13.2.0 to keep the system stable
 * Added some [patches for gcc 13](packages/lang/gcc/patches/) to build and run an updated system (with glibc 2.42)
-* To debug and maybe patch gcc 15 is not reasonable for me at this time
 
 ## Install to EMMC
 
