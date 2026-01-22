@@ -25,8 +25,6 @@ class Player(xbmc.Player):
 
     def __init__(self):
         super(Player, self).__init__(self)
-        # sleep prevents crash with pipewire on kodi startup
-        xbmc.sleep(2000)
         self.start('start')
 
     def onPlayBackEnded(self):
