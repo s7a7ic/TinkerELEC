@@ -19,9 +19,8 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
 
-* Release 21.3.2
-  * kernel 6.18 + patches
-  * fix usb dwc2 device detection on running system and still be able to suspend
+* Release 21.3.3
+  * Kernel 6.18 + patches
 
 * Emulation / Gaming
   * Add Retroarch and a launcher to start from Kodi
@@ -68,9 +67,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
 * Set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
 
-**Bluetooth (internal)**
-* On kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
-
 **Wireless LAN**
 * WPA3 isn't supported by the alternative driver
 
@@ -93,8 +89,12 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.18)
 * Loading of the kernel staging driver is disabled via [config file](packages/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
 
-**USB Device detection when system is running (kernel)**
+**Bluetooth (internal)**
+* On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
+
+**USB Device detection when system is running**
 * System doesn't detect USB devices plugged in when fully booted and running
+* Fixed with [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
 * (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 **Audio over 3.5mm Jack**
@@ -104,6 +104,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Random SEGFAULT (system freeze + crash)**
 * I've identified gcc 15 as the culprid for random (hard to reproduce) system crashes and decided to stay on gcc 13.2.0 to keep the system stable
 * Added some [patches for gcc 13](packages/lang/gcc/patches/) to build and run an updated system (with glibc 2.42)
+* Further stability tests: gcc 15 with disabled LTO
 
 ## Install to EMMC
 
