@@ -106,6 +106,7 @@ makeinstall_target() {
     if [ "${PROJECT}" = "Amlogic" ] || [ "${PROJECT}" = "Rockchip" ]; then
       cp ${PKG_DIR}/scripts/update-bootloader-edid-extlinux ${INSTALL}/usr/bin/getedid
     fi
+    cp ${PKG_DIR}/scripts/simple_zip.py ${INSTALL}/usr/bin/
     cp ${PKG_DIR}/scripts/createlog ${INSTALL}/usr/bin/
     cp ${PKG_DIR}/scripts/dthelper ${INSTALL}/usr/bin
       ln -sf dthelper ${INSTALL}/usr/bin/dtfile
