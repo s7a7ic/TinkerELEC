@@ -14,7 +14,6 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-vg \
                            --disable-qt \
                            --disable-discord \
                            --disable-cheevos \
-                           --disable-online_updater \
                            --enable-zlib \
                            --enable-freetype \
                            --enable-translate \
@@ -35,9 +34,6 @@ PKG_MAKE_OPTS_TARGET="V=1 \
                       HAVE_BUILTINMBEDTLS=1 \
                       HAVE_FREETYPE=1 \
                       HAVE_CHEEVOS=0"
-#                      HAVE_LAKKA=1 \
-#                      HAVE_LAKKA_PROJECT="${DEVICE:-${PROJECT}}.${ARCH}" \
-#                      HAVE_LAKKA_SERVER="${LAKKA_UPDATE_SERVER_URL}" \
 
 if [ "${PROJECT}" = "RPi" ]; then
   if [ "${DEVICE}" = "RPi3" -o "${DEVICE}" = "RPi4" -o "${DEVICE}" = "RPi5" ]; then
