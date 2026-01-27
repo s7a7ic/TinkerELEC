@@ -21,12 +21,16 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 * Release 21.3.3
   * Kernel 6.18 + patches
+  * Own Repository for specific Addons
+  * Test gcc 15 without LTO
 
 * Emulation / Gaming
-  * Add Retroarch and a launcher to start from Kodi
+  * Add RetroArch as an Kodi Addon
   * Enhance game launching capability in kodi (something like Advanced Emulator Launcher)
-  * Maybe: add Moonlight for game streaming
-  * Maybe: mupen64plus-nx - fix startup and optimize performance
+  * Add Moonlight for game streaming if possible
+
+* Kodi
+  * Add "Sleep Timer" reminder notification
 
 ## Features
 
@@ -40,9 +44,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
     * sleep timer (shutdown/suspend) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
     * reduced cpu load on idle
     * fix bluetooth sound lag with pipewire (patch from nexus branch)
-* Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
-* Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
+* Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
+* Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 * Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
 * On Suspend / On Resume script support [via custom-sleep.sh](packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
 * Enabled BFQ I/O scheduler
