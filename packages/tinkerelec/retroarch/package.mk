@@ -117,32 +117,11 @@ if [[ "${TARGET_FPU}" =~ "neon" ]]; then
   fi
 fi
 
-if [ "${DEVICE}" = "OdroidGoAdvance" ]; then
-  PKG_DEPENDS_TARGET+=" librga"
-  PKG_CONFIGURE_OPTS_TARGET+=" --enable-odroidgo2"
-fi
-
 if [ "${OPENGLES}" = "bcm2835-driver" ]; then
   PKG_CONFIGURE_OPTS_TARGET+=" --enable-videocore --enable-dispmanx"
   PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-kms/--disable-kms}
 else
   PKG_CONFIGURE_OPTS_TARGET+=" --disable-videocore"
-fi
-
-if [ "${PROJECT}" = "L4T" ]; then
-  PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-kms/--disable-kms}
-  #EGL break gl1 support so if opengl enabled, force disable egl/gles
-  if [ "${OPENGL_SUPPORT}" = yes ]; then
-    PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-egl/--disable-egl}
-    PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-opengles3_1/}
-    PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-opengles3_2/}
-    PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-opengles3/}
-    PKG_CONFIGURE_OPTS_TARGET=${PKG_CONFIGURE_OPTS_TARGET//--enable-opengles/}
-  fi
-
-  if [ "${DEVICE}" = "Switch" ]; then
-    PKG_MAKE_OPTS_TARGET+=" HAVE_LAKKA_SWITCH=1"
-  fi
 fi
 
 pre_configure_target() {
@@ -237,11 +216,6 @@ makeinstall_target() {
   echo 'audio_driver = "alsathread"' >> ${INSTALL}/etc/retroarch.cfg
   echo 'audio_filter_dir = "/usr/share/audio_filters"' >> ${INSTALL}/etc/retroarch.cfg
 
-  if [ "${PROJECT}" = "Samsung" -a "${DEVICE}" = "Exynos" ]; then
-    # workaround the 55fps bug
-    echo 'audio_out_rate = "44100"' >> ${INSTALL}/etc/retroarch.cfg
-  fi
-
   # Saving
   echo 'savestate_thumbnail_enable = "false"' >> ${INSTALL}/etc/retroarch.cfg
 
@@ -267,56 +241,6 @@ makeinstall_target() {
   echo 'playlist_entry_rename = "false"' >> ${INSTALL}/etc/retroarch.cfg
   echo 'playlist_entry_remove = "false"' >> ${INSTALL}/etc/retroarch.cfg
 
-  # OdroidGoAdvance
-  if [ "${DEVICE}" = "OdroidGoAdvance" ]; then
-    echo 'xmb_layout = "2"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_widget_scale_auto = "false"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_widget_scale_factor = "2.25"' >> ${INSTALL}/etc/retroarch.cfg
-  fi
-
-  # RPiZero/RPiZero2 + GPiCase (1st Gen Retroflag GPiCase)
-  if [ "${DEVICE}" = "RPiZero-GPiCase" -o "${DEVICE}" = "RPiZero2-GPiCase" ]; then
-    sed -i -e 's|^input_menu_toggle_gamepad_combo =.*|input_menu_toggle_gamepad_combo = "4"|' ${INSTALL}/etc/retroarch.cfg
-    sed -i -e 's|^menu_driver =.*|menu_driver = "rgui"|' ${INSTALL}/etc/retroarch.cfg
-    echo 'aspect_ratio_index = "21"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'audio_device = "default:CARD=Headphones"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'audio_out_rate = "44100"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_enable_widgets = "false"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_timedate_enable = "false"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'video_font_size = "16"' >> ${INSTALL}/etc/retroarch.cfg
-
-    if [ "${DEVICE}" = "RPiZero-GPiCase" ]; then
-      sed -i -e 's|^video_threaded =.*|video_threaded = "false"|' ${INSTALL}/etc/retroarch.cfg
-      echo 'video_scale_integer = "true"' >> ${INSTALL}/etc/retroarch.cfg
-    fi
-
-    if [ "${DEVICE}" = "RPiZero2-GPiCase" ]; then
-      echo 'input_player1_analog_dpad_mode = "3"' >> ${INSTALL}/etc/retroarch.cfg
-    fi
-  fi
-
-  # RPi Compute Module 4 + GPiCase2 (2nd Gen Retroflag GPiCase)
-  if [ "${DEVICE}" = "RPi4-GPiCase2" ]; then
-    echo 'audio_device = "default:CARD=Device"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'audio_out_rate = "44100"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'xmb_layout = "2"' >> ${INSTALL}/etc/retroarch.cfg
-  fi
-
-  # RPiZero2 + GPiCase2W (3rd Gen Retroflag GPiCase)
-  if [ "${DEVICE}" = "RPiZero2-GPiCase2W" ]; then
-    echo 'audio_device = "default:CARD=Headphones"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'audio_out_rate = "44100"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'xmb_layout = "2"' >> ${INSTALL}/etc/retroarch.cfg
-  fi
-
-  # PiBoy DMG / RetroDreamer
-  if [ "${DEVICE}" = "RPi4-PiBoyDmg" -o "${DEVICE}" = "RPi4-RetroDreamer" ]; then
-    echo 'menu_timedate_enable = "false"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_scale_factor = "1.44"' >> ${INSTALL}/etc/retroarch.cfg
-    sed -i -e 's|^input_menu_toggle_gamepad_combo =.*|input_menu_toggle_gamepad_combo = "4"|' ${INSTALL}/etc/retroarch.cfg
-    sed -i -e 's|^menu_driver =.*|menu_driver = "ozone"|' ${INSTALL}/etc/retroarch.cfg
-  fi
-
   # iMX6
   if [ "${PROJECT}" = "NXP" -a "${DEVICE}" = "iMX6" ]; then
     echo 'audio_device = "default:CARD=DWHDMI"' >> ${INSTALL}/etc/retroarch.cfg
@@ -324,34 +248,6 @@ makeinstall_target() {
     echo 'audio_enable_menu_ok = "true"' >> ${INSTALL}/etc/retroarch.cfg
     echo 'audio_enable_menu_cancel = "true"' >> ${INSTALL}/etc/retroarch.cfg
     echo 'audio_enable_menu_notice = "true"' >> ${INSTALL}/etc/retroarch.cfg
-  fi
-
-  # Switch
-  if [ "${PROJECT}" = "L4T" -a "${DEVICE}" = "Switch" ] || [ "${PROJECT}" = "Ayn" -a "${DEVICE}" = "Odin" ]; then
-    echo 'menu_mouse_enable = "false"' >> ${INSTALL}/etc/retroarch.cfg
-    echo 'menu_pointer_enable = "true"'>> ${INSTALL}/etc/retroarch.cfg
-    echo 'video_crop_overscan = "false"' >> ${INSTALL}/etc/retroarch.cfg
-
-    if [ ! "${PROJECT}" = "Ayn" -a ! "${DEVICE}" = "Odin" ]; then
-      echo 'input_joypad_driver = "udev"' >> ${INSTALL}/etc/retroarch.cfg
-      echo 'video_hard_sync = "true"' >> ${INSTALL}/etc/retroarch.cfg
-    fi
-
-    sed -i -e 's|^input_driver =.*|input_driver= "x"|' ${INSTALL}/etc/retroarch.cfg
-    sed -i -e 's|^video_smooth =.*|video_smooth = "true"|' ${INSTALL}/etc/retroarch.cfg
-    sed -i -e 's|^menu_driver =.*|menu_driver = "ozone"|' ${INSTALL}/etc/retroarch.cfg
-
-    if [ ! "${PROJECT}" = "Ayn" -a ! "${DEVICE}" = "Odin" ]; then
-      #Set Joypad as joypad with analog
-      echo 'input_libretro_device_p1 = "5"' >> ${INSTALL}/etc/retroarch.cfg
-    else
-      echo 'video_driver = "glcore"' >> ${INSTALL}/etc/retroarch.cfg
-      sed -i -e 's|^audio_driver =.*|audio_driver = "pulse"|' ${INSTALL}/etc/retroarch.cfg
-      echo video_vsync = "false" >> ${INSTALL}/etc/retroarch.cfg
-    fi
-
-    #HACK: Temporary hack for touchscreen
-    sed -i -e 's|^video_windowed_fullscreen =.*|video_windowed_fullscreen = "true"|' ${INSTALL}/etc/retroarch.cfg
   fi
 
   # sort the options in config file
