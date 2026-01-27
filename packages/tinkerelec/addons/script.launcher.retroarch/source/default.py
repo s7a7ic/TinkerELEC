@@ -1,25 +1,37 @@
-# SPDX-License-Identifier: GPL-2.0
-
+import os.path
 import subprocess
-import xbmc
-import xbmcaddon
+import sys
+from xbmcaddon import Addon
+from xbmcgui import Dialog
 
-ADDON_ID = 'script.launcher.retroarch'
-
-addon = xbmcaddon.Addon(id=ADDON_ID)
+addon = Addon()
 addon_dir = addon.getAddonInfo('path')
 bin_folder = os.path.join(addon_dir, 'bin')
 icon = addon.getAddonInfo('icon')
 retroarch_exe = os.path.join(bin_folder, 'retroarch.start')
+util_exe = os.path.join(bin_folder, 'retroarch_util.sh')
 
-def systemctl(command):
-    subprocess.call(['systemctl', command, 'retroarch'])
-    #subprocess.run(retroarch_exe)
+def runRetroarch():
+	subprocess.run(['systemd-run', '-u', 'retroarch', retroarch_exe])
 
-def send_notification():
-    line1 = "Launching RetroArch"
-    xbmc.executebuiltin('Notification(%s, %s, %d)'%('RetroArch', line1, 5000, icon))
+def getLocalizedString(id):
+	if (id < 32000):
+		return xbmc.getLocalizedString(id)
+	else:
+		return addon.getLocalizedString(id)
 
-if __name__ == "__main__":
-    send_notification()
-    systemctl('start')
+def testAssets():
+	resp = subprocess.run([util_exe, "check_assets"])
+	if resp.returncode == 0:
+		Dialog().ok('RetroArch', getLocalizedString(32015))
+
+if len(sys.argv) > 1:
+	if sys.argv[1] == 'reset':
+#		util.resetToDefaults()
+		quit()
+
+if (addon.getSetting("ra_hints") == 'true'):
+	testAssets()
+
+xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%('RetroArch', getLocalizedString(20186), 60000, icon))
+runRetroarch()

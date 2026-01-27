@@ -4,7 +4,7 @@
 
 # Source environment variables
 . /etc/profile
-#oe_setup_addon script.launcher.retroarch
+oe_setup_addon script.launcher.retroarch
 
 # Check if Retroarch is already running
 if pidof "retroarch" > /dev/null; then

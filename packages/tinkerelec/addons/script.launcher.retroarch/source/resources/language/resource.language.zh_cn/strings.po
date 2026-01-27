@@ -1,0 +1,87 @@
+# XBMC Media Center language file
+# Addon Name: RetroArch
+# Addon id: script.retroarch.launcher.Amlogic-ng.arm
+# Addon version: v1.7.5
+# Addon Provider: spleen1981
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: https://github.com/spleen1981/retroarch-kodi-addon-CoreELEC/issues\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "RetroArch add-on for Kodi (Amlogic-ng.arm). RetroArch is a frontend for emulators, game engines and media players."
+msgstr "Kodi (Amlogic-ng.arm) 的 RetroArch 附加组件。RetroArch 是一个模拟器、游戏引擎和媒体播放器的前端。"
+
+msgctxt "Addon Description"
+msgid "The add-on provides binary, cores and basic settings to launch RetroArch from Kodi UI, plus additional features to improve user experience. It is built from Lakka sources."
+msgstr "此附加组件从 Lakka 源码直接构建，同时提供了二进制，内核，从 Kodi UI 启动 RetroArch 的基本设置，以及改善用户体验的附加功能。"
+
+msgctxt "Addon Disclaimer"
+msgid "This is an unofficial add-on. Use github.com/spleen1981/retroarch-kodi-addon-CoreELEC to submit issues."
+msgstr "这是一个非官方的附加组件。使用 github.com/spleen1981/retroarch-kodi-addon-CoreELEC 提交问题。"
+
+msgctxt "#32002"
+msgid "Turn off Xbox360 controllers after closing RetroArch"
+msgstr "在关闭 RetroArch 时关闭 Xbox360 控制器"
+
+msgctxt "#32003"
+msgid "Use remote control (CEC) with RetroArch"
+msgstr "在 RetroArch 中使用 CEC 控制"
+
+msgctxt "#32004"
+msgid "Override Kodi refresh rate settings"
+msgstr "覆盖 Kodi 的刷新率设置"
+
+msgctxt "#32005"
+msgid "RetroArch refresh rate"
+msgstr "RetroArch 刷新率"
+
+msgctxt "#32006"
+msgid "Sync RetroArch audio driver/device with Kodi"
+msgstr "将 RetroArch 音频驱动程序/设备与 Kodi 同步"
+
+msgctxt "#32007"
+msgid "Mount remote path for RetroArch ROMs"
+msgstr "为 RetroArch ROMs 挂载远程路径"
+
+msgctxt "#32008"
+msgid "Save RetroArch logs to file"
+msgstr "将 RetroArch 日志保存到文件"
+
+msgctxt "#32009"
+msgid "Turn off BT controllers on RetroArch exit (if supported)"
+msgstr "在 RetroArch 退出时关闭蓝牙控制器（如果支持的话）"
+
+msgctxt "#32010"
+msgid "Boot the system to"
+msgstr "启动系统时打开"
+
+msgctxt "#32011"
+msgid "Currently the system boots to"
+msgstr "当前启动系统时会打开"
+
+msgctxt "#32012"
+msgid "Do you want to change the setting and boot to"
+msgstr "你是否想要改变系统启动时打开的程序"
+
+msgctxt "#32013"
+msgid "SMB protocol version"
+msgstr "SMB 协议版本"
+
+msgctxt "#32014"
+msgid "Enable hints"
+msgstr ""
+
+msgctxt "#32015"
+msgid "RetroArch assets not found. Assets improves the GUI appearence and can be downloaded from within Retroarch selecting 'Online Updater > Update Assets' (or copied manually to the assets folder)."
+msgstr ""
+

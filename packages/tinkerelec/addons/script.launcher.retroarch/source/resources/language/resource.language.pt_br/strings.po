@@ -1,0 +1,87 @@
+# XBMC Media Center language file
+# Addon Name: RetroArch
+# Addon id: script.retroarch.launcher.Amlogic-ng.arm
+# Addon version: v1.7.5
+# Addon Provider: spleen1981
+msgid ""
+msgstr ""
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: https://github.com/spleen1981/retroarch-kodi-addon-CoreELEC/issues\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+msgctxt "Addon Summary"
+msgid "RetroArch add-on for Kodi (Amlogic-ng.arm). RetroArch is a frontend for emulators, game engines and media players."
+msgstr "Add-on RetroArch para Kodi (Amlogic-ng.arm). RetroArch é um frontend para emuladores, motores de jogos e reprodutores de mídia."
+
+msgctxt "Addon Description"
+msgid "The add-on provides binary, cores and basic settings to launch RetroArch from Kodi UI, plus additional features to improve user experience. It is built from Lakka sources."
+msgstr "O add-on fornece binário, núcleos e configurações básicas para inicializar o RetroArch a partir da UI (Interface do Usuário) do Kodi, além de recursos adicionais para melhorar a experiência do usuário. Ele é construído a partir das fontes do Lakka."
+
+msgctxt "Addon Disclaimer"
+msgid "This is an unofficial add-on. Use github.com/spleen1981/retroarch-kodi-addon-CoreELEC to submit issues."
+msgstr "Este é um add-on não oficial. Use github.com/spleen1981/retroarch-kodi-addon-CoreELEC para enviar os problemas encontrados."
+
+msgctxt "#32002"
+msgid "Turn off Xbox360 controllers after closing RetroArch"
+msgstr "Desligar os controles do Xbox360 após fechar o RetroArch"
+
+msgctxt "#32003"
+msgid "Use remote control (CEC) with RetroArch"
+msgstr "Usar controle remoto (CEC) com o RetroArch"
+
+msgctxt "#32004"
+msgid "Override Kodi refresh rate settings"
+msgstr "Substituir as configurações da taxa de atualização do Kodi"
+
+msgctxt "#32005"
+msgid "RetroArch refresh rate"
+msgstr "Taxa de atualização do RetroArch"
+
+msgctxt "#32006"
+msgid "Sync RetroArch audio driver/device with Kodi"
+msgstr "Sincronizar o driver/dispositivo de áudio do RetroArch com o Kodi"
+
+msgctxt "#32007"
+msgid "Mount remote path for RetroArch ROMs"
+msgstr "Montar caminho remoto para as ROMs do RetroArch"
+
+msgctxt "#32008"
+msgid "Save RetroArch logs to file"
+msgstr "Salvar os registros do RetroArch para arquivo"
+
+msgctxt "#32009"
+msgid "Turn off BT controllers on RetroArch exit (if supported)"
+msgstr "Desligar os controles Bluetooth ao sair do RetroArch (se suportado)"
+
+msgctxt "#32010"
+msgid "Boot the system to"
+msgstr "Inicializar o sistema com"
+
+msgctxt "#32011"
+msgid "Currently the system boots to"
+msgstr "Atualmente o sistema inicializa com"
+
+msgctxt "#32012"
+msgid "Do you want to change the setting and boot to"
+msgstr "Deseja alterar a configuração e inicializar com"
+
+msgctxt "#32013"
+msgid "SMB protocol version"
+msgstr "Versão do protocolo SMB"
+
+msgctxt "#32014"
+msgid "Enable hints"
+msgstr "Habilitar dicas"
+
+msgctxt "#32015"
+msgid "RetroArch assets not found. Assets improves the GUI appearence and can be downloaded from within Retroarch selecting 'Online Updater > Update Assets' (or copied manually to the assets folder)."
+msgstr "Os recursos do RetroArch não foram encontrados. Os recursos melhoram a aparência da GUI (Interface Gráfica do Usuário) e podem ser baixados no Retroarch selecionando 'Atualizador on-line > Atualizar recursos' (ou copiar manualmente para a pasta assets)."
+
