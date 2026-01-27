@@ -1,0 +1,13 @@
+[Unit]
+Description=Cores directory
+After=systemd-tmpfiles-setup.service
+DefaultDependencies=no
+
+[Mount]
+What=none
+Where=/tmp/emulation/retroarch/cores
+Type=overlay
+Options=lowerdir=/usr/lib/libretro,upperdir=/storage/.config/retroarch/cores,workdir=/storage/.cache/retroarch/cores-workdir
+
+[Install]
+WantedBy=kodi.target

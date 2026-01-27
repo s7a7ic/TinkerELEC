@@ -1,0 +1,13 @@
+[Unit]
+Description=Basic Input Output System directory
+After=systemd-tmpfiles-setup.service
+DefaultDependencies=no
+
+[Mount]
+What=none
+Where=/tmp/emulation/bios
+Type=overlay
+Options=lowerdir=/usr/share/retroarch/bios,upperdir=/storage/bios,workdir=/storage/.cache/retroarch/bios-workdir
+
+[Install]
+WantedBy=kodi.target
