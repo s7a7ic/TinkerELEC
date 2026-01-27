@@ -22,8 +22,13 @@ addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/{bin,lib,resources}
 
   cp $(get_install_dir retroarch)/usr/bin/retroarch ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
+  cp -r $(get_install_dir retroarch)/usr/share/audio_filters ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/audio_filters
+  cp -r $(get_install_dir retroarch)/usr/share/video_filters ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/video_filters
+
+  # assets
   cp -r $(get_install_dir retroarch_assets)/usr/share/retroarch/assets ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/assets
 
+  # joypad configs
   mkdir ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/joypads
   cp -r $(get_install_dir retroarch_joypad_autoconfig)/etc/retroarch-joypad-autoconfig/* ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/joypads
 }
