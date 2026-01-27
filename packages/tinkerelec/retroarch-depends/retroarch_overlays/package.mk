@@ -5,6 +5,7 @@ PKG_SITE="https://github.com/libretro/common-overlays"
 PKG_URL="${PKG_SITE}.git"
 PKG_LONGDESC="Collection of overlay files for use with libretro frontends, such as RetroArch."
 PKG_TOOLCHAIN="manual"
+GET_HANDLER_SUPPORT="git"
 
 makeinstall_target() {
   make -C ${PKG_BUILD} install INSTALLDIR="${INSTALL}/usr/share/retroarch/overlays"

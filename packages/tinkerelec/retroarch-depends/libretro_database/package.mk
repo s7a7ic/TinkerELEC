@@ -5,6 +5,7 @@ PKG_SITE="https://github.com/libretro/libretro-database"
 PKG_URL="${PKG_SITE}.git"
 PKG_LONGDESC="Repository containing cheatcode files, content data files, etc."
 PKG_TOOLCHAIN="manual"
+GET_HANDLER_SUPPORT="git"
 
 makeinstall_target() {
   make -C ${PKG_BUILD} install INSTALLDIR="${INSTALL}/usr/share/libretro-database"

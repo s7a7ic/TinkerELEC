@@ -5,6 +5,7 @@ PKG_SITE="https://github.com/libretro/libretro-core-info"
 PKG_URL="${PKG_SITE}.git"
 PKG_LONGDESC="Info files for libretro cores"
 PKG_TOOLCHAIN="manual"
+GET_HANDLER_SUPPORT="git"
 
 makeinstall_target() {
   make -C ${PKG_BUILD} install INSTALLDIR="${INSTALL}/usr/lib/libretro"
