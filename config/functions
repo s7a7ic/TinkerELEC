@@ -1520,13 +1520,13 @@ install_addon_source() {
 install_addon_images() {
   local dest_dir="$1"
 
+  mkdir -p "$dest_dir/resources"
+
   if [ -f "$PKG_DIR/icon/icon.png" ]; then
-    mkdir -p "$dest_dir/resources"
     cp "$PKG_DIR/icon/icon.png" "$dest_dir/resources"
   fi
 
-  if [ -f "$DISTRO_DIR/$DISTRO/addons/fanart.png" ]; then
-    mkdir -p "$dest_dir/resources"
+  if [ -f "$DISTRO_DIR/$DISTRO/addons/fanart.png" ] && [ ! -f "$PKG_DIR/source/resources/fanart.png" ]; then
     cp "$DISTRO_DIR/$DISTRO/addons/fanart.png" "$dest_dir/resources"
   fi
 }
@@ -1587,6 +1587,7 @@ done
       -e "s|@PKG_LONGDESC@|$PKG_LONGDESC|g" \
       -e "s|@PKG_DISCLAIMER@|$PKG_DISCLAIMER|g" \
       -e "s|@PROVIDER_NAME@|$provider_name|g" \
+      -e "s|@PKG_ADDON_EXTENSION@|$PKG_ADDON_EXTENSION|g" \
       -e "s|@PKG_ADDON_PROVIDES@|$PKG_ADDON_PROVIDES|g" \
       -e "s|@PKG_ADDON_SCREENSHOT@|$screenshots|g" \
       -e "s|@PKG_ADDON_BROKEN@|$PKG_ADDON_BROKEN|g" \
