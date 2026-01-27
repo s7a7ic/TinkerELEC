@@ -5,7 +5,7 @@ PKG_VERSION="1.22.2"
 PKG_REV="0"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
-PKG_DEPENDS_TARGET="retroarch retroarch_assets retroarch_joypad_autoconfig"
+PKG_DEPENDS_TARGET="retroarch retroarch_joypad_autoconfig"
 PKG_SECTION=""
 PKG_SHORTDESC="Launch RetroArch (${PKG_VERSION})"
 PKG_LONGDESC="RetroArch is a frontend for emulators, game engines and media players. The add-on provides binary, cores and basic settings to launch RetroArch from Kodi UI, plus additional features to improve user experience."
@@ -18,6 +18,10 @@ PKG_ADDON_EXTENSION="xbmc.python.pluginsource"
 PKG_ADDON_PROVIDES="executable game"
 PKG_MAINTAINER="s7a7ic"
 
+if [ "${RA_INCLUDE_ASSETS}" = yes ]; then
+  PKG_DEPENDS_TARGET+=" retroarch_assets"
+fi
+
 addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/{bin,lib,resources}
 
@@ -25,8 +29,9 @@ addon() {
   cp -r $(get_install_dir retroarch)/usr/share/audio_filters ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/audio_filters
   cp -r $(get_install_dir retroarch)/usr/share/video_filters ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/video_filters
 
-  # assets
-  cp -r $(get_install_dir retroarch_assets)/usr/share/retroarch/assets ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/assets
+  if [ "${RA_INCLUDE_ASSETS}" = yes ]; then
+    cp -r $(get_install_dir retroarch_assets)/usr/share/retroarch/assets ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/assets
+  fi
 
   # joypad configs
   mkdir ${ADDON_BUILD}/${PKG_ADDON_ID}/resources/joypads
