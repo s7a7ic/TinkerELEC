@@ -409,11 +409,7 @@ post_makeinstall_target() {
   # GBM: install udev rule to ignore the power button in libinput/kodi so logind can handle it
   if [ "${DISPLAYSERVER}" = "no" ]; then
     mkdir -p ${INSTALL}/usr/lib/udev/rules.d/
-    if [ "${TINKER_NESPI_PATCHES}" = "yes" ]; then
-      cp ${PKG_DIR}/config/70-libinput-ignore-power-button-nespi.rules ${INSTALL}/usr/lib/udev/rules.d/
-    else
-      cp ${PKG_DIR}/config/70-libinput-ignore-power-button.rules ${INSTALL}/usr/lib/udev/rules.d/
-    fi
+    cp ${PKG_DIR}/config/70-libinput-ignore-power-button.rules ${INSTALL}/usr/lib/udev/rules.d/
   fi
 
   # update addon manifest
