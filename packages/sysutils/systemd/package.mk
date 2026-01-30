@@ -214,17 +214,6 @@ post_makeinstall_target() {
   sed -e "s,^.*SplitMode=.*$,SplitMode=none,g" -i ${INSTALL}/etc/systemd/journald.conf
   sed -e "s,^.*SystemMaxUse=.*$,SystemMaxUse=10M,g" -i ${INSTALL}/etc/systemd/journald.conf
 
-  if [ "${TINKER_WATCHDOG}" = "yes" ]; then
-    sed -e "s,^.*RuntimeWatchdogSec=.*$,RuntimeWatchdogSec=20,g" -i ${INSTALL}/etc/systemd/system.conf
-    sed -e "s,^.*RebootWatchdogSec=.*$,RebootWatchdogSec=5min,g" -i ${INSTALL}/etc/systemd/system.conf
-    #sed -e "s,^.*ShutdownWatchdogSec=.*$,ShutdownWatchdogSec=5min,g" -i ${INSTALL}/etc/systemd/system.conf
-  fi
-
-  if [ "${TINKER_NESPI_PATCHES}" = "yes" ]; then
-    sed -e "s,^.*HandleRebootKey=.*$,HandleRebootKey=suspend,g" -i ${INSTALL}/etc/systemd/logind.conf
-    sed -e "s,^.*HandleRebootKeyLongPress=.*$,HandleRebootKeyLongPress=reboot,g" -i ${INSTALL}/etc/systemd/logind.conf
-  fi
-
   # tune logind.conf
   if [ "${LOCAL_LOGIN}" = "yes" ]; then
     sed -e "s,^.*NAutoVTs=.*$,NAutoVTs=2,g" -i ${INSTALL}/etc/systemd/logind.conf
