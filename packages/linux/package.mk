@@ -49,11 +49,6 @@ case "${LINUX}" in
     ;;
 esac
 
-# include nespi case patches
-if [ "${TINKER_NESPI_PATCHES}" = "yes" ]; then
-  PKG_PATCH_DIRS+=" nespi-case"
-fi
-
 PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
 if [ -n "${KERNEL_TOOLCHAIN}" ]; then
