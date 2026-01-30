@@ -8,7 +8,7 @@
 
 # Distribution Source location
   DISTRO_MIRROR="https://sources.libreelec.tv/mirror"
-  DISTRO_SRC="https://sources.libreelec.tv/$DISTRO_VERSION"
+  DISTRO_SRC="https://github.com/s7a7ic/TinkerELEC/releases/tag/$DISTRO_VERSION"
 
 # Distribution Home URL
   DISTRO_HOME_URL="https://github.com/s7a7ic/TinkerELEC"
@@ -97,7 +97,7 @@
   LOCAL_LOGIN="no"
 
 # Enable SSH on boot (yes / no)
-  SSH_ENABLED_DEFAULT="no"
+  SSH_ENABLED_DEFAULT="yes"
 
 ### KODI SETTINGS ###
 # Mediacenter to use (kodi / no)
@@ -106,7 +106,7 @@
 # Skins to install (Estuary)
 # Space separated list is supported,
 # e.g. SKINS="Estuary"
-  SKINS="Estuary"
+  SKINS="Estuary tinkerelec"
 
 # Default Skin (Estuary)
   SKIN_DEFAULT="Estuary"
@@ -260,7 +260,7 @@
 # additional packages to install:
 # Space separated list is supported,
 # e.g. ADDITIONAL_PACKAGES="PACKAGE1 PACKAGE2"
-  ADDITIONAL_PACKAGES="btop rsync evtest tinkerelec-init-config"
+  ADDITIONAL_PACKAGES="btop rsync evtest" # tinkerelec-config
 
 # build and install driver addons (yes / no)
   DRIVER_ADDONS_SUPPORT="no"
@@ -280,14 +280,3 @@
 
 # should reusable host tools be used (yes / no)
   USE_REUSABLE="no"
-
-############
-
-# TinkerELEC options
-  TINKER_WATCHDOG="yes"
-  TINKER_NESPI_PATCHES="yes"
-
-# Skin modifications
-  ESTUARY_SMALL_MENU="yes"
-  ESTUARY_TV_FIRST="yes"
-  ESTUARY_NO_SHUTDOWN="yes"
