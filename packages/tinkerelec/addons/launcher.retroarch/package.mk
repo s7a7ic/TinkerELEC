@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0
 
-PKG_NAME="script.launcher.retroarch"
+PKG_NAME="launcher.retroarch"
 PKG_VERSION="1.22.2"
 PKG_REV="0"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv3"
 PKG_DEPENDS_TARGET="retroarch retroarch_joypad_autoconfig"
-PKG_SECTION=""
+PKG_SECTION="script"
 PKG_SHORTDESC="Launch RetroArch (${PKG_VERSION})"
 PKG_LONGDESC="RetroArch is a frontend for emulators, game engines and media players. The add-on provides binary, cores and basic settings to launch RetroArch from Kodi UI, plus additional features to improve user experience."
 PKG_TOOLCHAIN="manual"
