@@ -27,7 +27,7 @@ PKG_CONFIGURE_OPTS_TARGET="--disable-vg \
 
 PKG_MAKE_OPTS_TARGET="V=1 \
                       HAVE_HAVE_ZARCH=0 \
-                      HAVE_WIFI=1 \
+                      HAVE_WIFI=0 \
                       HAVE_BLUETOOTH=1 \
                       HAVE_CLOUDSYNC=1 \
                       HAVE_SSL=1 \
