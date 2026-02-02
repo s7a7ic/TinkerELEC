@@ -13,11 +13,6 @@ PKG_DEPENDS_INIT="toolchain libtirpc"
 PKG_LONGDESC="BusyBox combines tiny versions of many common UNIX utilities into a single small executable."
 PKG_BUILD_FLAGS="-parallel +lto"
 
-# nano text editor
-if [ "${NANO_EDITOR}" = "yes" ]; then
-  PKG_DEPENDS_TARGET+=" nano"
-fi
-
 if [ "${TARGET_ARCH}" = "x86_64" ]; then
   PKG_DEPENDS_TARGET+=" pciutils"
 fi

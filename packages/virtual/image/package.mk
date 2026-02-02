@@ -8,6 +8,9 @@ PKG_DEPENDS_TARGET="toolchain squashfs-tools:host pigz:host dosfstools:host fake
 PKG_SECTION="virtual"
 PKG_LONGDESC="Root package used to build and create complete image"
 
+# nano text editor
+[ "${NANO_EDITOR}" = "yes" ] && PKG_DEPENDS_TARGET+=" nano"
+
 # Graphic support
 [ ! "${DISPLAYSERVER}" = "no" ] && PKG_DEPENDS_TARGET+=" ${DISPLAYSERVER}"
 
