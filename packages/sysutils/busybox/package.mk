@@ -11,7 +11,7 @@ PKG_URL="https://busybox.net/downloads/${PKG_NAME}-${PKG_VERSION}.tar.bz2"
 PKG_DEPENDS_TARGET="toolchain libtirpc"
 PKG_DEPENDS_INIT="toolchain libtirpc"
 PKG_LONGDESC="BusyBox combines tiny versions of many common UNIX utilities into a single small executable."
-PKG_BUILD_FLAGS="-parallel +lto"
+PKG_BUILD_FLAGS="-parallel +lto +size"
 
 pre_build_target() {
   PKG_MAKE_OPTS_TARGET="ARCH=${TARGET_ARCH} \
@@ -54,9 +54,6 @@ configure_target() {
       sed -i -e "s|^CONFIG_FEATURE_MOUNT_CIFS=.*$|# CONFIG_FEATURE_MOUNT_CIFS is not set|" .config
     fi
 
-    # optimize for size
-    CFLAGS=$(echo ${CFLAGS} | sed -e "s|-Ofast|-Os|")
-    CFLAGS=$(echo ${CFLAGS} | sed -e "s|-O.|-Os|")
     CFLAGS+=" -I${SYSROOT_PREFIX}/usr/include/tirpc"
 
     LDFLAGS+=" -fwhole-program"
@@ -72,9 +69,6 @@ configure_init() {
     # set install dir
     sed -i -e "s|^CONFIG_PREFIX=.*$|CONFIG_PREFIX=\"${INSTALL}/usr\"|" .config
 
-    # optimize for size
-    CFLAGS=$(echo ${CFLAGS} | sed -e "s|-Ofast|-Os|")
-    CFLAGS=$(echo ${CFLAGS} | sed -e "s|-O.|-Os|")
     CFLAGS+=" -I${SYSROOT_PREFIX}/usr/include/tirpc"
 
     LDFLAGS+=" -fwhole-program"
