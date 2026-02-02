@@ -90,4 +90,5 @@ post_install() {
 
   enable_service pipewire.socket
   enable_service pipewire.service
+  enable_service pipewire-volume.service
 }
