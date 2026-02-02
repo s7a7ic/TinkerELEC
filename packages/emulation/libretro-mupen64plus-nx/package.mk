@@ -32,6 +32,10 @@ case "${DEVICE}" in
       RPi5) PLATFORM="rpi5_64" ;;
     esac
     ;;
+  RK3288|TinkerBoard)
+    PLATFORM="RK3288"
+    PKG_MAKE_OPTS_TARGET+=" MESA=1 HAVE_THR_AL=1 HAVE_PARALLEL_RDP=1 LLE=1 HAVE_PARALLEL_RSP=1"
+    ;;
   Generic|*)
     # Tested only with "Generic"
     PLATFORM="unix"
@@ -61,5 +65,6 @@ fi
 makeinstall_target() {
   mkdir -p ${SYSROOT_PREFIX}/usr/lib/cmake/${PKG_NAME}
   cp ${PKG_LIBPATH} ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME}
+  patchelf --clear-execstack ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME}
   echo "set(${PKG_LIBVAR} ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME})" > ${SYSROOT_PREFIX}/usr/lib/cmake/${PKG_NAME}/${PKG_NAME}-config.cmake
 }
