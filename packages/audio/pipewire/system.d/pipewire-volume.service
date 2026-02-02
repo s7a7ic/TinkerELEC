@@ -1,0 +1,14 @@
+# this service file increases the stock pipewire volume of 0.4 (40%) for the
+# default audio sink to 100%
+[Unit]
+Description=PipeWire Default Volume
+After=kodi.service sound.target
+Requires=kodi.service sound.target
+
+[Service]
+Type=oneshot
+ExecStart=wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%
+RemainAfterExit=true
+
+[Install]
+WantedBy=kodi.target
