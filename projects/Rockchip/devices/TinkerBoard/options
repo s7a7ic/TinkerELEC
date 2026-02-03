@@ -13,7 +13,7 @@
     esac
 
   # Kernel to use
-    LINUX="default"
+    LINUX="tinkerboard"
 
   # Configuration for u-boot
     UBOOT_SYSTEM="rk3288"

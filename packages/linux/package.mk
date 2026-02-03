@@ -16,33 +16,39 @@ PKG_PATCH_DIRS="${LINUX}"
 
 case "${LINUX}" in
   amlogic)
-    PKG_VERSION="86731a2a651e58953fc949573895f2fa6d456841" # 6.16-rc3
-    PKG_SHA256="008b00968a8bfc0627580b82a2d30c7304336a4f92a58e80cdbc2d4723e01840"
+    PKG_VERSION="7d0a66e4bb9081d75c82ec4957c50034cb0ea449" # 6.18.0
+    PKG_SHA256="2617efd103533b57613d16f144ceea575b1a6b890ce5e16201b1d254e2b7b33c"
     PKG_URL="https://github.com/torvalds/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     PKG_PATCH_DIRS="default"
     ;;
   raspberrypi)
-    PKG_VERSION="5a72e3ae00ecdd02244e867c2880a3ac0653ee25" # 6.12.40
-    PKG_SHA256="ef92cb35db68978a76f527988a11046c8598d2a512a03de67c8cde5467ddcecb"
+    PKG_VERSION="d477259acbe9fe42de4aa605c0c3952a2b970b37" # 6.18.7
+    PKG_SHA256="d12318c2afbb7299a294a811d6571cdcf114b1878ac1b86d1f7d98292bb65742"
     PKG_URL="https://github.com/raspberrypi/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
-    PKG_PATCH_DIRS="raspberrypi rtlwifi/6.13 rtlwifi/6.14 rtlwifi/6.15"
+    PKG_PATCH_DIRS="raspberrypi"
     ;;
   rockchip)
-    PKG_VERSION="78d82960b939df64cf7d26ca5ed34eb87f44c9e5" # 6.18.2
-    PKG_SHA256="a11985db0126ba0e80e34a97d4a6e3b77cf13c89a3af76733a44b8c4f8d5b767"
+    PKG_VERSION="5dfbc5357c34bdf81c84aa78bc8e3d6d9ba10aad" # 6.18.7
+    PKG_SHA256="dcb5b08946f044cee1cb584397f981586c8b4565e01a95c668e679b1bcd2470a"
     PKG_URL="https://github.com/chewitt/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
     PKG_PATCH_DIRS="default rockchip"
     ;;
-  *)
+  tinkerboard)
     PKG_VERSION="6.16.12"
     PKG_SHA256="7ca4debc5ca912ebb8a76944a5c118afd5d09e31ef43c494adb14273da29a26e"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
+    PKG_PATCH_DIRS="default tinkerboard"
+    ;;
+  *)
+    PKG_VERSION="6.18.7"
+    PKG_SHA256="b726a4d15cf9ae06219b56d87820776e34d89fbc137e55fb54a9b9c3015b8f1e"
+    PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     case ${DEVICE} in
-      RK3288|RK3328|RK3399|TinkerBoard)
+      RK3288|RK3328|RK3399)
         PKG_PATCH_DIRS+=" rockchip-old"
         ;;
     esac
