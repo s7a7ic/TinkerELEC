@@ -61,11 +61,12 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
 **Extra Package with modifications for my use-case**
-* [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/) is not included in the default image
+* [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
 * SSHD [config](packages/tinkerelec/tinkerelec-config/ssh_config.d/99-close-suspended-sessions.conf) to terminate suspended sessions
-* Prevent Kodi of reacting to events from the NesPi Case buttons
+* Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons
 * TV IR Remote configuration
 * Gamepad configuration for Kodi
+* Disabled connman online check
 
 **Support for NesPi Case+ Buttons**
 * The DTS file can be installed via [addon](packages/tinkerelec/addons/tinkerelec.nespi)
