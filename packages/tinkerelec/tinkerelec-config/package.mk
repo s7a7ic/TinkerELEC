@@ -26,8 +26,4 @@ post_makeinstall_target() {
   sed -e "s,^.*RuntimeWatchdogSec=.*$,RuntimeWatchdogSec=20,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
   sed -e "s,^.*RebootWatchdogSec=.*$,RebootWatchdogSec=5min,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
   #sed -e "s,^.*ShutdownWatchdogSec=.*$,ShutdownWatchdogSec=5min,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
-
-  # nespi case reboot and power key handling
-  sed -e "s,^.*HandleRebootKey=.*$,HandleRebootKey=suspend,g" -i $(get_install_dir systemd)/etc/systemd/logind.conf
-  sed -e "s,^.*HandleRebootKeyLongPress=.*$,HandleRebootKeyLongPress=reboot,g" -i $(get_install_dir systemd)/etc/systemd/logind.conf
 }
