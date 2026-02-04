@@ -2,48 +2,52 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
+> [!CAUTION]
+> This fork was not tested on any other device than the **Tinker Board S**!
+
 > [!NOTE]
 > More information, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
 > Debian 12 (Bookworm) is used to build images from this source code.
 
-> [!CAUTION]
-> This fork was not tested on any other device than the **Tinker Board S**!
-
 ## Reason
 
-I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes.
+I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes. There are some extra packages, that I created for my personal use-case.
 
-I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the device tree to be able to use the intended functionality of the front panel buttons. Also, an IR receiver was added to be able to use a TV remote to control Kodi. I plan to add a temperature-aware fan control integrated inside the case.
+I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the devicetree to be able to use the intended functionality of the front panel buttons (installable DTB via addon). Also, an IR receiver was added to be able to use a TV remote to control Kodi. I plan to add a temperature-aware fan control integrated inside the case.
 
 ## Goals
 
 * Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
 
-* Release 21.3.3
+* Next Release
   * Kernel 6.18 + patches
   * Own Repository for specific Addons
-  * Test gcc 15 without LTO
+  * Test ffmpeg 7.1.3 with patches
 
 * Emulation / Gaming
-  * Add RetroArch as an Kodi Addon
-  * Enhance game launching capability in kodi (something like Advanced Emulator Launcher)
+  * Test RetroArch and enhance launcher addon
+  * Enhance mupen64plus-nx libretro performance
+  * Enhance game launching capability in kodi (test something like Advanced Emulator Launcher)
   * Add Moonlight for game streaming if possible
 
 * Kodi
-  * Add "Sleep Timer" reminder notification
+  * Add "Sleep Timer" reminder notification (develop addon for this)
 
 ## Features
 
 * Kodi 21.3 (Omega) and Kernel 6.16.12
-  * [Modified Estuary Skin](packages/mediacenter/kodi-theme-Estuary)
+  * [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (needs to be enabled and selected)
     * smaller sidemenu and more vertical space
     * tv menu as first option
     * shutdown option removed from power menu in favor of using the power button
     * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
-  * Patches
-    * sleep timer (shutdown/suspend) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
-    * reduced cpu load on idle
-    * fix bluetooth sound lag with pipewire (patch from nexus branch)
+  * Patches for Kodi
+    * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi21-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+    * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi21-gbm-reduce-cpu-idle-load.patch)
+    * fix bluetooth sound lag with pipewire [(patch from xbmc nexus branch)](packages/mediacenter/kodi/patches/kodi21-pipewire-fix-bt-lag.patch)
+    * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi21-remove-use-of-prcecpp.patch) in favor of pcre2
+    * crash fix when changing skins [xbmc/issue](https://github.com/xbmc/xbmc/issues/27552)
+    * don't re-start [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
@@ -53,23 +57,35 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages included in image: btop, evtest, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
-  * ffmpeg 6.0.1, python 3.11.13, taglib 1.13.1
+  * ffmpeg 6.1.2 (patched), python 3.11.13, taglib 1.13.1
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
+**Extra Package with modifications for my use-case**
+* [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/) is not included in the default image
+* SSHD [config](packages/tinkerelec/tinkerelec-config/ssh_config.d/99-close-suspended-sessions.conf) to terminate suspended sessions
+* Prevent Kodi of reacting to events from the NesPi Case buttons
+* TV IR Remote configuration
+* Gamepad configuration for Kodi
+
 **Support for NesPi Case+ Buttons**
-* [NesPi Case Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/devices/TinkerBoard/patches/linux/nespi-case/dts-rk3288-tinker-nespi-case.patch)
+* The DTS file can be installed via [addon](packages/tinkerelec/addons/tinkerelec.nespi)
+* [NesPi Case Patchfile for the RK3288-Tinker.dtsi](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-nespi-case.patch)
 * Power Button: wake from suspend and soft shutdown when delatching
 * Reset Button: suspend, wake and reboot on longpress
 * Power LED control via /sys/class/leds/led-case interface
 
 **Infrared Receiver**
-* [IR Receiver Patchfile for the RK3288-Tinker.dtsi](projects/Rockchip/devices/TinkerBoard/patches/linux/nespi-case/dts-rk3288-tinker-ir-receiver.patch)
+* [IR Receiver Patchfile for the RK3288-Tinker.dtsi](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-ir-receiver.patch)
 
 ## Known Problems
 
+**DNS resolution is not working after the setup-wizard**
+- Reboot system or restart connman and network-base service
+
 **Low Volume with Pipewire**
-* Set volume to 100% with `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
-* Set automatically on boot with [autostart.sh](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/scripts/autostart.sh)
+* Fixed for the default audio sink via [service file](packages/audio/pipewire/system.d/pipewire-volume.service)
+* Volume can be set to 100% with this command: `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
+* If you want to set this in autostart.sh (maybe for another sink), kodi has to be running
 
 **Wireless LAN**
 * WPA3 isn't supported by the alternative driver
@@ -77,6 +93,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
 * So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* Enabled visualizations while playing music cause graphical glitches on menu icons and text
 * AirPlay was disabled because of the error "zeroconf not enabled" with updated packages; I'm using [Snapcast](https://github.com/snapcast/snapcast) for this task
 
 **System**
@@ -108,7 +125,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Random SEGFAULT (system freeze + crash)**
 * I've identified gcc 15 as the culprid for random (hard to reproduce) system crashes and decided to stay on gcc 13.2.0 to keep the system stable
 * Added some [patches for gcc 13](packages/lang/gcc/patches/) to build and run an updated system (with glibc 2.42)
-* Further stability tests: gcc 15 with disabled LTO
 
 ## Install to EMMC
 
