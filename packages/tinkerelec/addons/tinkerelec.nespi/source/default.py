@@ -13,30 +13,35 @@ util_script = os.path.join(bin_folder, 'nespi-dtb-install.sh')
 
 title = 'NesPi+ DTB Installer'
 
-def getLocalizedString(id):
-	if (id < 32000):
-		return xbmc.getLocalizedString(id)
-	else:
-		return addon.getLocalizedString(id)
+def sendNotification(message):
+	xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(title, message, 5000, icon))
 
 def installDtb():
-	install = subprocess.run([util_script, 'install', addon_dir])
+	install = subprocess.run([util_script, 'install'])
 	if install.returncode == 0:
-		xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(title, 'Success', 5000, icon))
-# TODO: ask wanna reboot?
-#on fail: xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%('NesPi+ DTB', 'dtb was not installed', 5000, icon))
-
-def checkState():
-	check = subprocess.run([util_script, 'check', addon_dir])
-	if check.returncode == 0:
-		Dialog().ok(title, 'The DTB file is already installed')
+		Dialog().yesno(title, 'DTB file successfully installed, do you want to reboot?')
 	else:
-		ret = Dialog().yesno(title, 'Install or update the DTB file?')
-		if ret == True:
-			installDtb()
+		sendNotification('ERROR: failed to install')
 
-if len(sys.argv) > 1:
-	if sys.argv[1] == 'reset':
-		quit()
+def uninstallDtb():
+	install = subprocess.run([util_script, 'uninstall'])
+	if install.returncode == 0:
+		sendNotification('Successfully Uninstalled')
+	else:
+		sendNotification('ERROR: failed to uninstall')
 
-checkState()
+check = subprocess.run([util_script, 'check'])
+if check.returncode == 0:
+	ret = Dialog().yesno(title, 'DTB file is already installed, do you want to uninstall?')
+	if ret == True:
+		uninstallDtb()
+elif check.returncode == 2:
+	ret = Dialog().yesnocustom(title, 'DTB file is installed but had a checksum missmatch', 'Uninstall', 'Cancel', 'Update', 30000)
+	if ret == 1:
+		installDtb()
+	elif ret == 2:
+		uninstallDtb()
+else:
+	ret = Dialog().yesno(title, 'Install the DTB file?')
+	if ret == True:
+		installDtb()
