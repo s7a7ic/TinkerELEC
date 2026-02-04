@@ -19,7 +19,9 @@ def sendNotification(message):
 def installDtb():
 	install = subprocess.run([util_script, 'install'])
 	if install.returncode == 0:
-		Dialog().yesno(title, 'DTB file successfully installed, do you want to reboot?')
+		ret = Dialog().yesno(title, 'DTB file successfully installed, do you want to reboot?')
+		if ret == True:
+			subprocess.call('reboot')
 	else:
 		sendNotification('ERROR: failed to install')
 
