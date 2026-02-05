@@ -1,6 +1,6 @@
 --- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
 +++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
-@@ -70,6 +70,15 @@
+@@ -70,6 +70,13 @@
  			<&gpio4 RK_PD4 GPIO_ACTIVE_LOW>;
  	};
  
@@ -9,14 +9,12 @@
 +		gpios = <&gpio8 RK_PB0 GPIO_ACTIVE_LOW>;
 +		pinctrl-0 = <&ir_int>;
 +		pinctrl-names = "default";
-+		linux,rc-map-name = "rc-empty";
-+		wakeup-source;
 +	};
 +
  	sound {
  		compatible = "simple-audio-card";
  		simple-audio-card,format = "i2s";
-@@ -398,6 +407,12 @@
+@@ -398,6 +405,12 @@
  		};
  	};
  
