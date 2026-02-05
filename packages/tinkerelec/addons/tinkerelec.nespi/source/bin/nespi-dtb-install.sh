@@ -15,7 +15,7 @@ check_sha256() {
 }
 
 if [ $# -eq 0 ]; then
-    echo 'supported arguments: check, install, uninstall'
+    echo "supported arguments: check, install, uninstall"
     exit 0
 fi
 

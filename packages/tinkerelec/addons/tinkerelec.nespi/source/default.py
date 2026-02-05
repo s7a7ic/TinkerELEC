@@ -5,10 +5,9 @@ import xbmc
 from xbmcaddon import Addon
 from xbmcgui import Dialog
 
-addon = Addon()
-addon_dir = addon.getAddonInfo('path')
+addon_dir = Addon().getAddonInfo('path')
 bin_folder = os.path.join(addon_dir, 'bin')
-icon = addon.getAddonInfo('icon')
+icon = Addon().getAddonInfo('icon')
 util_script = os.path.join(bin_folder, 'nespi-dtb-install.sh')
 
 title = 'NesPi+ DTB Installer'
