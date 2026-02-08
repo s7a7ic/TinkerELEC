@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ffmpeg"
-PKG_VERSION="6.1.2"
-PKG_SHA256="3b624649725ecdc565c903ca6643d41f33bd49239922e45c9b1442c63dca4e38"
+PKG_VERSION="7.1.3"
+PKG_SHA256="f0bf043299db9e3caacb435a712fc541fbb07df613c4b893e8b77e67baf3adbe"
 PKG_LICENSE="GPL-3.0-only"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="http://ffmpeg.org/releases/ffmpeg-${PKG_VERSION}.tar.xz"
@@ -167,7 +167,6 @@ configure_target() {
               --disable-gray \
               --enable-swscale-alpha \
               --disable-small \
-              --disable-crystalhd \
               ${PKG_FFMPEG_V4L2} \
               ${PKG_FFMPEG_VAAPI} \
               --disable-vdpau \
