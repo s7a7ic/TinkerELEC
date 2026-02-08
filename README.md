@@ -69,7 +69,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Disabled connman online check
 
 **Support for NesPi Case+ Buttons**
-* The DTS file can be installed via [addon](packages/tinkerelec/addons/tinkerelec.nespi)
+* The DTS file can be installed via [kodi addon](packages/tinkerelec/addons/tinkerelec.nespi)
 * [NesPi Case Patchfile for the RK3288-Tinker.dtsi](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-nespi-case.patch)
 * Power Button: wake from suspend and soft shutdown when delatching
 * Reset Button: suspend, wake and reboot on longpress
@@ -117,7 +117,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **USB Device detection when system is running**
 * System doesn't detect USB devices plugged in when fully booted and running
 * Fixed with [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
-* (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/tinker-s/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
+* (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/patches/linux-6.12/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 **Audio over 3.5mm Jack**
 * Added required [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf)
