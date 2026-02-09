@@ -18,7 +18,4 @@ makeinstall_target() {
 post_makeinstall_target() {
   mkdir -p ${INSTALL}/usr/config
   cp -PR ${PKG_DIR}/config/* ${INSTALL}/usr/config
-
-  mkdir -p ${INSTALL}/etc/ssh/ssh_config.d
-  cp ${PKG_DIR}/ssh_config.d/*.conf ${INSTALL}/etc/ssh/ssh_config.d
 }
