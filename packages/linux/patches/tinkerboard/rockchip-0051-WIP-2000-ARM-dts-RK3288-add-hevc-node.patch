@@ -1,44 +1,43 @@
-From 5fed19731f3305ef99b80dc7f9d33f8f35918246 Mon Sep 17 00:00:00 2001
 From: Alex Bee <knaerzche@gmail.com>
-Date: Sat, 30 Jan 2021 18:27:30 +0100
-Subject: [PATCH 51/59] WIP/2000: ARM: dts: RK3288: add hevc node
+Date: Fri, 05 Sep 2025 16:19:25 +0000
+Subject: [PATCH v3 7/7] ARM: dts: rockchip: Add vdec node for RK3288
+
+RK3288 contains a Rockchip VDEC block that only support HEVC
+decoding. Add a vdec node for this.
 
 Signed-off-by: Alex Bee <knaerzche@gmail.com>
+Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
 ---
- arch/arm/boot/dts/rockchip/rk3288.dtsi | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/rockchip/rk3288.dtsi | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/rockchip/rk3288.dtsi b/arch/arm/boot/dts/rockchip/rk3288.dtsi
-index 5f3e3cc8757c..64e9d757d712 100644
+index 42d705b544ec..eab0c9a2d482 100644
 --- a/arch/arm/boot/dts/rockchip/rk3288.dtsi
 +++ b/arch/arm/boot/dts/rockchip/rk3288.dtsi
-@@ -1285,6 +1285,25 @@ vpu_mmu: iommu@ff9a0800 {
+@@ -1293,6 +1293,21 @@ vpu_mmu: iommu@ff9a0800 {
  		power-domains = <&power RK3288_PD_VIDEO>;
  	};
  
-+	hevc: hevc@ff9c0000 {
-+		compatible = "rockchip,rk3288-hevc";
-+		reg = <0x0 0xff9c0000 0x0 0x400>;
++	hevc: video-codec@ff9c0000 {
++		compatible = "rockchip,rk3288-vdec";
++		reg = <0x0 0xff9c0000 0x0 0x440>;
 +		interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "irq_dec";
-+		clocks = <&cru ACLK_HEVC>, <&cru HCLK_HEVC>, <&cru SCLK_HEVC_CABAC>,
-+			 <&cru SCLK_HEVC_CORE>;
++		clocks = <&cru ACLK_HEVC>, <&cru HCLK_HEVC>,
++			 <&cru SCLK_HEVC_CABAC>, <&cru SCLK_HEVC_CORE>;
 +		clock-names = "axi", "ahb", "cabac", "core";
 +		assigned-clocks = <&cru ACLK_HEVC>, <&cru HCLK_HEVC>,
-+				   <&cru SCLK_HEVC_CORE>,
-+				   <&cru SCLK_HEVC_CABAC>;
++				  <&cru SCLK_HEVC_CABAC>, <&cru SCLK_HEVC_CORE>;
 +		assigned-clock-rates = <400000000>, <100000000>,
 +				       <300000000>, <300000000>;
 +		iommus = <&hevc_mmu>;
 +		power-domains = <&power RK3288_PD_HEVC>;
-+		resets =  <&cru SRST_HEVC>;
-+		reset-names = "video_core";
 +	};
 +
  	hevc_mmu: iommu@ff9c0440 {
  		compatible = "rockchip,iommu";
  		reg = <0x0 0xff9c0440 0x0 0x40>, <0x0 0xff9c0480 0x0 0x40>;
-@@ -1292,7 +1311,7 @@ hevc_mmu: iommu@ff9c0440 {
+@@ -1300,7 +1315,7 @@ hevc_mmu: iommu@ff9c0440 {
  		clocks = <&cru ACLK_HEVC>, <&cru HCLK_HEVC>;
  		clock-names = "aclk", "iface";
  		#iommu-cells = <0>;
@@ -48,5 +47,4 @@ index 5f3e3cc8757c..64e9d757d712 100644
  
  	gpu: gpu@ffa30000 {
 -- 
-2.34.1
-
+2.51.0
