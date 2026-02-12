@@ -17,12 +17,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Goals
 
-* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
+* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi 22 Nexus)
 
 * Next Release
-  * Kernel 6.18 + patches
+  * Kernel 6.19 + patches and testing of rtl8723bs staging driver
   * Own Repository for specific Addons
   * Test ffmpeg 7.1.3 with patches
+  * Test Kodi 22 Alpha on separate branch
 
 * Emulation / Gaming
   * Test RetroArch and enhance launcher addon
@@ -48,21 +49,23 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
     * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi21-remove-use-of-prcecpp.patch) in favor of pcre2
     * crash fix when changing skins [xbmc/issue](https://github.com/xbmc/xbmc/issues/27552)
     * don't re-start [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* Kernel 6.16.12
+  * Enabled BFQ I/O scheduler
+  * CONFIG_HZ set to 100 instead of 300 (smoother UI response, probably less cpu interrupt overhead)
+  * Disabled XFS / BTRFS support
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 * Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
 * On Suspend / On Resume script support [via custom-sleep.sh](packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
-* Enabled BFQ I/O scheduler
 * Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages included in image: btop, evtest, rsync
 * Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
-  * ffmpeg 6.1.2 (patched), python 3.11.13, taglib 1.13.1
+  * ffmpeg 6.1.4 (patched), python 3.11.13, taglib 1.13.1
   * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
 
 **Extra Package with modifications for my use-case**
 * [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
-* SSHD [config](packages/tinkerelec/tinkerelec-config/ssh_config.d/99-close-suspended-sessions.conf) to terminate suspended sessions
 * Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons
 * TV IR Remote configuration
 * Gamepad configuration for Kodi
