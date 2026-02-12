@@ -37,14 +37,14 @@ case "${LINUX}" in
     PKG_PATCH_DIRS="default rockchip"
     ;;
   tinkerboard)
-    PKG_VERSION="6.16.12"
-    PKG_SHA256="7ca4debc5ca912ebb8a76944a5c118afd5d09e31ef43c494adb14273da29a26e"
+    PKG_VERSION="6.19"
+    PKG_SHA256="303079a8250b8f381f82b03f90463d12ac98d4f6b149b761ea75af1323521357"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default tinkerboard"
     ;;
   *)
-    PKG_VERSION="6.18.7"
-    PKG_SHA256="b726a4d15cf9ae06219b56d87820776e34d89fbc137e55fb54a9b9c3015b8f1e"
+    PKG_VERSION="6.19"
+    PKG_SHA256="303079a8250b8f381f82b03f90463d12ac98d4f6b149b761ea75af1323521357"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
     PKG_PATCH_DIRS="default"
     case ${DEVICE} in
