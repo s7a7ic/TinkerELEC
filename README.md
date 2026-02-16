@@ -29,7 +29,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * Test RetroArch and enhance launcher addon
   * Enhance mupen64plus-nx libretro performance
   * Enhance game launching capability in kodi (test something like Advanced Emulator Launcher)
-  * Add Moonlight for game streaming if possible
 
 * Kodi
   * Add "Sleep Timer" reminder notification (develop addon for this)
@@ -107,7 +106,7 @@ Updated packages from LibreELEC.tv master branch
   * So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * Shadertoy visualization causes graphical glitches on menu icons and text
 * AirPlay was disabled because of the error "zeroconf not enabled" with updated packages; I'm using [Snapcast](https://github.com/snapcast/snapcast) for this task
-* Games with libretro aspect ratio... dont change to ???
+* Setting the "Stretch" mode to "original" for games under libretro causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
 **System**
 * Splash screen won't show after the system was resumed from suspend (on shutdown or reboot)
@@ -119,9 +118,9 @@ Updated packages from LibreELEC.tv master branch
 * System automatically boots on Kernel 6.16+ after some time (about 30 seconds)
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
 
-**Wireless LAN**
+**Wireless LAN (internal)**
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
-* Loading of the kernel staging driver is disabled [config file](packages/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
+* Loading of the kernel staging driver is blacklisted for TinkerBoard [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf)
 * ~~Disabling power saving with module parameters for the staging driver led to a stable wifi connection~~
 
 **Bluetooth (internal)**
