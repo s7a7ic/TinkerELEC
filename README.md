@@ -114,20 +114,20 @@ Updated packages from LibreELEC.tv master branch
 ## Resolved Problems
 
 **Full Shutdown (kernel)**
-* System doesn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
-* System automatically boots on Kernel 6.16+ after some time (about 30 seconds)
-* [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
+* System didn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
+* System automatically booted on Kernel 6.16+ after some time (about 30 seconds)
+* Fixed by [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch)
 
 **Wireless LAN (internal)**
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
-* Loading of the kernel staging driver is blacklisted for TinkerBoard [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf)
+* Loading of the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) for TinkerBoard
 * ~~Disabling power saving with module parameters for the staging driver led to a stable wifi connection~~
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
 
 **USB Device detection when system is running**
-* System doesn't detect USB devices plugged in when fully booted and running
+* System didn't detect USB devices plugged in when fully booted and running
 * Fixed with [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
 * (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/patches/linux-6.12/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
