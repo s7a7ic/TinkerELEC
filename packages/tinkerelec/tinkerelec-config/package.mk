@@ -18,12 +18,4 @@ makeinstall_target() {
 post_makeinstall_target() {
   mkdir -p ${INSTALL}/usr/config
   cp -PR ${PKG_DIR}/config/* ${INSTALL}/usr/config
-
-  mkdir -p ${INSTALL}/etc/ssh/ssh_config.d
-  cp ${PKG_DIR}/ssh_config.d/*.conf ${INSTALL}/etc/ssh/ssh_config.d
-
-  # watchdog configuration
-  sed -e "s,^.*RuntimeWatchdogSec=.*$,RuntimeWatchdogSec=20,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
-  sed -e "s,^.*RebootWatchdogSec=.*$,RebootWatchdogSec=5min,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
-  #sed -e "s,^.*ShutdownWatchdogSec=.*$,ShutdownWatchdogSec=5min,g" -i $(get_install_dir systemd)/etc/systemd/system.conf
 }

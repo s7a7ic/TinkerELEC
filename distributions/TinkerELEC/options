@@ -70,7 +70,7 @@
 # for a list of additional drivers see packages/linux-drivers
 # Space separated list is supported,
 # e.g. ADDITIONAL_DRIVERS="DRIVER1 DRIVER2"
-  ADDITIONAL_DRIVERS="RTL8723BS"
+  ADDITIONAL_DRIVERS=""
 
 # Default size of system partition, in MB, eg. 512
   SYSTEM_SIZE=512
@@ -199,6 +199,9 @@
 # Use ! or - prefix to prevent a dependent package from being built with debug. Add + suffix to build dependenencies with debug.
   DEBUG_GROUPS="kodi+=kodi+,kodi-platform+,p8-platform+,!mesa"
   DEBUG_GROUP_YES="kodi+"
+
+# wireless daemon to use (wpa_supplicant/iwd)
+  WIRELESS_DAEMON="iwd"
 
 # build with NFS support (mounting nfs shares via the OS) (yes / no)
   NFS_SUPPORT="yes"

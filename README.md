@@ -17,12 +17,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Goals
 
-* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi Nexus)
+* Keep source compatible with LibreELEC.tv master branch (update packages, but keep system stable while running Kodi Omega until the release of Kodi 22 Nexus)
 
 * Next Release
-  * Kernel 6.18 + patches
+  * Kernel 6.19 + patches and testing of rtl8723bs staging driver
   * Own Repository for specific Addons
   * Test ffmpeg 7.1.3 with patches
+  * Test Kodi 22 Alpha on separate branch
 
 * Emulation / Gaming
   * Test RetroArch and enhance launcher addon
@@ -33,38 +34,48 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Kodi
   * Add "Sleep Timer" reminder notification (develop addon for this)
 
-## Features
+## Features and Changes
 
-* Kodi 21.3 (Omega) and Kernel 6.16.12
-  * [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (needs to be enabled and selected)
-    * smaller sidemenu and more vertical space
-    * tv menu as first option
-    * shutdown option removed from power menu in favor of using the power button
-    * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
-  * Patches for Kodi
-    * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi21-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
-    * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi21-gbm-reduce-cpu-idle-load.patch)
-    * fix bluetooth sound lag with pipewire [(patch from xbmc nexus branch)](packages/mediacenter/kodi/patches/kodi21-pipewire-fix-bt-lag.patch)
-    * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi21-remove-use-of-prcecpp.patch) in favor of pcre2
-    * crash fix when changing skins [xbmc/issue](https://github.com/xbmc/xbmc/issues/27552)
-    * don't re-start [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+Updated packages from LibreELEC.tv master branch
+
+**Kodi 21.3 (Omega)**
+* Packages kept on specific version for Kodi 21 compatibility and stability
+  * ffmpeg 6.1.4 (patched), python 3.11.13, taglib 1.13.1
+  * `packages/addons` and `packages/mediacenter/kodi-binary-addons` are from the libreelec-12.2 branch
+* Patches for Kodi
+  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi21-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi21-gbm-reduce-cpu-idle-load.patch)
+  * fix bluetooth sound lag with pipewire [(patch from xbmc nexus branch)](packages/mediacenter/kodi/patches/kodi21-pipewire-fix-bt-lag.patch)
+  * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi21-remove-use-of-prcecpp.patch) in favor of pcre2
+  * crash fix when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
+  * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (not enabled by default, needs to be enabled and selected)
+  * smaller sidemenu and more vertical space
+  * tv menu as first option
+  * shutdown option removed from power menu in favor of using the power button
+  * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
+
+**Kernel 6.16.12**
+* Enabled BFQ I/O scheduler (not enabled by default)
+* CONFIG_HZ set to 100 instead of 300 (smoother UI response, probably less cpu interrupt overhead)
+* Disabled XFS / BTRFS support
+
+**System / Image changes**
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
-* Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
-* Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
 * On Suspend / On Resume script support [via custom-sleep.sh](packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
-* Enabled BFQ I/O scheduler
-* Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 * Additional packages included in image: btop, evtest, rsync
-* Updated packages from the LibreELEC master branch (except essential package versions for Kodi 21)
-  * ffmpeg 6.1.2 (patched), python 3.11.13, taglib 1.13.1
-  * packages/addons and packages/mediacenter/kodi-binary-addons are from the libreelec-12.2 branch
+
+**Tinker Board S specific**
+* GCC kept on version 13.2.0 for better stability
+* Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
+* Enabled Bluetooth by [dts-rk3288-tinker-bt-rtl8723bs.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-bt-rtl8723bs.patch)
+* Enabled 500 Mhz GPU frequency via [dts-rk3288-gpu-500mhz-opp.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 
 **Extra Package with modifications for my use-case**
 * [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
-* SSHD [config](packages/tinkerelec/tinkerelec-config/ssh_config.d/99-close-suspended-sessions.conf) to terminate suspended sessions
-* Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons
-* TV IR Remote configuration
+* Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
+* TV IR remote configuration
 * Gamepad configuration for Kodi
 * Disabled connman online check
 
@@ -86,19 +97,20 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Low Volume with Pipewire**
 * Fixed for the default audio sink via [service file](packages/audio/pipewire/system.d/pipewire-volume.service)
 * Volume can be set to 100% with this command: `wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%`
-* If you want to set this in autostart.sh (maybe for another sink), kodi has to be running
+* If you want to set this in autostart.sh (maybe for another sink), Kodi has to be running
 
 **Wireless LAN**
-* WPA3 isn't supported by the alternative driver
+* WPA3 isn't supported by the rtl8723bs driver (yet?)
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
-* So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
-* Enabled visualizations while playing music cause graphical glitches on menu icons and text
+  * So it's disabled in TinkerELEC via this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+* Shadertoy visualization causes graphical glitches on menu icons and text
 * AirPlay was disabled because of the error "zeroconf not enabled" with updated packages; I'm using [Snapcast](https://github.com/snapcast/snapcast) for this task
+* Games with libretro aspect ratio... dont change to ???
 
 **System**
-* Splash screen won't show on shutdown or reboot, after the system was resumed from suspend
+* Splash screen won't show after the system was resumed from suspend (on shutdown or reboot)
 
 ## Resolved Problems
 
@@ -108,8 +120,9 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch) enables full shutdown behaviour
 
 **Wireless LAN**
-* Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.18)
-* Loading of the kernel staging driver is disabled via [config file](packages/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
+* Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
+* Loading of the kernel staging driver is disabled [config file](packages/linux-drivers/RTL8723BS/config/modprobe.d/disable-rtl8723bs-staging-driver.conf)
+* ~~Disabling power saving with module parameters for the staging driver led to a stable wifi connection~~
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect

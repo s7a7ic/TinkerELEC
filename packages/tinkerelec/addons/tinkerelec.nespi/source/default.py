@@ -36,6 +36,8 @@ if check.returncode == 0:
 	ret = Dialog().yesno(title, 'DTB file is already installed, do you want to uninstall?')
 	if ret == True:
 		uninstallDtb()
+elif check.returncode == 3:
+	sendNotification('ERROR: unsupported device')
 elif check.returncode == 2:
 	ret = Dialog().yesnocustom(title, 'DTB file is installed but had a checksum missmatch', 'Uninstall', 'Cancel', 'Update', 30000)
 	if ret == 1:
