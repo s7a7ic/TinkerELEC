@@ -1,4 +1,5 @@
 #!/bin/sh
+# this script gets called from /usr/lib/systemd/system-sleep.serial/20-custom-sleep.sh
 
 case "$1" in
   pre)
