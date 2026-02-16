@@ -62,7 +62,6 @@ Updated packages from LibreELEC.tv master branch
 **System / Image changes**
 * Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
-* On Suspend / On Resume script support [via custom-sleep.sh](packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
 * Additional packages included in image: btop, evtest, rsync
 
 **Tinker Board S specific**
@@ -73,6 +72,7 @@ Updated packages from LibreELEC.tv master branch
 
 **Extra Package with modifications for my use-case**
 * [Package "tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
+* On Suspend / On Resume [script support](packages/tinkerelec/tinkerelec-config/config/sleep.d/suspend_resume.power)
 * Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
 * TV IR remote configuration
 * Gamepad configuration for Kodi
