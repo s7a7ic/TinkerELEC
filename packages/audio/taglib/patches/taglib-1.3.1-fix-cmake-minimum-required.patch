@@ -1,8 +1,0 @@
---- a/CMakeLists.txt
-+++ b/CMakeLists_new.txt
-@@ -1,4 +1,4 @@
--cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
-+cmake_minimum_required(VERSION 3.5.0 FATAL_ERROR)
- 
- project(taglib)
- 
