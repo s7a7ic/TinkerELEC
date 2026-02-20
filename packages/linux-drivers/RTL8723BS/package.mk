@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 PKG_NAME="RTL8723BS"
-PKG_VERSION="039171be4d77252f8087439a340cf90fcf679e31"
-PKG_SHA256="cbbef09acf8f9af56eb2ee7f7cce33abe619cee53716326f058e786f51691dc2"
+PKG_VERSION="031e0a4d8210f7c1d4d9a43153a53b9d892e4a53"
+PKG_SHA256="5a92e1a883d1577bc67585302eddc57c64c83c8a2642bfc963ce10c32ee4b696"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/s7a7ic/rockchip_wlan"
 PKG_URL="https://github.com/s7a7ic/rockchip_wlan/archive/${PKG_VERSION}.tar.gz"
