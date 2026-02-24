@@ -19,10 +19,6 @@ PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="Minisatip"
 PKG_ADDON_TYPE="xbmc.service"
 
-PKG_CONFIGURE_OPTS_TARGET="--disable-netcv \
-                           --enable-dvbca \
-                           --enable-dvbcsa"
-
 pre_configure_target() {
   cd ${PKG_BUILD}
     rm -rf .${TARGET_NAME}
