@@ -3,7 +3,7 @@
 [Unit]
 Description=PipeWire Default Volume
 After=kodi.service sound.target
-Requires=kodi.service sound.target
+Requires=pipewire.service
 
 [Service]
 Type=oneshot
