@@ -198,7 +198,7 @@ if [ -z "${EMMC}" ]; then
 fi
 
 case $(dtname) in
-  azw* | bananapi* | firefly* | friendlyarm* | hardkernel* | khadas* | libretech* | radxa* | wetek*)
+  azw* | bananapi* | firefly* | friendlyarm* | hardkernel* | khadas* | libretech* | radxa* | wetek* | asus,rk3288-tinker-s)
     if [ "${BOOT}" = "${EMMC}" ]; then
       do_info
       echo "Your device is booted from the eMMC module!"
