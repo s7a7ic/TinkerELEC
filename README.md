@@ -42,11 +42,11 @@ Updated packages from LibreELEC.tv master branch
   * ffmpeg 6.1.4 (patched), python 3.11.13, taglib 1.13.1
   * `packages/addons` and `packages/mediacenter/kodi-binary-addons` are from the libreelec-12.2 branch
 * Patches for Kodi
-  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi21-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
-  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi21-gbm-reduce-cpu-idle-load.patch)
-  * fix bluetooth sound lag with pipewire [(patch from xbmc master branch)](packages/mediacenter/kodi/patches/kodi21-pipewire-fix-bt-lag.patch)
-  * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi21-remove-use-of-prcecpp.patch) in favor of pcre2
-  * crash fix when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
+  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-200.02-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-200.04-gbm-reduce-cpu-idle-load.patch)
+  * fix bluetooth sound lag with pipewire [(patch from xbmc master branch)](packages/mediacenter/kodi/patches/kodi-200.05-pipewire-fix-bt-lag.patch)
+  * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
+  * [crash fix when changing skins or language](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (not enabled by default, needs to be enabled and selected)
   * smaller sidemenu and more vertical space
@@ -60,7 +60,7 @@ Updated packages from LibreELEC.tv master branch
 * Disabled XFS / BTRFS support
 
 **System / Image changes**
-* Alternative Wireless Driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
+* Alternative wireless driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Pipewire as default audio backend (for "Low Volume Fix" see [Known Problems](#known-problems))
 * Additional packages included in image: btop, evtest, rsync
 * Default password: tinkerelec
@@ -79,7 +79,7 @@ Updated packages from LibreELEC.tv master branch
 * Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
 * TV IR remote configuration
 * Gamepad configuration for Kodi
-* Disabled connman online check
+* Disabled connman online check by default: `/storage/.config/connman_main.conf`
 
 **Patched DTB for my use-case**
 * [Kodi addon package](packages/tinkerelec/addons/tinkerelec.nespi) for installing the patched DTB
@@ -101,16 +101,16 @@ Updated packages from LibreELEC.tv master branch
 
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
+* Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
   * So it's disabled in TinkerELEC with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
-* Shadertoy visualization causes graphical glitches on menu icons and text
-* AirPlay was disabled because of the error "zeroconf not enabled" with updated packages; I'm using [Snapcast](https://github.com/snapcast/snapcast) for this task
+* Shadertoy visualization for music playback causes graphical glitches on menu icons and text
 * Setting the "Stretch" mode to "original" for games under libretro causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
 **System**
-* Splash screen won't show after the system was resumed from suspend (on shutdown or reboot)
+* Splash screen won't show (on shutdown or reboot) after the system was resumed from suspend
 
 ## Resolved Problems
 
