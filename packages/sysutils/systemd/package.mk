@@ -63,7 +63,7 @@ PKG_MESON_OPTS_TARGET="--libdir=/usr/lib \
                        -Dlocaled=false \
                        -Dmachined=false \
                        -Dportabled=false \
-                       -Duserdb=true \
+                       -Duserdb=false \
                        -Dnologin-path=/usr/sbin/nologin \
                        -Dhomed=disabled \
                        -Dnetworkd=false \
@@ -87,7 +87,7 @@ PKG_MESON_OPTS_TARGET="--libdir=/usr/lib \
                        -Dnss-myhostname=false \
                        -Dnss-mymachines=disabled \
                        -Dnss-resolve=disabled \
-                       -Dnss-systemd=true \
+                       -Dnss-systemd=false \
                        -Dman=disabled \
                        -Dhtml=disabled \
                        -Dlink-udev-shared=true \
@@ -203,7 +203,7 @@ post_makeinstall_target() {
   safe_remove ${INSTALL}/usr/lib/systemd/systemd-time-wait-sync
 
   # remove the userdbctl load-credentials script - no service (addon) require the creation of static users
-  safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-userdb-load-credentials.service
+#  safe_remove ${INSTALL}/usr/lib/systemd/system/systemd-userdb-load-credentials.service
 
   # tune journald.conf
   sed -e "s,^.*Compress=.*$,Compress=no,g" -i ${INSTALL}/etc/systemd/journald.conf
@@ -324,7 +324,7 @@ post_install() {
   enable_service network-base.service
   enable_service systemd-timesyncd.service
   enable_service systemd-timesyncd-setup.service
-  enable_service systemd-userdbd.socket
+  #enable_service systemd-userdbd.socket
   if [ "${LOCAL_LOGIN}" = "yes" ]; then
     enable_service getty@tty0.service
   fi
