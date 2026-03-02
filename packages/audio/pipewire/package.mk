@@ -78,6 +78,8 @@ PKG_MESON_OPTS_TARGET="-Ddocs=disabled \
 post_makeinstall_target() {
   # connect to the system bus
   sed '/^\[Service\]/a Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/dbus/system_bus_socket' -i ${INSTALL}/usr/lib/systemd/system/pipewire.service
+  # fix systemd service dependencies to allow fs-resize to run before systemd-tmpfiles-setup
+  sed 's/WantedBy=default.target/WantedBy=multi-user.target/g' -i ${INSTALL}/usr/lib/systemd/system/pipewire.service
 }
 
 post_install() {
@@ -88,4 +90,5 @@ post_install() {
 
   enable_service pipewire.socket
   enable_service pipewire.service
+  enable_service pipewire-volume.service
 }
