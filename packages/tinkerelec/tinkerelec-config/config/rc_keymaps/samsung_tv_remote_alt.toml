@@ -1,0 +1,23 @@
+# samsung_tv_remote (AA59-00741A) - alternative layout for tv menu control
+# path: /storage/.config/rc_keymaps/samsung_tv_remote_alt.toml
+# NOTE: special keys should have no mapping in kodi (KEY_F1, ...)
+#       check Lircmap.xml and remote.xml for reference
+[[protocols]]
+name = "samsung_tv_remote"
+protocol = "nec"
+variant = "necx"
+
+# SPECIAL KEYS to use with irexec -d /storage/.config/lircrc
+# KEY_F6: call rest-api: power tv on
+# KEY_F5: load default keymap (allow kodi control)
+
+[protocols.scancodes]
+0x70702 = "KEY_F6" # power
+0x7072d = "KEY_F5" # exit
+0x7076c = "KEY_POWER" # red
+0x70714 = "KEY_ANGLE" # green (Action: FullScreen)
+0x70715 = "KEY_VOLUMEDOWN" # yellow
+0x70716 = "KEY_VOLUMEUP" # blue
+0x70746 = "KEY_STOP" # stop
+0x70747 = "KEY_PLAY" # play
+0x7074a = "KEY_PAUSE" # pause
