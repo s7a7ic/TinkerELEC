@@ -1,0 +1,11 @@
+--- a/resources/lib/defaults.py
++++ b/resources/lib/defaults.py
+@@ -86,7 +86,7 @@
+     }
+ 
+ updates = {
+-    'ENABLED': not os.path.exists('/dev/.update_disabled'),
++    'ENABLED': not os.path.exists('/storage/.config/update_disabled'),
+     'UPDATE_REQUEST_URL': 'https://update.libreelec.tv/updates.php',
+     'UPDATE_DOWNLOAD_URL': 'http://%s.libreelec.tv/%s',
+     'LOCAL_UPDATE_DIR': '/storage/.update/',
