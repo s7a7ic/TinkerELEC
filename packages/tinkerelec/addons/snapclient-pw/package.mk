@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: GPL-2.0
+
+PKG_NAME="snapclient-pw"
+PKG_VERSION="0.34.0"
+PKG_REV="0"
+PKG_ARCH="any"
+PKG_LICENSE="GPLv3"
+PKG_DEPENDS_TARGET="toolchain snapcast"
+PKG_SECTION="service"
+PKG_SHORTDESC="Snapclient: Synchronous multi-room audio client"
+PKG_LONGDESC="Snapclient (${PKG_VERSION}) is a Snapcast client. Snapcast is a multi-room client-server audio system, where all clients are time synchronized with the server to play perfectly synced audioplays."
+PKG_TOOLCHAIN="manual"
+
+PKG_IS_ADDON="yes"
+PKG_ADDON_NAME="Snapclient"
+PKG_ADDON_TYPE="xbmc.service.library"
+PKG_MAINTAINER="s7a7ic"
+
+if [ "${ALSA_SUPPORT}" = yes ]; then
+  PKG_DEPENDS_TARGET+=" alsa-plugins"
+fi
+
+addon() {
+  mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/{bin,lib.private}
+
+  cp $(get_install_dir snapcast)/usr/bin/snapclient \
+     ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
+  patchelf --add-rpath '${ORIGIN}/../lib.private' ${ADDON_BUILD}/${PKG_ADDON_ID}/bin/snapclient
+
+  if [ "${ALSA_SUPPORT}" = yes ]; then
+    cp $(get_install_dir alsa-plugins)/usr/lib/alsa/*.so \
+       ${ADDON_BUILD}/${PKG_ADDON_ID}/lib.private
+  fi
+}
