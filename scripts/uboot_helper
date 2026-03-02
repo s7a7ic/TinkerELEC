@@ -503,6 +503,12 @@ devices = \
         'dtb': ''
       },
     },
+    'TinkerBoard': {
+      'rk3288': {
+        'dtb': 'rk3288-tinker-s.dtb',
+        'config': 'tinker-s-rk3288_defconfig'
+      },
+    },
   },
   'Samsung': {
     'Exynos': {
