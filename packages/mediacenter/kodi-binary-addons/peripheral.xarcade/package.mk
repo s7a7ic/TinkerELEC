@@ -2,8 +2,8 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="peripheral.xarcade"
-PKG_VERSION="22.0.2-Piers"
-PKG_SHA256="fe004117b8d2c953e438962b878a5b11d9c772867391863f92dd7c2c827d3ca1"
+PKG_VERSION="21.0.2-Omega"
+PKG_SHA256="5f74b0493e0f17e297f271b0befd01406dcaae121305bc7cb9d0ece6200cc675"
 PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"

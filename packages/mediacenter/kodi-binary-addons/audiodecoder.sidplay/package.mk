@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="audiodecoder.sidplay"
-PKG_VERSION="22.0.1-Piers"
-PKG_SHA256="58c0749aff65019a8f1786ff8cf04c15d0f3e7c25ca92fdbeeb5edc48921fb1f"
-PKG_REV="3"
+PKG_VERSION="21.0.2-Omega"
+PKG_SHA256="c7d10dd65baed2db1272ff57fde76f0b268a4a434d57022539c4dc5bf6f8b54e"
+PKG_REV="4"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/xbmc/audiodecoder.sidplay"

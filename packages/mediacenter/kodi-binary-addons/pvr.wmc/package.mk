@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.wmc"
-PKG_VERSION="22.2.2-Piers"
-PKG_SHA256="d6c6fee746018f541ef18e7021df95e04270d45c5db16acb1c2158fe3dc5f63d"
+PKG_VERSION="21.0.3-Omega"
+PKG_SHA256="bee42bd2a55d00ab589db9ebcddfa75d9211571fda63d641ba484f5582934364"
 PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"

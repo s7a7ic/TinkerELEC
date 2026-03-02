@@ -2,9 +2,9 @@
 # Copyright (C) 2023-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="game.libretro.vice_xplus4"
-PKG_VERSION="3.9.0.31-Omega"
-PKG_SHA256="3ca622a170b136c7cf1fd13eba0fe03b73b3c03f57c880eb4a06a7247d855dfe"
-PKG_REV="1"
+PKG_VERSION="3.8.0.24-Omega"
+PKG_SHA256="4e10d2de40283f94ecdc4a6971d97078c364346cbcb89a9dbe445bb77d083beb"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
 PKG_SITE="https://github.com/kodi-game/game.libretro.vice_xplus4"

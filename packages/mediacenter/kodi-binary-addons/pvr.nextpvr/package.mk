@@ -3,14 +3,14 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.nextpvr"
-PKG_VERSION="22.5.1-Piers"
-PKG_SHA256="d571e6e59813a1c17b4eb4d3277b663b6728b00ec8c938defa4d825c1444cbce"
+PKG_VERSION="21.3.2-Omega"
+PKG_SHA256="6315a7bfe038b02c80efe4fe3ee33f92ee2454af8668ce3847e9bcaca38d2147"
 PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.nextpvr"
 PKG_URL="https://github.com/kodi-pvr/pvr.nextpvr/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain kodi-platform tinyxml2 zlib"
+PKG_DEPENDS_TARGET="toolchain kodi-platform tinyxml2"
 PKG_SECTION=""
 PKG_SHORTDESC="pvr.nextpvr"
 PKG_LONGDESC="pvr.nextpvr"

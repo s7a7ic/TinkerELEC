@@ -2,9 +2,9 @@
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="game.libretro.fbneo"
-PKG_VERSION="1.0.0.92-Omega"
-PKG_SHA256="c7d14dbacef6eb78fcce51eba52f02e5933259e8bee64eb11e8ad0f092c11bcd"
-PKG_REV="1"
+PKG_VERSION="1.0.0.78-Omega"
+PKG_SHA256="15b6e7fb2d8dc661f3782c07383e158f988308d1d5b5716fae0351a56d122721"
+PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-game/game.libretro.fbneo"

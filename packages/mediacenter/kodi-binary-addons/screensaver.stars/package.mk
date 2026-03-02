@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="screensaver.stars"
-PKG_VERSION="22.0.3-Piers"
-PKG_SHA256="ed1f36b145022093a1604d8638629f91a13449664ffc2323a2bd80b3af7b1079"
+PKG_VERSION="21.0.2-Omega"
+PKG_SHA256="86a479a4c6d0b27723a701330b83704f223566eabe7a25302ecf8f0a66e5b27e"
 PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
