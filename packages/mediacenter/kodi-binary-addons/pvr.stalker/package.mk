@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.stalker"
-PKG_VERSION="21.1.3-Omega"
-PKG_SHA256="567b0d8bc7d79a166a65e3c47ecb3f73e3aa57db840465ea2e6c70c74421c162"
+PKG_VERSION="22.2.2-Piers"
+PKG_SHA256="302f7f985e4a583ad1001ca3a11694d38de8f59c03a9e6d36b5dfdad5ac78686"
 PKG_REV="3"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"

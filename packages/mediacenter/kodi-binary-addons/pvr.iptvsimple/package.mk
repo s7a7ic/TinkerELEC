@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.iptvsimple"
-PKG_VERSION="21.11.0-Omega"
-PKG_SHA256="377fb3c69d39866c0b3b8a3a7d4c790241b15997b140f45443209c4e44e62418"
-PKG_REV="3"
+PKG_VERSION="22.6.1-Piers"
+PKG_SHA256="21c7c00ee3b49344797a3e8305dcc8351b5d7fc14b28bde1a6cfdc25199d8090"
+PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/kodi-pvr/pvr.iptvsimple"
@@ -17,3 +17,9 @@ PKG_LONGDESC="pvr.iptvsimple"
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_TYPE="xbmc.pvrclient"
+
+pre_configure_target() {
+  ls -la  ../Findlzma.cmake
+  sed -i -e "s#^find_path(LZMA_INCLUDE_DIRS lzma.h#find_path(LZMA_INCLUDE_DIRS lzma.h PATHS $(get_install_dir xz)/usr/include NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH#" \
+         -e "s#^find_library(LZMA_LIBRARIES NAMES lzma liblzma#find_library(LZMA_LIBRARIES NAMES lzma liblzma PATHS $(get_install_dir xz)/usr/lib NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH#" ../Findlzma.cmake
+}
