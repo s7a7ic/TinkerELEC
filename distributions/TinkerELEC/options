@@ -115,10 +115,10 @@
   KODI_EXTRA_FONTS="yes"
 
 # build and install PulseAudio support (yes / no)
-  PULSEAUDIO_SUPPORT="no"
+  PULSEAUDIO_SUPPORT="yes"
 
 # build and install pipewire support (yes / no)
-  PIPEWIRE_SUPPORT="yes"
+  PIPEWIRE_SUPPORT="no"
 
 # build and install eSpeak-NG support (yes / no)
   ESPEAK_SUPPORT="no"
@@ -169,13 +169,13 @@
   KODI_SAMBA_SUPPORT="yes"
 
 # build kodi with alsa support (yes/no)
-  KODI_ALSA_SUPPORT="no"
+  KODI_ALSA_SUPPORT="yes"
 
 # build kodi with pulseaudio support (yes/no)
-  KODI_PULSEAUDIO_SUPPORT="no"
+  KODI_PULSEAUDIO_SUPPORT="yes"
 
 # build kodi with pipewire support (yes/no)
-  KODI_PIPEWIRE_SUPPORT="yes"
+  KODI_PIPEWIRE_SUPPORT="no"
 
 ### KODI ADDONS ###
 
@@ -258,7 +258,7 @@
   OEM_SUPPORT="no"
 
 # build and install ALSA Audio support (yes / no)
-  ALSA_SUPPORT="no"
+  ALSA_SUPPORT="yes"
 
 # additional packages to install:
 # Space separated list is supported,
