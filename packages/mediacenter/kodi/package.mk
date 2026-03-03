@@ -3,12 +3,12 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="kodi"
-PKG_VERSION="21.3-Omega"
-PKG_SHA256="a60afcb556e4a00cb19fc35b7e77758107c9a8096c6ce9b66af5f92396be31aa"
+PKG_VERSION="e2846620e7bdf0af67fffcf1e9f1078bf4c0bb78"
+PKG_SHA256="5e3ad74314e6d9fcf5cbfafcc9c54d43cec372ea14ddf33159296d6234d34bc8"
 PKG_LICENSE="GPL"
 PKG_SITE="http://www.kodi.tv"
 PKG_URL="https://github.com/xbmc/xbmc/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain JsonSchemaBuilder:host TexturePacker:host Python3 zlib systemd lzo pcre2 swig:host libass curl fontconfig fribidi tinyxml tinyxml2 libjpeg-turbo freetype libcdio taglib libxml2 libxslt rapidjson sqlite ffmpeg crossguid libdvdnav libfmt lirc libfstrcmp flatbuffers:host flatbuffers libudfread spdlog"
+PKG_DEPENDS_TARGET="toolchain JsonSchemaBuilder:host TexturePacker:host Python3 zlib systemd lzo pcre2 swig:host libass curl exiv2 fontconfig fribidi tinyxml tinyxml2 libjpeg-turbo freetype libcdio taglib libxml2 libxslt nlohmann-json sqlite ffmpeg crossguid libdvdnav libfmt lirc libfstrcmp flatbuffers:host flatbuffers libudfread spdlog libxkbcommon"
 PKG_DEPENDS_UNPACK="commons-lang3 commons-text groovy"
 PKG_DEPENDS_HOST="toolchain"
 PKG_LONGDESC="A free and open source cross-platform media player."
@@ -58,6 +58,24 @@ configure_package() {
                    -DAPP_RENDER_SYSTEM=gles \
                    -DWAYLANDPP_SCANNER=${TOOLCHAIN}/bin/wayland-scanner++ \
                    -DWAYLANDPP_PROTOCOLS_DIR=${SYSROOT_PREFIX}/usr/share/waylandpp/protocols"
+  else # GBM
+    if [ ! "${KODIPLAYER_DRIVER}" = "default" ]; then
+      PKG_DEPENDS_TARGET+=" ${KODIPLAYER_DRIVER}"
+    fi
+    PKG_DEPENDS_TARGET+=" libinput libdisplay-info"
+    KODI_PLATFORM="-DCORE_PLATFORM_NAME=gbm"
+    if [ ! "${OPENGL}" = "no" ]; then
+      KODI_PLATFORM+=" -DAPP_RENDER_SYSTEM=gl"
+    else
+      KODI_PLATFORM+=" -DAPP_RENDER_SYSTEM=gles"
+    fi
+    CFLAGS+=" -DEGL_NO_X11"
+    CXXFLAGS+=" -DEGL_NO_X11"
+    if [ "${PROJECT}" = "Generic" ]; then
+      PKG_APPLIANCE_XML="${PKG_DIR}/config/appliance-gbm-generic.xml"
+    else
+      PKG_APPLIANCE_XML="${PKG_DIR}/config/appliance-gbm.xml"
+    fi
   fi
 
   if [ ! "${OPENGL}" = "no" ]; then
@@ -210,21 +228,7 @@ configure_package() {
     KODI_ARCH="-DWITH_ARCH=${TARGET_ARCH}"
   fi
 
-  if [ ! "${KODIPLAYER_DRIVER}" = "default" -a "${DISPLAYSERVER}" = "no" ]; then
-    PKG_DEPENDS_TARGET+=" ${KODIPLAYER_DRIVER} libinput libxkbcommon libdisplay-info"
-    if [ "${OPENGLES_SUPPORT}" = yes -a "${KODIPLAYER_DRIVER}" = "${OPENGLES}" ]; then
-      KODI_PLATFORM="-DCORE_PLATFORM_NAME=gbm -DAPP_RENDER_SYSTEM=gles"
-      CFLAGS+=" -DEGL_NO_X11"
-      CXXFLAGS+=" -DEGL_NO_X11"
-      if [ "${PROJECT}" = "Generic" ]; then
-        PKG_APPLIANCE_XML="${PKG_DIR}/config/appliance-gbm-generic.xml"
-      else
-        PKG_APPLIANCE_XML="${PKG_DIR}/config/appliance-gbm.xml"
-      fi
-    fi
-  fi
-
-  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Rockchip" -o "${PROJECT}" = "RPi" ]; then
+  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Rockchip" ]; then
     PKG_PATCH_DIRS+=" drmprime-filter"
   fi
 
@@ -237,14 +241,14 @@ configure_package() {
                          -DWITH_JSONSCHEMABUILDER=${TOOLCHAIN}/bin/JsonSchemaBuilder \
                          -DSWIG_EXECUTABLE=${TOOLCHAIN}/bin/swig \
                          -DPYTHON_EXECUTABLE=${TOOLCHAIN}/bin/${PKG_PYTHON_VERSION} \
-                         -DPYTHON_INCLUDE_DIRS=${SYSROOT_PREFIX}/usr/include/${PKG_PYTHON_VERSION} \
                          -DGIT_VERSION=${PKG_VERSION} \
                          -DFFMPEG_PATH=${SYSROOT_PREFIX}/usr \
-                         -DENABLE_INTERNAL_FFMPEG=OFF \
                          -DENABLE_INTERNAL_CROSSGUID=OFF \
-                         -DENABLE_INTERNAL_UDFREAD=OFF \
+                         -DENABLE_INTERNAL_EXIV2=OFF \
+                         -DENABLE_INTERNAL_FFMPEG=OFF \
+                         -DENABLE_INTERNAL_FLATBUFFERS=OFF \
+                         -DENABLE_INTERNAL_MARIADBCLIENT=OFF \
                          -DENABLE_INTERNAL_SPDLOG=OFF \
-                         -DENABLE_INTERNAL_RapidJSON=OFF \
                          -DENABLE_UDEV=ON \
                          -DENABLE_DBUS=ON \
                          -DENABLE_XSLT=ON \
@@ -254,12 +258,12 @@ configure_package() {
                          -DENABLE_DEBUGFISSION=OFF \
                          -DENABLE_APP_AUTONAME=OFF \
                          -DENABLE_TESTING=OFF \
-                         -DENABLE_INTERNAL_FLATBUFFERS=OFF \
                          -DENABLE_LCMS2=OFF \
                          -DADDONS_CONFIGURE_AT_STARTUP=OFF \
                          -Dgroovy_SOURCE_DIR=$(get_build_dir groovy) \
                          -Dapache-commons-lang_SOURCE_DIR=$(get_build_dir commons-lang3) \
                          -Dapache-commons-text_SOURCE_DIR=$(get_build_dir commons-text) \
+                         -DPCRE2_USE_STATIC_LIBS=ON \
                          ${PKG_KODI_USE_LTO} \
                          ${PKG_KODI_LINKER} \
                          ${KODI_ARCH} \
