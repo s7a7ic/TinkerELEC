@@ -76,7 +76,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Playback after suspend won't always continue, depending on the add-on or media last played
   * So it's disabled in TinkerELEC with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * Shadertoy visualization for music playback causes graphical glitches on menu icons and text
-* Setting the "Stretch" mode to "original" for games under libretro causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
+* Libretro: Setting the "stretch" mode to "original" for games causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
 **System**
 * Splash screen won't show (on shutdown or reboot) after the system was resumed from suspend
@@ -86,7 +86,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Full Shutdown (kernel)**
 * System didn't fully shutdown since Kernel 6.5 (power led stays on, device gets warm and draws power)
 * System automatically booted on Kernel 6.16+ after some time (about 30 seconds)
-* Fixed by [tinker-s-rk808-full-shutdown.patch](projects/Rockchip/devices/TinkerBoard/patches/linux/default/tinker-s-rk808-full-shutdown.patch)
+* Fixed by [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 
 **Wireless LAN (internal)**
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
