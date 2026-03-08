@@ -48,6 +48,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Enabled 500 Mhz GPU frequency: [dts-rk3288-gpu-500mhz-opp](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-gpu-500mhz-opp.patch)
 * Enable HVEC and RGA node: [dts-rk3288-tinker-hevc-rga](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-hevc-rga.patch)
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
+* USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
 
 **Extra Package with modifications for my use-case**
 * Package: ["tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
@@ -97,7 +98,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Wireless LAN (internal)**
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
 * Loading of the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) for TinkerBoard
-* ~~Disabling power saving with module parameters for the staging driver led to a stable wifi connection~~
+  * The prefered wireless driver can be changed in the `/storage/.config/modprobe.d/rtl8723bs-driver.conf` file
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
