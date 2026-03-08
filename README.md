@@ -18,12 +18,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 ## Features and Changes
 
 **Kodi 21.3 (Omega)**
+* I've previously tested pipewire as the default audio backend but reverted to alsa + pulse for compatibility reasons.
 * Patches for Kodi
   * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-200.02-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
   * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-200.04-gbm-reduce-cpu-idle-load.patch)
   * fix bluetooth sound lag with pipewire [(patch from xbmc master branch)](packages/mediacenter/kodi/patches/kodi-200.05-pipewire-fix-bt-lag.patch)
   * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
-  * [crash fix when changing skins or language](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
+  * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (not enabled by default, needs to be enabled and selected)
   * smaller sidemenu and more vertical space
@@ -32,13 +33,14 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
 
 **Kernel 6.16.12**
-* Enabled BFQ I/O scheduler (not enabled by default)
+* Enabled BFQ I/O scheduler for testing (not set as default scheduler)
 * CONFIG_HZ set to 100 instead of 300 (smoother UI response, probably less cpu interrupt overhead)
 * Disabled XFS / BTRFS support
 
 **System / Image changes**
 * Alternative wireless driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Additional packages included in image: btop, emmctool, evtest, rsync
+* Some minor package cleanups
 
 **Tinker Board S specific**
 * Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
@@ -72,9 +74,13 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
 
+**Bluetooth**
+* Large error message in kodi.log after resume from suspend (bluetooth still works)
+  * SETTINGS: bluetooth.init_adapter # DBusError('org.bluez.Error.Busy -- ') ...
+
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
-  * So it's disabled in TinkerELEC with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+  * So it's disabled with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
 * Shadertoy visualization for music playback causes graphical glitches on menu icons and text
 * Libretro: Setting the "stretch" mode to "original" for games causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
