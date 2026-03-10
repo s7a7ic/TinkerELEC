@@ -21,7 +21,7 @@ DISTRO_DIR="${ROOT}/distributions"
 PROJECT_DIR="${ROOT}/projects"
 
 # determines DISTRO, if not forced by user
-DISTRO="${DISTRO:-TinkerELEC}"
+DISTRO="${DISTRO:-LibreELEC}"
 
 # determines PROJECT, if not forced by user
 export PROJECT="${PROJECT:-Rockchip}"
