@@ -11,9 +11,9 @@ The LibreELEC (unofficial) release has the default branding without these modifi
 
 ## Reason
 
-I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The Rockchip RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes. There are some extra packages, that I created for my personal use-case.
+I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The Rockchip RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes.
 
-I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the devicetree to be able to use the intended functionality of the front panel buttons (installable DTB via Kodi addon). Also, an IR receiver was added to be able to use a TV remote to control Kodi. I want to add a temperature-aware pwm fan control integrated inside the case.
+I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the devicetree to be able to use the intended functionality of the front panel buttons (installable DTB via Kodi addon). Also, an IR receiver was added to be able to use a TV remote to control Kodi.
 
 > [!NOTE]
 > More information about my use-case, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
@@ -29,7 +29,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
   * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
-* [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (not enabled by default, needs to be enabled and selected)
+* [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (in TinkerELEC image; needs to be enabled and selected)
   * smaller sidemenu and more vertical space
   * tv menu as first option
   * shutdown option removed from power menu in favor of using the power button
