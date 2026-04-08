@@ -2,6 +2,9 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
+There are two distro releases (Tinker- / LibreELEC). The TinkerELEC image includes additional packages (modified skin, tinkerelec-config) for my own use-case.
+The LibreELEC (unofficial) release has the default branding without these modifications to be closer to the official RK3288 image.
+
 > [!CAUTION]
 > This fork was not tested on any other device than the **Tinker Board S**!
 > Debian 12 (Bookworm) is used currently to build images from this source code.
@@ -50,7 +53,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 * USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
 
-**Extra Package with modifications for my use-case**
+**Extra Package with modifications for my use-case (not in LibreELEC image)**
 * Package: ["tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
 * On Suspend / On Resume [script support](packages/tinkerelec/tinkerelec-config/config/sleep.d/suspend_resume.power)
 * Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
@@ -59,7 +62,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Disabled connman online check by default: `/storage/.config/connman_main.conf`
 
 **Patched DTB for my use-case**
-* [Kodi addon package](packages/tinkerelec/addons/tinkerelec.nespi) for installing the patched DTB
+* Install the patched DTB file with this [Kodi addon package](packages/tinkerelec/addons/tinkerelec.nespi)
 * [Support for NesPi Case+ Buttons](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-nespi-case.patch)
   * Power Button: wake from suspend and soft shutdown when delatching
   * Reset Button: suspend, wake and reboot on longpress
@@ -74,6 +77,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
+  * For this reason the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) and the alternative driver is used
 
 **Bluetooth**
 * Large error message in kodi.log after resume from suspend (bluetooth still works)
