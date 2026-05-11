@@ -7,8 +7,8 @@ Subject: [PATCH] disable free comp methods
 diff --git a/Utilities/cmcurl/lib/vtls/openssl.c b/Utilities/cmcurl/lib/vtls/openssl.c
 --- a/Utilities/cmcurl/lib/vtls/openssl.c
 +++ b/Utilities/cmcurl/lib/vtls/openssl.c
-@@ -164,6 +164,11 @@
- #define HAVE_SSL_COMP_FREE_COMPRESSION_METHODS 1
+@@ -122,6 +122,11 @@ static void ossl_provider_cleanup(struct
+ #include <openssl/ui.h>
  #endif
  
 +#if !defined(OPENSSL_NO_COMP) || \
