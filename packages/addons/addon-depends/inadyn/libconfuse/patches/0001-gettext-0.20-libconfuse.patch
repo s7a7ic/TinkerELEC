@@ -6,8 +6,7 @@ Subject: [PATCH] gettext 0.20 libconfuse
 diff --git a/configure.ac b/configure.ac
 --- a/configure.ac
 +++ b/configure.ac
-@@ -29,7 +29,8 @@
- # Unfortunately CentOS7, RHEL7 ships 0.18.2.1, so for best compat.
+@@ -30,6 +30,7 @@ AM_CONDITIONAL([ENABLE_EXAMPLES], [test
  # level at this point in time we set 0.18.2.
  AM_GNU_GETTEXT([external])
  AM_GNU_GETTEXT_VERSION([0.18.2])
