@@ -9,9 +9,9 @@ ref: https://fedoraproject.org/wiki/Networking/NameResolution/ADDRCONFIG
 diff --git a/nss/getaddrinfo.c b/nss/getaddrinfo.c
 --- a/nss/getaddrinfo.c
 +++ b/nss/getaddrinfo.c
-@@ -730,6 +730,38 @@ gaih_inet (const char *name, const struc
-   if (res_ctx == NULL)
-     no_more = 1;
+@@ -628,6 +628,38 @@ get_nss_addresses (const char *name, con
+       no_more = 1;
+     }
  
 +  /* AI_ADDRCONFIG determines whether or not we should suppress any
 +   * hostname lookups. If the local host has only IPv4 interfaces,
@@ -47,8 +47,8 @@ diff --git a/nss/getaddrinfo.c b/nss/getaddrinfo.c
 +
    while (!no_more)
      {
-       no_data = 0;
-@@ -737,7 +769,7 @@ gaih_inet (const char *name, const struc
+       /* Always start afresh; continue should discard previous results
+@@ -646,7 +678,7 @@ get_nss_addresses (const char *name, con
  
        /* gethostbyname4_r sends out parallel A and AAAA queries and
  	 is thus only suitable for PF_UNSPEC.  */
@@ -57,7 +57,7 @@ diff --git a/nss/getaddrinfo.c b/nss/getaddrinfo.c
  	fct4 = __nss_lookup_function (nip, "gethostbyname4_r");
  
        if (fct4 != NULL)
-@@ -826,25 +858,27 @@ gaih_inet (const char *name, const struc
+@@ -748,8 +780,9 @@ get_nss_addresses (const char *name, con
  
  	  if (fct != NULL)
  	    {
@@ -69,10 +69,7 @@ diff --git a/nss/getaddrinfo.c b/nss/getaddrinfo.c
  		{
  		  if ((result = gethosts (fct, AF_INET6, name, req, tmpbuf,
  					  res, &status, &no_data)) != 0)
- 		    {
- 		      __resolv_context_put (res_ctx);
- 		      goto out;
- 		    }
+@@ -760,13 +793,14 @@ get_nss_addresses (const char *name, con
  		  no_inet6_data = no_data;
  		  inet6_status = status;
  		}
@@ -97,7 +94,7 @@ diff --git a/nss/getaddrinfo.c b/nss/getaddrinfo.c
 diff --git a/sysdeps/unix/sysv/linux/check_pf.c b/sysdeps/unix/sysv/linux/check_pf.c
 --- a/sysdeps/unix/sysv/linux/check_pf.c
 +++ b/sysdeps/unix/sysv/linux/check_pf.c
-@@ -224,7 +224,8 @@ make_request (int fd, pid_t pid)
+@@ -209,7 +209,8 @@ make_request (int fd, pid_t pid)
  		    }
  		  else
  		    {
