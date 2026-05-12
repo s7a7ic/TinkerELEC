@@ -228,7 +228,7 @@ diff --git a/nss/config/nss.pc.in b/nss/config/nss.pc.in
 diff --git a/nss/Makefile b/nss/Makefile
 --- a/nss/Makefile
 +++ b/nss/Makefile
-@@ -48,7 +48,6 @@
+@@ -48,7 +48,6 @@ include $(CORE_DEPTH)/coreconf/rules.mk
  #######################################################################
  
  nss_build_all:
@@ -239,7 +239,7 @@ diff --git a/nss/Makefile b/nss/Makefile
 diff --git a/nss/manifest.mn b/nss/manifest.mn
 --- a/nss/manifest.mn
 +++ b/nss/manifest.mn
-@@ -10,7 +10,7 @@
+@@ -10,7 +10,7 @@ IMPORTS =	nspr20/v4.8 \
  
  RELEASE = nss
  
