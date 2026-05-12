@@ -1,7 +1,7 @@
-From a0072a6b476affb90431bd00de5f2aa1a994303a Mon Sep 17 00:00:00 2001
+From 810e6426da183b8429b45531b55a7161374bd0b5 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Wed, 29 Apr 2026 23:22:45 -0400
-Subject: [PATCH 17/25] GL: discard alpha-zero and encode limited-range PQ in
+Subject: [PATCH 04/15] GL: discard alpha-zero and encode limited-range PQ in
  composite shader
 
 Bring the GL FBO compositing path closer to feature parity with GLES,

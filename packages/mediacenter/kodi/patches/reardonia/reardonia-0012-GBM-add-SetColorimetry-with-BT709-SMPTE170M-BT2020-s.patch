@@ -1,7 +1,7 @@
-From 2f7e65a5d37764ca6b42a6d586dbecb583e7cf70 Mon Sep 17 00:00:00 2001
+From e818d620b6aaa08f0752c44910d83cc0e7f8d261 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Tue, 10 Mar 2026 11:44:49 -0400
-Subject: [PATCH 22/25] GBM: add SetColorimetry with BT709/SMPTE170M/BT2020
+Subject: [PATCH 12/15] GBM: add SetColorimetry with BT709/SMPTE170M/BT2020
  signaling
 
 Add SetColorimetry() virtual to CWinSystemBase with GBM implementation
@@ -25,7 +25,7 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
  6 files changed, 93 insertions(+), 36 deletions(-)
 
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
-index c102c0072d..d0268af112 100644
+index f017b9a99b..87bb59f832 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 @@ -154,6 +154,8 @@ bool CLinuxRendererGLES::Configure(const VideoPicture &picture, float fps, unsig
@@ -108,7 +108,7 @@ index d3b7c33a80..3abc92a7e5 100644
     * \brief Set the HDR metadata. Passing nullptr as the parameter should
     * disable HDR.
 diff --git a/xbmc/windowing/gbm/WinSystemGbm.cpp b/xbmc/windowing/gbm/WinSystemGbm.cpp
-index d2943f4851..0b68573707 100644
+index 9b505884c4..0ac5f0a86d 100644
 --- a/xbmc/windowing/gbm/WinSystemGbm.cpp
 +++ b/xbmc/windowing/gbm/WinSystemGbm.cpp
 @@ -73,14 +73,21 @@ namespace
@@ -162,7 +162,7 @@ index d2943f4851..0b68573707 100644
    CLog::Log(LOGDEBUG, "CWinSystemGbm::{} - initialized DRM", __FUNCTION__);
    return CWinSystemBase::InitWindowSystem();
  }
-@@ -374,6 +378,62 @@ bool CWinSystemGbm::SetVideoOutput(const VideoPicture* videoPicture)
+@@ -379,6 +383,62 @@ bool CWinSystemGbm::SetVideoOutput(const VideoPicture* videoPicture)
                        : m_DRM->FindGuiPlane(current->GetFormat(), current->GetModifier());
  }
  
@@ -225,7 +225,7 @@ index d2943f4851..0b68573707 100644
  bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
  {
    auto settingsComponent = CServiceBroker::GetSettingsComponent();
-@@ -397,19 +457,9 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -402,19 +462,9 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
  
    if (!videoPicture)
    {
@@ -246,7 +246,7 @@ index d2943f4851..0b68573707 100644
        drm->AddProperty(connector, "HDR_OUTPUT_METADATA", 0);
        drm->SetActive(true);
  
-@@ -417,7 +467,6 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -422,7 +472,6 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
      }
  
      m_eotf = KODI::UTILS::Eotf::TRADITIONAL_SDR;
@@ -254,7 +254,7 @@ index d2943f4851..0b68573707 100644
      return false;
    }
  
-@@ -426,24 +475,9 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -431,24 +480,9 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
        videoPicture->color_transfer != AVCOL_TRC_ARIB_STD_B67)
      return false;
  

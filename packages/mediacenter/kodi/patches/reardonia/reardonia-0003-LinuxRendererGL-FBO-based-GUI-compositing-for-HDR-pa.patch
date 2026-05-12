@@ -1,7 +1,7 @@
-From 5ffbca72e1150c4f265f4ade0db3ce8ec26d29f1 Mon Sep 17 00:00:00 2001
+From 7970360d223e3bc0e557c442262943819057b6c5 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Fri, 20 Mar 2026 13:01:27 -0400
-Subject: [PATCH 16/25] LinuxRendererGL: FBO-based GUI compositing for HDR
+Subject: [PATCH 03/15] LinuxRendererGL: FBO-based GUI compositing for HDR
  passthrough
 
 Port the GLES FBO GUI compositing (PR #28012) to the GL path.

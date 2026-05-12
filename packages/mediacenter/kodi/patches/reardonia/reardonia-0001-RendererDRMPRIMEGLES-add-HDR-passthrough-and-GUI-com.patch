@@ -1,7 +1,7 @@
-From a2e9a4ee361fd323f0f8a3eccf6eea0f7870fe69 Mon Sep 17 00:00:00 2001
+From a17f2c0109accab915f9cdefaad76339c6b11a38 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Mon, 16 Mar 2026 21:05:56 -0400
-Subject: [PATCH 14/25] RendererDRMPRIMEGLES: add HDR passthrough and GUI
+Subject: [PATCH 01/15] RendererDRMPRIMEGLES: add HDR passthrough and GUI
  compositing
 
 Enable HDR support for RendererDRMPRIMEGLES (single-plane EGL
