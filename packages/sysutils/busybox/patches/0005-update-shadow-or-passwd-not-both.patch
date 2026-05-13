@@ -6,7 +6,7 @@ Subject: [PATCH] update shadow or passwd not both
 diff --git a/loginutils/passwd.c b/loginutils/passwd.c
 --- a/loginutils/passwd.c
 +++ b/loginutils/passwd.c
-@@ -220,7 +220,7 @@
+@@ -218,7 +218,7 @@ int passwd_main(int argc UNUSED_PARAM, c
  	if (rc > 0)
  		/* password in /etc/shadow was updated */
  		newp = (char*) "x";

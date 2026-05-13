@@ -6,7 +6,7 @@ Subject: [PATCH] halt no init
 diff --git a/init/halt.c b/init/halt.c
 --- a/init/halt.c
 +++ b/init/halt.c
-@@ -79,7 +79,7 @@
+@@ -206,7 +206,7 @@ int halt_main(int argc UNUSED_PARAM, cha
  
  	/* Perform action. */
  	rc = 1;
@@ -14,4 +14,4 @@ diff --git a/init/halt.c b/init/halt.c
 +	if (ENABLE_INIT && !(flags & 4)) { /* no -f */
  //TODO: I tend to think that signalling linuxrc is wrong
  // pity original author didn't comment on it...
- 		if (ENABLE_FEATURE_INITRD) {
+ 		if (ENABLE_LINUXRC) {
