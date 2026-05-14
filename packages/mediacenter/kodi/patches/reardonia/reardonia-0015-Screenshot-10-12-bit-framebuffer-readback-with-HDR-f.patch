@@ -1,7 +1,7 @@
-From 78baf776c5e4ddaf83f2a1b43d63ba65c226a923 Mon Sep 17 00:00:00 2001
+From ecec040fdc0b44776697c2c668f712472bd4cbc3 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Fri, 1 May 2026 02:09:00 -0400
-Subject: [PATCH 25/25] Screenshot: 10/12-bit framebuffer readback with HDR
+Subject: [PATCH 15/15] Screenshot: 10/12-bit framebuffer readback with HDR
  filename tagging
 
 Extend the screenshot path to capture high-bit-depth framebuffers

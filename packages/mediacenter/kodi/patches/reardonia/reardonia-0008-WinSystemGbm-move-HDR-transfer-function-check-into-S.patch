@@ -1,7 +1,7 @@
-From de471f457835cade91ce01abdd49f5ea9b290d82 Mon Sep 17 00:00:00 2001
+From 91897f987a33c99181233daf082793bd70babde3 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Tue, 7 Apr 2026 11:23:14 -0400
-Subject: [PATCH 18/25] WinSystemGbm: move HDR transfer function check into
+Subject: [PATCH 08/15] WinSystemGbm: move HDR transfer function check into
  SetHDR
 
 Move the color_transfer check (PQ/HLG) from individual renderer
@@ -84,7 +84,7 @@ index 28b5004602..1f5d0e73de 100644
    m_hdrFboActive = m_passthroughHDR &&
                     CServiceBroker::GetWinSystem()->SetGuiCompositing(picture.color_transfer);
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
-index aed09d2124..c102c0072d 100644
+index 0b6b19f64b..f017b9a99b 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 @@ -154,13 +154,9 @@ bool CLinuxRendererGLES::Configure(const VideoPicture &picture, float fps, unsig
@@ -105,10 +105,10 @@ index aed09d2124..c102c0072d 100644
    m_hdrFboActive =
        m_passthroughHDR && CServiceBroker::GetWinSystem()->SetGuiCompositing(picture.color_transfer);
 diff --git a/xbmc/windowing/gbm/WinSystemGbm.cpp b/xbmc/windowing/gbm/WinSystemGbm.cpp
-index 2325d3d224..8fce84eb05 100644
+index 91a83542d5..a2822bb1c2 100644
 --- a/xbmc/windowing/gbm/WinSystemGbm.cpp
 +++ b/xbmc/windowing/gbm/WinSystemGbm.cpp
-@@ -421,6 +421,11 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -426,6 +426,11 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
      return false;
    }
  

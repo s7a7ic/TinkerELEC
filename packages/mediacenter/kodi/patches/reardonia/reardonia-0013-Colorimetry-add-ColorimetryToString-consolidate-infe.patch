@@ -1,7 +1,7 @@
-From 1c83f0bbbf2f83c5cdab0e455f386d135d74a329 Mon Sep 17 00:00:00 2001
+From ec8c437f8fe2888c32d13b3189e91bcca69d3cf9 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Sun, 8 Mar 2026 23:00:24 -0400
-Subject: [PATCH 23/25] Colorimetry: add ColorimetryToString, consolidate
+Subject: [PATCH 13/15] Colorimetry: add ColorimetryToString, consolidate
  inference logic
 
 - Add ColorimetryToString() to HDRUtils as single source for DRM
@@ -19,7 +19,7 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
  3 files changed, 41 insertions(+), 2 deletions(-)
 
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
-index d0268af112..daa45c5b0a 100644
+index 87bb59f832..2edac16c76 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGLES.cpp
 @@ -26,6 +26,7 @@

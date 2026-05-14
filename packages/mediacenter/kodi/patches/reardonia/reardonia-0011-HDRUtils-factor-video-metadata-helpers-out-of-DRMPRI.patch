@@ -1,7 +1,7 @@
-From 8679229cb117cbb950c935db1d7f1f3615a2f003 Mon Sep 17 00:00:00 2001
+From 3f2d7961ee08c29acf28ac77d409bc076cdf3b8b Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Tue, 10 Mar 2026 11:44:30 -0400
-Subject: [PATCH 21/25] HDRUtils: factor video metadata helpers out of DRMPRIME
+Subject: [PATCH 11/15] HDRUtils: factor video metadata helpers out of DRMPRIME
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -256,7 +256,7 @@ index 0000000000..2a72d0596c
 +} // namespace UTILS
 +} // namespace KODI
 diff --git a/xbmc/windowing/gbm/WinSystemGbm.cpp b/xbmc/windowing/gbm/WinSystemGbm.cpp
-index f337094a9f..d2943f4851 100644
+index c49e2e09c7..9b505884c4 100644
 --- a/xbmc/windowing/gbm/WinSystemGbm.cpp
 +++ b/xbmc/windowing/gbm/WinSystemGbm.cpp
 @@ -12,7 +12,7 @@
@@ -268,7 +268,7 @@ index f337094a9f..d2943f4851 100644
  #include "cores/VideoPlayer/VideoReferenceClock.h"
  #include "drm/DRMAtomic.h"
  #include "drm/DRMLegacy.h"
-@@ -426,8 +426,8 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -431,8 +431,8 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
        videoPicture->color_transfer != AVCOL_TRC_ARIB_STD_B67)
      return false;
  
@@ -279,7 +279,7 @@ index f337094a9f..d2943f4851 100644
    m_colorimetry = colorimetry;
    m_eotf = eotf;
  
-@@ -449,15 +449,15 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -454,15 +454,15 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
    {
      hdr_output_metadata hdr_metadata = {};
  
@@ -298,7 +298,7 @@ index f337094a9f..d2943f4851 100644
        if (mdmd && mdmd->has_primaries)
        {
          // Convert to unsigned 16-bit values in units of 0.00002,
-@@ -502,7 +502,7 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
+@@ -507,7 +507,7 @@ bool CWinSystemGbm::SetHDR(const VideoPicture* videoPicture)
                    __FUNCTION__, hdr_metadata.hdmi_metadata_type1.min_display_mastering_luminance);
        }
  
