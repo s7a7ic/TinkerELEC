@@ -13,7 +13,7 @@ package for Generic from building.
 diff --git a/Python/initconfig.c b/Python/initconfig.c
 --- a/Python/initconfig.c
 +++ b/Python/initconfig.c
-@@ -469,7 +469,7 @@ int Py_VerboseFlag = 0; /* Needed by imp
+@@ -470,7 +470,7 @@ int Py_VerboseFlag = 0; /* Needed by imp
  int Py_QuietFlag = 0; /* Needed by sysmodule.c */
  int Py_InteractiveFlag = 0; /* Previously, was used by Py_FdIsInteractive() */
  int Py_InspectFlag = 0; /* Needed to determine whether to exit at SystemExit */

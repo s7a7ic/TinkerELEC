@@ -8,7 +8,7 @@ Index: gcc-4.4+svnr145550/gcc/incpath.cc
 diff --git a/gcc/incpath.cc b/gcc/incpath.cc
 --- a/gcc/incpath.cc
 +++ b/gcc/incpath.cc
-@@ -417,6 +417,26 @@
+@@ -481,6 +481,26 @@ add_path (char *path, incpath_kind chain
    p->construct = 0;
    p->user_supplied_p = user_supplied_p;
  

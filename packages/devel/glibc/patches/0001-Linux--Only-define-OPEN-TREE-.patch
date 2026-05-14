@@ -18,7 +18,7 @@ diff --git a/sysdeps/unix/sysv/linux/sys/mount.h b/sysdeps/unix/sysv/linux/sys/m
 index 5e496caf2f..0c5ebed33a 100644
 --- a/sysdeps/unix/sysv/linux/sys/mount.h
 +++ b/sysdeps/unix/sysv/linux/sys/mount.h
-@@ -265,8 +265,16 @@
+@@ -265,8 +265,16 @@ enum fsconfig_command
  #define FSOPEN_CLOEXEC          0x00000001
  
  /* open_tree flags.  */
@@ -37,7 +37,6 @@ index 5e496caf2f..0c5ebed33a 100644
  
  
  __BEGIN_DECLS
-
 -- 
 2.43.7
 

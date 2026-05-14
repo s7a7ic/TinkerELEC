@@ -18,7 +18,7 @@ Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -2569,7 +2569,6 @@ LIBSUBDIRS=	asyncio \
+@@ -2571,7 +2571,6 @@ LIBSUBDIRS=	asyncio \
  		pathlib \
  		re \
  		site-packages \
@@ -26,7 +26,7 @@ diff --git a/Makefile.pre.in b/Makefile.pre.in
  		string \
  		sysconfig \
  		tkinter \
-@@ -2741,6 +2740,10 @@ ifeq (@IDLE@,yes)
+@@ -2743,6 +2742,10 @@ ifeq (@IDLE@,yes)
  LIBSUBDIRS += idlelib idlelib/Icons
  endif
  
@@ -40,7 +40,7 @@ diff --git a/Makefile.pre.in b/Makefile.pre.in
 diff --git a/configure.ac b/configure.ac
 --- a/configure.ac
 +++ b/configure.ac
-@@ -4794,6 +4794,13 @@ AS_VAR_IF([posix_threads], [stub], [
+@@ -4819,6 +4819,13 @@ AS_VAR_IF([posix_threads], [stub], [
    AC_DEFINE([HAVE_PTHREAD_STUBS], [1], [Define if platform requires stubbed pthreads support])
  ])
  

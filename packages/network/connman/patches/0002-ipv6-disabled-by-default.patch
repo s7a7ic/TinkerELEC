@@ -8,7 +8,7 @@ diff --git a/src/ipconfig.c b/src/ipconfig.c
 index fbeff8f..3eb61c4 100644
 --- a/src/ipconfig.c
 +++ b/src/ipconfig.c
-@@ -1243,10 +1243,7 @@ static struct connman_ipconfig *create_ipv6config(int index)
+@@ -1467,10 +1467,7 @@ static struct connman_ipconfig *create_i
  	ipv6config->index = index;
  	ipv6config->type = CONNMAN_IPCONFIG_TYPE_IPV6;
  

@@ -6,7 +6,7 @@ Subject: [PATCH] 14.0.0 force disable cmakelist options
 diff --git a/llvm/CMakeLists.txt b/llvm/CMakeLists.txt
 --- a/llvm/CMakeLists.txt
 +++ b/llvm/CMakeLists.txt
-@@ -616,7 +616,7 @@
+@@ -858,7 +858,7 @@
  
  option(LLVM_BUILD_BENCHMARKS "Add LLVM benchmark targets to the list of default
  targets. If OFF, benchmarks still could be built using Benchmarks target." OFF)

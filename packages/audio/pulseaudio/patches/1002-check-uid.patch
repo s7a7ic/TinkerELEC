@@ -6,7 +6,7 @@ Subject: [PATCH] check uid
 diff --git a/src/pulsecore/core-util.c b/src/pulsecore/core-util.c
 --- a/src/pulsecore/core-util.c
 +++ b/src/pulsecore/core-util.c
-@@ -1447,10 +1447,6 @@
+@@ -1462,10 +1462,6 @@ static int check_ours(const char *p) {
      if (stat(p, &st) < 0)
          return -errno;
  
@@ -14,6 +14,6 @@ diff --git a/src/pulsecore/core-util.c b/src/pulsecore/core-util.c
 -    if (st.st_uid != getuid() && st.st_uid != 0)
 -        return -EACCES;
 -#endif
-
+ 
      return 0;
  }

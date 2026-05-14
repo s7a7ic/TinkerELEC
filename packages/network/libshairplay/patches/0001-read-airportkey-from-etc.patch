@@ -6,7 +6,7 @@ Subject: [PATCH] read airportkey from etc
 diff --git a/src/shairplay.c b/src/shairplay.c
 --- a/src/shairplay.c
 +++ b/src/shairplay.c
-@@ -313,9 +313,12 @@ main(int argc, char *argv[])
+@@ -352,9 +352,12 @@ main(int argc, char *argv[])
  
  	raop = raop_init_from_keyfile(10, &raop_cbs, "airport.key", NULL);
  	if (raop == NULL) {
@@ -22,4 +22,3 @@ diff --git a/src/shairplay.c b/src/shairplay.c
  	}
  
  	if (strlen(options.password)) {
-

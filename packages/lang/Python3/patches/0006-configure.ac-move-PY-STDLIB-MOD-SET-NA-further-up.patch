@@ -27,7 +27,7 @@ diff --git a/configure.ac b/configure.ac
  AC_SUBST([BASECPPFLAGS])
  if test "$srcdir" != . -a "$srcdir" != "$(pwd)"; then
      # If we're building out-of-tree, we need to make sure the following
-@@ -7701,12 +7707,6 @@ fi
+@@ -7754,12 +7760,6 @@ fi
  AC_SUBST([_PYTHREAD_NAME_MAXLEN])
  
  
