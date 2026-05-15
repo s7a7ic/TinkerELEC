@@ -1,14 +1,14 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -92,6 +92,7 @@ include(CMakeDependentOption)
+@@ -97,6 +97,7 @@ include(CMakeDependentOption)
  include(cmake/scripts/common/DependencyOptions.cmake)
  
  # general
 +option(HEADERS_ONLY       "Skip building" OFF)
  option(VERBOSE            "Enable verbose output?" OFF)
  option(VERBOSE_FIND       "Enable verbose output of library searches only?" OFF)
- option(ENABLE_CLANGTIDY   "Enable clang-tidy support?" OFF)
-@@ -170,6 +171,7 @@ core_find_git_rev(APP_SCMID FULL)
+ option(ENABLE_BLURAY_JAR "Enable building libbluray jar libraries (requires ENABLE_INTERNAL_BLURAY=ON)?" ON)
+@@ -180,6 +181,7 @@ core_find_git_rev(APP_SCMID FULL)
  set(AUDIO_BACKENDS_LIST "" CACHE STRING "Available audio backends")
  set(GL_INTERFACES_LIST "" CACHE STRING "Available GL interfaces")
  
@@ -16,7 +16,7 @@
  # Dynamically loaded libraries built with the project
  add_custom_target(${APP_NAME_LC}-libraries)
  set(LIBRARY_FILES "" CACHE STRING "" FORCE)
-@@ -626,6 +628,7 @@ if(DOXYGEN_FOUND)
+@@ -636,6 +638,7 @@ if(DOXYGEN_FOUND)
                      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/docs/doxygen
                      COMMENT "Generating Doxygen documentation" VERBATIM)
  endif()
@@ -26,7 +26,7 @@
  if(FFMPEG_LINK_EXECUTABLE)
 --- a/cmake/scripts/linux/ExtraTargets.cmake
 +++ b/cmake/scripts/linux/ExtraTargets.cmake
-@@ -40,5 +40,7 @@ if("wayland" IN_LIST CORE_PLATFORM_NAME_
+@@ -42,5 +42,7 @@ if("wayland" IN_LIST CORE_PLATFORM_NAME_
    # Dummy target for dependencies
    add_custom_target(generate-wayland-extra-protocols DEPENDS wayland-extra-protocols.hpp)
  

@@ -1,6 +1,6 @@
 --- a/cmake/modules/buildtools/FindTexturePacker.cmake
 +++ b/cmake/modules/buildtools/FindTexturePacker.cmake
-@@ -52,15 +52,6 @@ if(NOT TARGET TexturePacker::TexturePack
+@@ -54,15 +54,6 @@ if(NOT TARGET TexturePacker::TexturePack
        endif()
      endif()
  

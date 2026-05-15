@@ -11,7 +11,7 @@ diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/VideoLayerBridgeD
 index 34d1ab6235..008d0a8488 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/VideoLayerBridgeDRMPRIME.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/VideoLayerBridgeDRMPRIME.cpp
-@@ -203,6 +203,10 @@ void CVideoLayerBridgeDRMPRIME::UpdateVideoPlane()
+@@ -213,6 +213,10 @@ void CVideoLayerBridgeDRMPRIME::UpdateVideoPlane()
    if (!m_buffer || !m_buffer->m_fb_id)
      return;
  
