@@ -21,7 +21,7 @@ diff --git a/arch/arm/cpu/armv7/Kconfig b/arch/arm/cpu/armv7/Kconfig
 index 4eb34b7b44..ec3d31e750 100644
 --- a/arch/arm/cpu/armv7/Kconfig
 +++ b/arch/arm/cpu/armv7/Kconfig
-@@ -91,6 +91,9 @@ choice
+@@ -92,6 +92,9 @@ choice
  	help
  	  Select the supported PSCI version.
  
@@ -60,7 +60,7 @@ diff --git a/arch/arm/include/asm/system.h b/arch/arm/include/asm/system.h
 index 0eae857e73..63f0c4c39e 100644
 --- a/arch/arm/include/asm/system.h
 +++ b/arch/arm/include/asm/system.h
-@@ -558,16 +558,20 @@ void mmu_page_table_flush(unsigned long start, unsigned long stop);
+@@ -626,16 +626,20 @@ void mmu_page_table_flush(unsigned long
  #ifdef CONFIG_ARMV7_PSCI
  void psci_arch_cpu_entry(void);
  void psci_arch_init(void);
@@ -90,7 +90,7 @@ diff --git a/arch/arm/lib/psci-dt.c b/arch/arm/lib/psci-dt.c
 index 903b335704..ea9d1c8355 100644
 --- a/arch/arm/lib/psci-dt.c
 +++ b/arch/arm/lib/psci-dt.c
-@@ -66,6 +66,8 @@ int fdt_psci(void *fdt)
+@@ -65,6 +65,8 @@ int fdt_psci(void *fdt)
  init_psci_node:
  #if CONFIG_IS_ENABLED(ARMV8_SEC_FIRMWARE_SUPPORT)
  	psci_ver = sec_firmware_support_psci_version();

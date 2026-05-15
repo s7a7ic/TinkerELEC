@@ -15,7 +15,7 @@ diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
 index 27e4a60ff5..bcaf6a2753 100644
 --- a/drivers/remoteproc/Kconfig
 +++ b/drivers/remoteproc/Kconfig
-@@ -41,6 +41,15 @@ config REMOTEPROC_STM32_COPRO
+@@ -67,6 +67,15 @@ config REMOTEPROC_STM32_COPRO
  	  Say 'y' here to add support for STM32 Cortex-M4 coprocessors via the
  	  remoteproc framework.
  
@@ -35,14 +35,14 @@ diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
 index fbe9c172bc..9529844b2a 100644
 --- a/drivers/remoteproc/Makefile
 +++ b/drivers/remoteproc/Makefile
-@@ -10,6 +10,7 @@ obj-$(CONFIG_$(SPL_)REMOTEPROC) += rproc-uclass.o rproc-elf-loader.o
- obj-$(CONFIG_K3_SYSTEM_CONTROLLER) += k3_system_controller.o
+@@ -13,6 +13,7 @@ obj-$(CONFIG_REMOTEPROC_IMX) += imx_rpro
+ obj-$(CONFIG_REMOTEPROC_RENESAS_APMU) += renesas_apmu.o
  obj-$(CONFIG_REMOTEPROC_SANDBOX) += sandbox_testproc.o
  obj-$(CONFIG_REMOTEPROC_STM32_COPRO) += stm32_copro.o
 +obj-$(CONFIG_REMOTEPROC_SUN6I_AR100) += sun6i_ar100_rproc.o
  obj-$(CONFIG_REMOTEPROC_TI_K3_ARM64) += ti_k3_arm64_rproc.o
  obj-$(CONFIG_REMOTEPROC_TI_K3_DSP) += ti_k3_dsp_rproc.o
- obj-$(CONFIG_REMOTEPROC_TI_K3_R5F) += ti_k3_r5f_rproc.o
+ obj-$(CONFIG_REMOTEPROC_TI_K3_M4F) += ti_k3_m4_rproc.o
 diff --git a/drivers/remoteproc/sun6i_ar100_rproc.c b/drivers/remoteproc/sun6i_ar100_rproc.c
 new file mode 100644
 index 0000000000..c94f6c752b

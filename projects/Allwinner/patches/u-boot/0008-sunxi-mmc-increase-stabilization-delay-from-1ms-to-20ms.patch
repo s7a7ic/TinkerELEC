@@ -38,7 +38,7 @@ diff --git a/drivers/mmc/sunxi_mmc.c b/drivers/mmc/sunxi_mmc.c
 index 1bb7b6d0e9..f7942b69ce 100644
 --- a/drivers/mmc/sunxi_mmc.c
 +++ b/drivers/mmc/sunxi_mmc.c
-@@ -453,7 +453,7 @@
+@@ -470,7 +470,7 @@ static void sunxi_mmc_reset(void *regs)
  {
  	/* Reset controller */
  	writel(SUNXI_MMC_GCTRL_RESET, regs + SUNXI_MMC_GCTRL);
