@@ -30,7 +30,7 @@ diff --git a/Makefile b/Makefile
 index 8a04dfcf36..670c87c2ff 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1024,6 +1024,25 @@ ifeq ($(CONFIG_ARCH_ROCKCHIP)_$(CONFIG_SPL_FRAMEWORK),y_)
+@@ -1285,6 +1285,25 @@ ifeq ($(CONFIG_ARCH_ROCKCHIP)_$(CONFIG_SPL_FRAMEWORK),y_)
  INPUTS-y += u-boot.img
  endif
  
@@ -60,15 +60,15 @@ diff --git a/arch/arm/cpu/armv7/sunxi/psci.c b/arch/arm/cpu/armv7/sunxi/psci.c
 index 098e2b12bf..d76266d9c2 100644
 --- a/arch/arm/cpu/armv7/sunxi/psci.c
 +++ b/arch/arm/cpu/armv7/sunxi/psci.c
-@@ -10,6 +10,7 @@
- #include <common.h>
+@@ -9,6 +9,7 @@
+ #include <config.h>
  #include <asm/cache.h>
  
 +#include <asm/arch/clock.h>
  #include <asm/arch/cpu.h>
  #include <asm/armv7.h>
  #include <asm/gic.h>
-@@ -31,7 +32,9 @@
+@@ -30,7 +31,9 @@
  #define SUNXI_CPU_RST(cpu)			(0x40 + (cpu) * 0x40 + 0x0)
  #define SUNXI_CPU_STATUS(cpu)			(0x40 + (cpu) * 0x40 + 0x8)
  #define SUNXI_GEN_CTRL				(0x184)
@@ -78,7 +78,7 @@ index 098e2b12bf..d76266d9c2 100644
  #define SUN7I_CPU1_PWR_CLAMP			(0x1b0)
  #define SUN7I_CPU1_PWROFF			(0x1b4)
  #define SUNXI_DBG_CTRL1				(0x1e4)
-@@ -139,6 +142,13 @@ static void __secure sunxi_cpu_set_entry(int __always_unused cpu, void *entry)
+@@ -138,6 +141,13 @@ static void __secure sunxi_cpu_set_entry(int __always_unused cpu, void *entry)
  	} else {
  		writel((u32)entry, SUNXI_CPUCFG_BASE + SUNXI_PRIV0);
  	}
@@ -92,7 +92,7 @@ index 098e2b12bf..d76266d9c2 100644
  }
  
  static void __secure sunxi_cpu_set_power(int cpu, bool on)
-@@ -307,7 +317,9 @@ out:
+@@ -306,7 +316,9 @@ out:
  int __secure psci_cpu_on(u32 __always_unused unused, u32 mpidr, u32 pc,
  			 u32 context_id)
  {
@@ -102,7 +102,7 @@ index 098e2b12bf..d76266d9c2 100644
  
  	/* store target PC and context id */
  	psci_save(cpu, pc, context_id);
-@@ -324,12 +336,32 @@ int __secure psci_cpu_on(u32 __always_unused unused, u32 mpidr, u32 pc,
+@@ -323,12 +335,32 @@ int __secure psci_cpu_on(u32 __always_unused unused, u32 mpidr, u32 pc,
  	/* Lock CPU (Disable external debug access) */
  	sunxi_cpu_set_locking(cpu, true);
  
@@ -139,7 +139,7 @@ diff --git a/arch/arm/dts/sunxi-u-boot.dtsi b/arch/arm/dts/sunxi-u-boot.dtsi
 index ed1cb91eeb..8c6d36d4ac 100644
 --- a/arch/arm/dts/sunxi-u-boot.dtsi
 +++ b/arch/arm/dts/sunxi-u-boot.dtsi
-@@ -77,6 +77,20 @@
+@@ -79,6 +79,20 @@
  				};
  #endif
  
@@ -160,7 +160,7 @@ index ed1cb91eeb..8c6d36d4ac 100644
  #if CONFIG_SUNXI_SCP_BASE
  				scp {
  					description = "SCP firmware";
-@@ -108,12 +122,15 @@
+@@ -111,12 +125,15 @@
  					firmware = "atf";
  #else
  					firmware = "uboot";
@@ -183,7 +183,7 @@ diff --git a/arch/arm/mach-sunxi/Kconfig b/arch/arm/mach-sunxi/Kconfig
 index b0fbda0aa0..48e750d070 100644
 --- a/arch/arm/mach-sunxi/Kconfig
 +++ b/arch/arm/mach-sunxi/Kconfig
-@@ -164,6 +164,13 @@ config SUNXI_BL31_BASE
+@@ -261,6 +261,13 @@ config SUNXI_BL31_BASE
  	help
  	  Address where BL31 (TF-A) is loaded, or zero if BL31 is not used.
  
