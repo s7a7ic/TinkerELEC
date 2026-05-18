@@ -49,7 +49,10 @@ def get_display_config_setting() -> str | None:
             return '1280x720'
         case 999:
             custom = addon.getSettingString('customdisplayconfig')
-            if custom is None or custom.strip() == '':
+            if custom is None:
+                return None
+            custom = custom.strip()
+            if custom == '':
                 return None
             else:
                 return custom

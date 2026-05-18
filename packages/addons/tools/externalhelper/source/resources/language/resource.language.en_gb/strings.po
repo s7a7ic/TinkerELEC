@@ -46,7 +46,7 @@ msgid "Custom..."
 msgstr ""
 
 msgctxt "#30108"
-msgid "Custom configuration filename"
+msgid "Custom display configuration file"
 msgstr ""
 
 msgctxt "#30109"
