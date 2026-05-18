@@ -13,7 +13,7 @@ diff --git a/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.cpp b/xbmc/cores
 index 9737f1969d..f289ea2320 100644
 --- a/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.cpp
 +++ b/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.cpp
-@@ -116,12 +116,50 @@ void CVideoBufferDRMPRIMEFFmpeg::Unref()
+@@ -79,12 +79,50 @@ void CVideoBufferDRMPRIMEFFmpeg::Unref()
    av_frame_unref(m_pFrame);
  }
  
@@ -68,7 +68,7 @@ diff --git a/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.h b/xbmc/cores/V
 index b83ee8ca68..777253ab62 100644
 --- a/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.h
 +++ b/xbmc/cores/VideoPlayer/Buffers/VideoBufferDRMPRIME.h
-@@ -77,14 +77,16 @@ public:
+@@ -58,14 +58,16 @@ public:
    void SetRef(AVFrame* frame);
    void Unref();
  

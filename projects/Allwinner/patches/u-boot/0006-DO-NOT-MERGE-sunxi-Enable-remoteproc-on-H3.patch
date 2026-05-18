@@ -12,7 +12,7 @@ diff --git a/arch/arm/mach-sunxi/Kconfig b/arch/arm/mach-sunxi/Kconfig
 index 1d4a4fdd0c59..4414b847b7e4 100644
 --- a/arch/arm/mach-sunxi/Kconfig
 +++ b/arch/arm/mach-sunxi/Kconfig
-@@ -295,6 +295,7 @@ config MACH_SUN8I_H3
+@@ -448,6 +448,7 @@ config MACH_SUN8I_H3
  	select CPU_V7_HAS_VIRT
  	select ARCH_SUPPORT_PSCI
  	select MACH_SUNXI_H3_H5

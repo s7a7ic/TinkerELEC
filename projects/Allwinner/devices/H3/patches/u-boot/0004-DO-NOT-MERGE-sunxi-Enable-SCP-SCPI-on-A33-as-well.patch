@@ -16,7 +16,7 @@ diff --git a/arch/arm/cpu/armv7/Kconfig b/arch/arm/cpu/armv7/Kconfig
 index 9dccc12253..e60b0049ea 100644
 --- a/arch/arm/cpu/armv7/Kconfig
 +++ b/arch/arm/cpu/armv7/Kconfig
-@@ -86,7 +86,7 @@ config ARMV7_PSCI
+@@ -87,7 +87,7 @@ config ARMV7_PSCI
  choice
  	prompt "Supported PSCI version"
  	depends on ARMV7_PSCI
@@ -42,7 +42,7 @@ diff --git a/arch/arm/cpu/armv7/sunxi/psci-scpi.c b/arch/arm/cpu/armv7/sunxi/psc
 index fea51eb456..d459eef22e 100644
 --- a/arch/arm/cpu/armv7/sunxi/psci-scpi.c
 +++ b/arch/arm/cpu/armv7/sunxi/psci-scpi.c
-@@ -24,7 +24,11 @@
+@@ -35,7 +35,11 @@
  #define MPIDR_AFFLVL0(mpidr)	(mpidr & 0xf)
  #define MPIDR_AFFLVL1(mpidr)	(mpidr >> 8 & 0xf)
  
@@ -73,7 +73,7 @@ index a0cac966af..a26edbbf31 100644
  			sram_c: sram@1d00000 {
  				compatible = "mmio-sram";
  				reg = <0x01d00000 0x80000>;
-@@ -847,5 +855,11 @@
+@@ -867,5 +875,11 @@
  			#address-cells = <1>;
  			#size-cells = <0>;
  		};
@@ -89,7 +89,7 @@ diff --git a/arch/arm/mach-sunxi/Kconfig b/arch/arm/mach-sunxi/Kconfig
 index a6d5de9e3b..381cc3f6fd 100644
 --- a/arch/arm/mach-sunxi/Kconfig
 +++ b/arch/arm/mach-sunxi/Kconfig
-@@ -174,7 +174,7 @@ config SUNXI_RESUME_BASE
+@@ -271,7 +271,7 @@ config SUNXI_RESUME_BASE
  config SUNXI_SCP_BASE
  	hex
  	default 0x00048000 if MACH_SUN8I_H3

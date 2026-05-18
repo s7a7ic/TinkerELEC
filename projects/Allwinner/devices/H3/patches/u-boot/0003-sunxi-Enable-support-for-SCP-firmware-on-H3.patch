@@ -18,7 +18,7 @@ diff --git a/arch/arm/mach-sunxi/Kconfig b/arch/arm/mach-sunxi/Kconfig
 index 48e750d070..a6d5de9e3b 100644
 --- a/arch/arm/mach-sunxi/Kconfig
 +++ b/arch/arm/mach-sunxi/Kconfig
-@@ -173,6 +173,7 @@ config SUNXI_RESUME_BASE
+@@ -270,6 +270,7 @@ config SUNXI_RESUME_BASE
  
  config SUNXI_SCP_BASE
  	hex
@@ -38,7 +38,7 @@ index 39ecbe988f..b83d21ef08 100644
  #include <axp_pmic.h>
  #include <generic-phy.h>
  #include <phy-sun4i-usb.h>
-@@ -851,6 +852,13 @@ int board_late_init(void)
+@@ -864,6 +865,13 @@ int board_late_init(void)
  	usb_ether_init();
  #endif
  
