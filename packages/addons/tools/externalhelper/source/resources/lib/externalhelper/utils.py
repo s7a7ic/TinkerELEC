@@ -97,6 +97,20 @@ def get_kodi_audio_device() -> str | None:
     return translated_device
 
 
+def get_audio_device() -> str | None:
+    if addon.getSettingBool('customaudio'):
+        audiodev = addon.getSettingString('customaudiodevice')
+        if audiodev is None:
+            return None
+        audiodev = audiodev.strip()
+        if audiodev.strip() == '':
+            return None
+        xbmc.log(f'using custom audio device {audiodev}')
+        return audiodev
+    else:
+        return get_kodi_audio_device()
+
+
 def run_external_program(executable: str, args: list | None = None, env: dict | None = None, name: str = '') -> bool:
     addon = xbmcaddon.Addon(ADDON_ID)
 
@@ -108,7 +122,7 @@ def run_external_program(executable: str, args: list | None = None, env: dict | 
 
     # try to determine keyboard layout
     layout = get_kodi_keyboard_layout()
-    audiodev = get_kodi_audio_device()
+    audiodev = get_audio_device()
     displayconfig = get_display_config_setting()
 
     environment = {}
