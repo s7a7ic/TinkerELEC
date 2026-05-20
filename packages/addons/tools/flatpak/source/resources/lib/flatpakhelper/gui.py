@@ -144,6 +144,7 @@ class FlatpakGui:
         flatpak_args: list | None = None,
         run_env: dict | None = None,
         wayland: bool = True,
+        pulseaudio: bool = True,
     ) -> bool:
 
         if not self.flatpak.get_commit(appid):
@@ -164,7 +165,13 @@ class FlatpakGui:
                 return False
 
         return self.flatpak.start(
-            appid=appid, args=args, env=env, flatpak_args=flatpak_args, run_env=run_env, wayland=wayland
+            appid=appid,
+            args=args,
+            env=env,
+            flatpak_args=flatpak_args,
+            run_env=run_env,
+            wayland=wayland,
+            pulseaudio=pulseaudio,
         )
 
     def show_info(self, appid: str) -> None:
