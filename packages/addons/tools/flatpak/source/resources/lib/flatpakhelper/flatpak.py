@@ -165,6 +165,7 @@ class Flatpak:
         env: dict | None = None,
         flatpak_args: list | None = None,
         run_env: dict | None = None,
+        wayland: bool = True,
     ) -> bool:
 
         info = self.get_application_info(appid)
@@ -186,7 +187,9 @@ class Flatpak:
         if args is not None:
             runargs.extend(args)
 
-        return eh.run_external_program(executable=self.flatpak_run, args=runargs, env=run_env, name=name)
+        return eh.run_external_program(
+            executable=self.flatpak_run, args=runargs, env=run_env, name=name, wayland=wayland
+        )
 
     def find_application_icon(self, appid: str) -> str | None:
         for i in ['512x512', '256x256', '128x128', '64x64', '48x48', '32x32']:
