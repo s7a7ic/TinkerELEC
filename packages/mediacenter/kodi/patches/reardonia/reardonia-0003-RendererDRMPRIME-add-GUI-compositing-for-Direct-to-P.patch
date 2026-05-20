@@ -1,7 +1,7 @@
-From 260509f9bdafb479c28bbf53f9ac26f1ddba8d96 Mon Sep 17 00:00:00 2001
+From fe656603b49fbe85cee900f53264cc4e2637e54f Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Sat, 21 Mar 2026 00:46:13 -0400
-Subject: [PATCH 02/15] RendererDRMPRIME: add GUI compositing for
+Subject: [PATCH 03/18] RendererDRMPRIME: add GUI compositing for
  Direct-to-Plane HDR
 
 Enable FBO-based GUI tone mapping for Direct-to-Plane rendering.

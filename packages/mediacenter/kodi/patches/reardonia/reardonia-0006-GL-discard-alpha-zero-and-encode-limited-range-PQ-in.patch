@@ -1,7 +1,7 @@
-From 810e6426da183b8429b45531b55a7161374bd0b5 Mon Sep 17 00:00:00 2001
+From a963bfcd5fe1f483af376becb63b5f81574edd77 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Wed, 29 Apr 2026 23:22:45 -0400
-Subject: [PATCH 04/15] GL: discard alpha-zero and encode limited-range PQ in
+Subject: [PATCH 06/18] GL: discard alpha-zero and encode limited-range PQ in
  composite shader
 
 Bring the GL FBO compositing path closer to feature parity with GLES,
@@ -38,7 +38,7 @@ Not yet at parity (deliberate, follow-ups):
  5 files changed, 27 insertions(+), 7 deletions(-)
 
 diff --git a/system/shaders/GL/1.5/gl_gui_composite.frag b/system/shaders/GL/1.5/gl_gui_composite.frag
-index b1c0fea88c..8379d7dfee 100644
+index 9da761a891..4370b39931 100644
 --- a/system/shaders/GL/1.5/gl_gui_composite.frag
 +++ b/system/shaders/GL/1.5/gl_gui_composite.frag
 @@ -37,6 +37,12 @@ void main()
@@ -68,7 +68,7 @@ index b1c0fea88c..8379d7dfee 100644
    fragColor = vec4(pq, gui.a);
  }
 diff --git a/xbmc/rendering/gl/GuiCompositeShaderGL.cpp b/xbmc/rendering/gl/GuiCompositeShaderGL.cpp
-index 08709f90e2..f4641d1f9d 100644
+index 44d792ed89..0efa6df3df 100644
 --- a/xbmc/rendering/gl/GuiCompositeShaderGL.cpp
 +++ b/xbmc/rendering/gl/GuiCompositeShaderGL.cpp
 @@ -10,10 +10,10 @@
@@ -86,7 +86,7 @@ index 08709f90e2..f4641d1f9d 100644
  
  void CGuiCompositeShaderGL::OnCompiledAndLinked()
 diff --git a/xbmc/rendering/gl/GuiCompositeShaderGL.h b/xbmc/rendering/gl/GuiCompositeShaderGL.h
-index 4d7e3f80b0..d19515468b 100644
+index e2913fbd78..a4dc49cea9 100644
 --- a/xbmc/rendering/gl/GuiCompositeShaderGL.h
 +++ b/xbmc/rendering/gl/GuiCompositeShaderGL.h
 @@ -10,10 +10,12 @@
