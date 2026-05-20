@@ -1,7 +1,7 @@
-From a17f2c0109accab915f9cdefaad76339c6b11a38 Mon Sep 17 00:00:00 2001
+From 1c2a830328123ede784d7b4c7a30bcd5a246db8d Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Mon, 16 Mar 2026 21:05:56 -0400
-Subject: [PATCH 01/15] RendererDRMPRIMEGLES: add HDR passthrough and GUI
+Subject: [PATCH 01/18] RendererDRMPRIMEGLES: add HDR passthrough and GUI
  compositing
 
 Enable HDR support for RendererDRMPRIMEGLES (single-plane EGL
@@ -32,10 +32,10 @@ Depends on #28012.
 ---
  .../HwDecRender/RendererDRMPRIMEGLES.cpp      | 57 ++++++++++++++++---
  .../HwDecRender/RendererDRMPRIMEGLES.h        |  6 +-
- 2 files changed, 54 insertions(+), 9 deletions(-)
+ 2 files changed, 55 insertions(+), 8 deletions(-)
 
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.cpp
-index e1be23d886..f30fef57b5 100644
+index 55e5613de8..e78ac7b6c6 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.cpp
 @@ -30,13 +30,7 @@ using namespace KODI::UTILS::EGL;
@@ -62,11 +62,11 @@ index e1be23d886..f30fef57b5 100644
    if (!winSystem->SetVideoOutput(&picture))
      CLog::Log(LOGWARNING, "RendererDRMPRIMEGLES::Configure: SetVideoOutput failed");
  
-@@ -136,10 +132,55 @@ bool CRendererDRMPRIMEGLES::Configure(const VideoPicture& picture,
+@@ -135,9 +131,56 @@ bool CRendererDRMPRIMEGLES::Configure(const VideoPicture& picture,
+   }
  
-   m_clearColour = winSystem->UseLimitedColor() ? (16.0f / 0xff) : 0.0f;
- 
--  m_configured = true;
+   m_configured = true;
++
 +  //! @todo limited-range color management is broken on the DRMPRIMEGLES path.
 +  //! The OES_EGL_image_external sampler (samplerExternalOES) does YUV->RGB
 +  //! conversion in mesa with hardcoded matrices that always output full-range
@@ -120,7 +120,7 @@ index e1be23d886..f30fef57b5 100644
  {
    BUFFER& buf = m_buffers[index];
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.h b/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.h
-index 20be4e3f75..38ec39a325 100644
+index 184f4162a1..964e8fc39a 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.h
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/HwDecRender/RendererDRMPRIMEGLES.h
 @@ -37,8 +37,10 @@ public:
@@ -141,9 +141,9 @@ index 20be4e3f75..38ec39a325 100644
    bool m_configured = false;
 +  bool m_passthroughHDR{false};
 +  bool m_hdrFboActive{false};
-   float m_clearColour{0.0f};
  
    struct BUFFER
+   {
 -- 
 2.43.0
 

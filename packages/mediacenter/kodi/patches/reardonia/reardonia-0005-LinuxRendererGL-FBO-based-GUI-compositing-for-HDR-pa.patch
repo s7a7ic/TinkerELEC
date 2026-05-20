@@ -1,7 +1,7 @@
-From 7970360d223e3bc0e557c442262943819057b6c5 Mon Sep 17 00:00:00 2001
+From f8b241e52eab1cfa837555dba3b8d1917c7a7fb3 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Fri, 20 Mar 2026 13:01:27 -0400
-Subject: [PATCH 03/15] LinuxRendererGL: FBO-based GUI compositing for HDR
+Subject: [PATCH 05/18] LinuxRendererGL: FBO-based GUI compositing for HDR
  passthrough
 
 Port the GLES FBO GUI compositing (PR #28012) to the GL path.
@@ -39,12 +39,12 @@ GL differences from the GLES implementation:
 
 diff --git a/system/shaders/GL/1.5/gl_gui_composite.frag b/system/shaders/GL/1.5/gl_gui_composite.frag
 new file mode 100644
-index 0000000000..b1c0fea88c
+index 0000000000..9da761a891
 --- /dev/null
 +++ b/system/shaders/GL/1.5/gl_gui_composite.frag
 @@ -0,0 +1,53 @@
 +/*
-+ *  Copyright (C) 2024 Team Kodi
++ *  Copyright (C) 2026 Team Kodi
 + *  This file is part of Kodi - https://kodi.tv
 + *
 + *  SPDX-License-Identifier: GPL-2.0-or-later
@@ -98,12 +98,12 @@ index 0000000000..b1c0fea88c
 +}
 diff --git a/system/shaders/GL/1.5/gl_gui_composite.vert b/system/shaders/GL/1.5/gl_gui_composite.vert
 new file mode 100644
-index 0000000000..277ce7d677
+index 0000000000..dc8607c9b7
 --- /dev/null
 +++ b/system/shaders/GL/1.5/gl_gui_composite.vert
 @@ -0,0 +1,20 @@
 +/*
-+ *  Copyright (C) 2024 Team Kodi
++ *  Copyright (C) 2026 Team Kodi
 + *  This file is part of Kodi - https://kodi.tv
 + *
 + *  SPDX-License-Identifier: GPL-2.0-or-later
@@ -123,15 +123,15 @@ index 0000000000..277ce7d677
 +  v_tex = a_tex;
 +}
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.cpp b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.cpp
-index 08051af878..28b5004602 100644
+index 9f36412f4d..1df2d61d6b 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.cpp
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.cpp
 @@ -268,6 +268,12 @@ bool CLinuxRendererGL::Configure(const VideoPicture &picture, float fps, unsigne
                m_passthroughHDR ? "on" : "off");
    }
  
-+  m_hdrFboActive = m_passthroughHDR &&
-+                   CServiceBroker::GetWinSystem()->SetGuiCompositing(picture.color_transfer);
++  m_hdrFboActive =
++      m_passthroughHDR && CServiceBroker::GetWinSystem()->SetGuiCompositing(picture.color_transfer);
 +  if (m_passthroughHDR && !m_hdrFboActive)
 +    CLog::Log(LOGWARNING, "LinuxRendererGL::Configure: HDR passthrough active but GUI "
 +                          "compositing not supported by windowing system");
@@ -161,7 +161,7 @@ index 08051af878..28b5004602 100644
  {
    // obtain current field, if interlaced
 diff --git a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h
-index 2a5c786b4b..59d7c2a2e2 100644
+index 9871a24f13..8728630398 100644
 --- a/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h
 +++ b/xbmc/cores/VideoPlayer/VideoRenderers/LinuxRendererGL.h
 @@ -82,6 +82,8 @@ public:
@@ -178,9 +178,9 @@ index 2a5c786b4b..59d7c2a2e2 100644
    ETONEMAPMETHOD m_toneMapMethod = VS_TONEMAPMETHOD_OFF;
    bool m_passthroughHDR = false;
 +  bool m_hdrFboActive{false};
-   float m_clearColour = 0.0f;
    bool m_pboSupported = true;
    bool m_pboUsed = false;
+   bool m_nonLinStretch = false;
 diff --git a/xbmc/rendering/gl/CMakeLists.txt b/xbmc/rendering/gl/CMakeLists.txt
 index a6a5b90575..2b64864b61 100644
 --- a/xbmc/rendering/gl/CMakeLists.txt
@@ -203,12 +203,12 @@ index a6a5b90575..2b64864b61 100644
  endif()
 diff --git a/xbmc/rendering/gl/GuiCompositeShaderGL.cpp b/xbmc/rendering/gl/GuiCompositeShaderGL.cpp
 new file mode 100644
-index 0000000000..08709f90e2
+index 0000000000..44d792ed89
 --- /dev/null
 +++ b/xbmc/rendering/gl/GuiCompositeShaderGL.cpp
 @@ -0,0 +1,39 @@
 +/*
-+ *  Copyright (C) 2024 Team Kodi
++ *  Copyright (C) 2026 Team Kodi
 + *  This file is part of Kodi - https://kodi.tv
 + *
 + *  SPDX-License-Identifier: GPL-2.0-or-later
@@ -248,12 +248,12 @@ index 0000000000..08709f90e2
 +}
 diff --git a/xbmc/rendering/gl/GuiCompositeShaderGL.h b/xbmc/rendering/gl/GuiCompositeShaderGL.h
 new file mode 100644
-index 0000000000..4d7e3f80b0
+index 0000000000..e2913fbd78
 --- /dev/null
 +++ b/xbmc/rendering/gl/GuiCompositeShaderGL.h
 @@ -0,0 +1,37 @@
 +/*
-+ *  Copyright (C) 2024 Team Kodi
++ *  Copyright (C) 2026 Team Kodi
 + *  This file is part of Kodi - https://kodi.tv
 + *
 + *  SPDX-License-Identifier: GPL-2.0-or-later

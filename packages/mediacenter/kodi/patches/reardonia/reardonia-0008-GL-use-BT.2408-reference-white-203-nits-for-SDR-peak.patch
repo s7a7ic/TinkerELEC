@@ -1,7 +1,7 @@
-From be1443bb4a50a4d84f6342e5de6b9aa8e01b5eeb Mon Sep 17 00:00:00 2001
+From 21ecddac1dc5beda8b1548ad7bf4289ca06e0a10 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Thu, 7 May 2026 10:24:48 -0400
-Subject: [PATCH 06/15] GL: use BT.2408 reference white (203 nits) for SDR peak
+Subject: [PATCH 08/18] GL: use BT.2408 reference white (203 nits) for SDR peak
 
 The original GL FBO compositing commit hardcoded the SDR peak at
 100 nits (sRGB reference white). On HDR passthrough this rendered
@@ -17,7 +17,7 @@ both this and the GLES path).
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/xbmc/rendering/gl/GuiCompositeShaderGL.h b/xbmc/rendering/gl/GuiCompositeShaderGL.h
-index d19515468b..66cd47ac50 100644
+index a4dc49cea9..0f707ce566 100644
 --- a/xbmc/rendering/gl/GuiCompositeShaderGL.h
 +++ b/xbmc/rendering/gl/GuiCompositeShaderGL.h
 @@ -29,7 +29,7 @@ protected:

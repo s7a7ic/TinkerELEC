@@ -1,7 +1,7 @@
-From a10b6e3bec20c445f49df04b5397b4a377f41408 Mon Sep 17 00:00:00 2001
+From b7c331cc749418c43f8ea18ab58e40c061da4893 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Thu, 7 May 2026 10:26:41 -0400
-Subject: [PATCH 07/15] GBM/GL: compensate GUI alpha blend for non-linear HDR
+Subject: [PATCH 09/18] GBM/GL: compensate GUI alpha blend for non-linear HDR
  composite
 
 Match GLES in #28012.
