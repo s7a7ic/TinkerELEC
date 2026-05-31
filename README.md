@@ -53,7 +53,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 * USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
 
-**Extra Package with modifications for my use-case (not in LibreELEC image)**
+**Extra Package with modifications for my use-case (not in the LibreELEC.TinkerBoard image)**
 * Package: ["tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
 * On Suspend / On Resume [script support](packages/tinkerelec/tinkerelec-config/config/sleep.d/suspend_resume.power)
 * Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
