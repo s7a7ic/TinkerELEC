@@ -13,3 +13,7 @@ PKG_LONGDESC="A Wayland kiosk "
 PKG_BUILD_FLAGS="-sysroot"
 
 PKG_MESON_OPTS_TARGET="-Dman-pages=disabled"
+
+pre_configure_target() {
+  export GIT_CEILING_DIRECTORIES="${ROOT}"
+}
