@@ -1,7 +1,7 @@
-From 979b6e6107ed9aa325ae0fd9b4706b994b915b41 Mon Sep 17 00:00:00 2001
+From b876a0941088554dad8c002ef6700809298ba693 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Sun, 19 Apr 2026 21:12:08 -0400
-Subject: [PATCH 04/21] LinuxRendererGL/GLES: rename YV12 helpers to reflect
+Subject: [PATCH 04/23] LinuxRendererGL/GLES: rename YV12 helpers to reflect
  actual formats
 
 The Create/Delete/Upload helpers named after YV12 have handled

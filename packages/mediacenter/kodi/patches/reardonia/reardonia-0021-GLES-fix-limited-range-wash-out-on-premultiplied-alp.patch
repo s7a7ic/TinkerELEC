@@ -1,7 +1,7 @@
-From 5848b77f8358683d283abcd7890f436a548818c5 Mon Sep 17 00:00:00 2001
+From aa83014c4a649101800b355e825f627498c88306 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Sun, 31 May 2026 23:57:53 -0400
-Subject: [PATCH 21/21] GLES: fix limited-range wash-out on premultiplied-alpha
+Subject: [PATCH 21/23] GLES: fix limited-range wash-out on premultiplied-alpha
  (PMA) bitmap overlays
 
 gles_shader_texture_noblend.frag's limited-range conversion adds

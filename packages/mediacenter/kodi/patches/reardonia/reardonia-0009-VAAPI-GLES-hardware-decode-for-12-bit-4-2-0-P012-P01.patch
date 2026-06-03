@@ -1,7 +1,7 @@
-From d43902a2afae6d50d5ff63cb29275eab9316be05 Mon Sep 17 00:00:00 2001
+From 753df261f1432887055df3df756c6a1a17933114 Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Fri, 8 May 2026 09:37:28 -0400
-Subject: [PATCH 09/21] VAAPI/GLES: hardware decode for 12-bit 4:2:0 (P012,
+Subject: [PATCH 09/23] VAAPI/GLES: hardware decode for 12-bit 4:2:0 (P012,
  P016)
 
 Cover HEVC Main12 and VP9 Profile 2 at 12-bit, previously advertised by
