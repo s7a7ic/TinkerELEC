@@ -1,7 +1,7 @@
-From f88ba50252025042dd00c83b462bcf1aa553cdcd Mon Sep 17 00:00:00 2001
+From 03edaba1de006546018a26aebca8c7a20b10e59e Mon Sep 17 00:00:00 2001
 From: reardonia <2925104+reardonia@users.noreply.github.com>
 Date: Sun, 10 May 2026 13:16:37 -0400
-Subject: [PATCH 16/23] VAAPI/GLES: hardware decode for H.264 High10 and AV1
+Subject: [PATCH 16/21] VAAPI/GLES: hardware decode for H.264 High10 and AV1
  Profile 1
 
 H.264 High10 (10-bit 4:2:0): add profile mapping gated on bitDepth
