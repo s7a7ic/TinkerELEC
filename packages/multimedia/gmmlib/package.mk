@@ -1,9 +1,9 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="gmmlib"
-PKG_VERSION="22.8.1"
-PKG_SHA256="9b8eac1891650021ded26b72585e7a2c702a3ba47565c968feabd14ab38d18f7"
+PKG_VERSION="22.10.0"
+PKG_SHA256="893e3c5a24b408ac312a0318b70f38f427f297646e323f31e79d3a06a92c1543"
 PKG_ARCH="x86_64"
 PKG_LICENSE="MIT"
 PKG_SITE="https://01.org/linuxmedia"

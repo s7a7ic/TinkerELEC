@@ -3,10 +3,10 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="bcm2835-bootloader"
-PKG_VERSION="063bcab6c8a90efb0d19f69d88cbbc7ec79cab68"
-PKG_SHA256="466b0c612f4e994c446543b8f8c00da4d12f14e01ef5f81b16e3f94d29ee6940"
+PKG_VERSION="e7368d8b57207b3cf8626d9f2c050452e4a305be"
+PKG_SHA256="b267adc3f220691975b07d5d673504c003c043dfee6952cffb1f90c559c203be"
 PKG_ARCH="arm aarch64"
-PKG_LICENSE="nonfree"
+PKG_LICENSE="LicenseRef-nonfree"
 PKG_SITE="http://www.broadcom.com"
 PKG_URL="${DISTRO_SRC}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain linux bcmstat"
@@ -21,8 +21,7 @@ makeinstall_target() {
         cp -PRv fixup4x.dat ${INSTALL}/usr/share/bootloader/fixup.dat
         cp -PRv start4x.elf ${INSTALL}/usr/share/bootloader/start.elf
         ;;
-      RPi5)
-        ;;
+      RPi5) ;;
       *)
         cp -PRv bootcode.bin ${INSTALL}/usr/share/bootloader
         cp -PRv fixup_x.dat ${INSTALL}/usr/share/bootloader/fixup.dat

@@ -3,9 +3,9 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libssh"
-PKG_VERSION="0.10.6"
-PKG_SHA256="1861d498f5b6f1741b6abc73e608478491edcf9c9d4b6630eef6e74596de9dc1"
-PKG_LICENSE="LGPL"
+PKG_VERSION="0.12.0"
+PKG_SHA256="1a6af424d8327e5eedef4e5fe7f5b924226dd617ac9f3de80f217d82a36a7121"
+PKG_LICENSE="LGPL-2.1-or-later"
 PKG_SITE="http://www.libssh.org/"
 PKG_URL="https://www.libssh.org/files/$(get_pkg_version_maj_min)/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain zlib openssl"
@@ -20,7 +20,7 @@ PKG_CMAKE_OPTS_TARGET="-DBUILD_SHARED_LIBS=OFF \
                        -DWITH_INTERNAL_DOC=OFF"
 
 makeinstall_target() {
-# install static library only
+  # install static library only
   mkdir -p ${SYSROOT_PREFIX}/usr/lib
     cp ${PKG_BUILD}/.${TARGET_NAME}/src/libssh.a ${SYSROOT_PREFIX}/usr/lib
 

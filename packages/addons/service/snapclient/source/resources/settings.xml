@@ -67,18 +67,6 @@
             <heading>30006</heading>
           </control>
         </setting>
-        <setting id="sc_delay" type="integer" label="30017" help="30018">
-          <level>0</level>
-          <default>3</default>
-          <constraints>
-            <minimum>0</minimum>
-            <step>1</step>
-            <maximum>30</maximum>
-          </constraints>
-          <control type="slider" format="integer">
-            <popup>false</popup>
-          </control>
-        </setting>
       </group>
     </category>
     <category id="kodi" label="30007" help="">

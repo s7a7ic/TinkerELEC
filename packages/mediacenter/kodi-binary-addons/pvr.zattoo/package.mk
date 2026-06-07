@@ -1,12 +1,12 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.zattoo"
-PKG_VERSION="21.0.7-Omega"
-PKG_SHA256="d57efceff2f451cc8864d429abed6c7d808ea5092fddf3ece3f598d4a5e26b1f"
+PKG_VERSION="22.2.2-Piers"
+PKG_SHA256="a07103805c8c335586bccd36d76857d4017ac29704a10c2f2c137cdd8075d184"
 PKG_REV="1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/rbuehlma/pvr.zattoo"
 PKG_URL="https://github.com/rbuehlma/pvr.zattoo/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain kodi-platform rapidjson sqlite tinyxml2"

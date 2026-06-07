@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="libretro-vecx"
-PKG_VERSION="a103a212ca8644fcb5d76eac7cdec77223c4fb02"
-PKG_SHA256="55327ad4494b64f6f64319904417e47f353f06ed8930e8d4cce2eee6f30500d7"
-PKG_LICENSE="GPLv3"
+PKG_VERSION="8f671cc9d737f2890c3ce19e177e2984dcae121f"
+PKG_SHA256="cd59fe10619be54c60bb6feb2f48c607291f38bd9638b78ee975081d80450065"
+PKG_LICENSE="GPL-3.0-only"
 PKG_SITE="https://github.com/libretro/libretro-vecx"
 PKG_URL="https://github.com/libretro/libretro-vecx/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain"
@@ -19,6 +19,11 @@ PKG_MAKE_OPTS_TARGET="-f Makefile.libretro"
 
 if [ "${OPENGL_SUPPORT}" = "yes" ]; then
   PKG_DEPENDS_TARGET+=" ${OPENGL}"
+fi
+
+if [ "${OPENGL_SUPPORT}" = "yes" ] &&
+   [ "${DISPLAYSERVER}" != "x11" ]; then
+  PKG_MAKE_OPTS_TARGET+=" USE_GLVND=1"
 fi
 
 if [ "${OPENGLES_SUPPORT}" = "yes" ]; then
@@ -42,5 +47,5 @@ fi
 makeinstall_target() {
   mkdir -p ${SYSROOT_PREFIX}/usr/lib/cmake/${PKG_NAME}
   cp ${PKG_LIBPATH} ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME}
-  echo "set(${PKG_LIBVAR} ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME})" > ${SYSROOT_PREFIX}/usr/lib/cmake/${PKG_NAME}/${PKG_NAME}-config.cmake
+  echo "set(${PKG_LIBVAR} ${SYSROOT_PREFIX}/usr/lib/${PKG_LIBNAME})" >${SYSROOT_PREFIX}/usr/lib/cmake/${PKG_NAME}/${PKG_NAME}-config.cmake
 }

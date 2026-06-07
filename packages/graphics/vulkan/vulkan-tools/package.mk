@@ -3,8 +3,8 @@
 # Copyright (C) 2021-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="vulkan-tools"
-PKG_VERSION="1.3.280"
-PKG_SHA256="97cbe660c066eb5b00a2f33b501f7cd0baaf8996b997fcba185ce298c8835fed"
+PKG_VERSION="1.4.352"
+PKG_SHA256="7a6f03882ab15c5e0a946f7b03a0ca0da8095b43f170b156e64cf654a17341e0"
 PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://github.com/KhronosGroup/Vulkan-Tools"
 PKG_URL="https://github.com/KhronosGroup/Vulkan-tools/archive/v${PKG_VERSION}.tar.gz"
@@ -16,7 +16,7 @@ configure_package() {
   if [ "${DISPLAYSERVER}" = "x11" ]; then
     PKG_DEPENDS_TARGET+=" libxcb libX11"
   elif [ "${DISPLAYSERVER}" = "wl" ]; then
-    PKG_DEPENDS_TARGET+=" wayland"
+    PKG_DEPENDS_TARGET+=" wayland wayland-protocols"
   fi
 }
 
@@ -25,7 +25,6 @@ pre_configure_target() {
                          -DBUILD_VULKANINFO=ON \
                          -DBUILD_ICD=OFF \
                          -DBUILD_WSI_DIRECTFB_SUPPORT=OFF \
-                         -DPython3_EXECUTABLE=${TOOLCHAIN}/bin/python3 \
                          -Wno-dev"
 
   if [ "${DISPLAYSERVER}" = "x11" ]; then
@@ -40,7 +39,7 @@ pre_configure_target() {
                              -DCOMPILE_CUBE_SHADERS=ON \
                              -DBUILD_WSI_XCB_SUPPORT=OFF \
                              -DBUILD_WSI_XLIB_SUPPORT=OFF \
-                             -DBUILD_WSI_WAYLAND_SUPPORT=ON
+                             -DBUILD_WSI_WAYLAND_SUPPORT=ON \
                              -DCUBE_WSI_SELECTION=WAYLAND"
   else
     PKG_CMAKE_OPTS_TARGET+=" -DBUILD_CUBE=ON \

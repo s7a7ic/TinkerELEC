@@ -3,11 +3,11 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="audiodecoder.dumb"
-PKG_VERSION="21.0.2-Omega"
-PKG_SHA256="57a6442d0b0d20e88eaf9ea95a06d4b84fa584bc7a51d1ea909b4206f0013274"
-PKG_REV="3"
+PKG_VERSION="22.0.2-Piers"
+PKG_SHA256="9215123e0dbc3997feddd580caf13ed2d39895fee238f92088cdd089fc94c94a"
+PKG_REV="2"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/xbmc/audiodecoder.dumb"
 PKG_URL="https://github.com/xbmc/audiodecoder.dumb/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain kodi-platform"

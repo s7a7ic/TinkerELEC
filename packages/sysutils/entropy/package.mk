@@ -1,12 +1,13 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 # Copyright (C) 2009-2016 Stephan Raue (stephan@openelec.tv)
+# Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="entropy"
 PKG_VERSION="0"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE=""
 PKG_URL=""
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET=""
 PKG_LONGDESC="A simple way to add entropy at boot"
 PKG_TOOLCHAIN="manual"
 

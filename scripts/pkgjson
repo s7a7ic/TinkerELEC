@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 . config/options ""
@@ -51,6 +51,6 @@ fi
 # pipefail: return value of a pipeline is the value of the last (rightmost) command to exit with a non-zero status
 set -o pipefail
 
-cat ${_CACHE_PACKAGE_GLOBAL} ${_CACHE_PACKAGE_LOCAL} | \
+cat ${_CACHE_PACKAGE_GLOBAL} ${_CACHE_PACKAGE_LOCAL} |
   xargs --max-args=64 --max-procs="$(nproc)" "$0" --worker
 exit $?

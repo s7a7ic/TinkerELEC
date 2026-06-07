@@ -1,11 +1,11 @@
 function update_package() {
   # check the pkgver string is the right format
-  regex_pattern="^[0-9]+.[0-9]+.[0-9]+,[0-9]+.[0-9]+.[0-9]+,[0-9]+.[0-9]+.[0-9]+$"
+  regex_pattern="^[0-9]+.[0-9]+.[0-9]+,[0-9]+.[0-9]+.[0-9]+$"
   if [[ "${pkgver}" =~ ${regex_pattern} ]]; then
     IFS=',' read -ra pkgver_array <<< "${pkgver}"
-    echo "Updating ${pkgname} for all of ${pkgver_array[0]}, ${pkgver_array[1]} and ${pkgver_array[2]} versions"
+    echo "Updating ${pkgname} for both ${pkgver_array[0]} and ${pkgver_array[1]} versions"
   else
-    die "ERROR: ${pkgname} requires 3 versions to be comma seperated. e.g. 6.0.2,8.0.3,9.0.6"
+    die "ERROR: ${pkgname} requires 2 versions to be comma seperated. e.g. 8.0.3,9.0.1"
   fi
 }
 
@@ -13,12 +13,11 @@ function custom_post_commit() {
   echo "Starting update of dotnet-runtime sub-packages to $pkgver."
   export run_sub_package=1
   IFS=',' read -ra pkgver_array <<< "${pkgver}"
-  ${progname} aspnet6-runtime ${pkgver_array[0]}
-  ${progname} aspnet8-runtime ${pkgver_array[1]}
-  ${progname} aspnet9-runtime ${pkgver_array[2]}
+  ${progname} aspnet8-runtime ${pkgver_array[0]}
+  ${progname} aspnet9-runtime ${pkgver_array[1]}
 }
 
 function custom_commit_msg() {
   IFS=',' read -ra pkgver_array <<< "${pkgver}"
-  commit_msg="${pkgname}: update to ${pkgver_array[0]}, ${pkgver_array[1]} and ${pkgver_array[2]}"
+  commit_msg="${pkgname}: update to ${pkgver_array[0]} and ${pkgver_array[1]}"
 }

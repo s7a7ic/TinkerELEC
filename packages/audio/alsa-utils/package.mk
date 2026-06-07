@@ -3,9 +3,9 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="alsa-utils"
-PKG_VERSION="1.2.11"
-PKG_SHA256="9ac6ca3a883f151e568dcf979b8d2e5cbecc51b819bb0e6bb8a2e9b34cc428a7"
-PKG_LICENSE="GPL"
+PKG_VERSION="1.2.16"
+PKG_SHA256="092399d5e8749a1d5e188e393157521cec4b75693b60ebb79bbce728cff2232c"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://www.alsa-project.org/"
 PKG_URL="https://www.alsa-project.org/files/pub/utils/alsa-utils-${PKG_VERSION}.tar.bz2"
 PKG_DEPENDS_TARGET="toolchain alsa-lib ncurses systemd"
@@ -31,8 +31,8 @@ post_makeinstall_target() {
   rm -rf ${INSTALL}/usr/share/sounds
   rm -rf ${INSTALL}/usr/lib/systemd/system
 
-# remove default udev rule to restore mixer configs, we install our own.
-# so we avoid resetting our soundconfig
+  # remove default udev rule to restore mixer configs, we install our own.
+  # so we avoid resetting our soundconfig
   rm -rf ${INSTALL}/usr/lib/udev/rules.d/90-alsa-restore.rules
 
   mkdir -p ${INSTALL}/.noinstall

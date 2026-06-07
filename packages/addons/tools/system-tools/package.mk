@@ -1,11 +1,11 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="system-tools"
 PKG_VERSION="1.0"
-PKG_REV="11"
+PKG_REV="3"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-only"
 PKG_SITE="https://libreelec.tv"
 PKG_URL=""
 PKG_DEPENDS_TARGET="toolchain"
@@ -15,6 +15,8 @@ PKG_LONGDESC="This bundle currently includes 7-zip, autossh, bottom, diffutils, 
 
 PKG_IS_ADDON="yes"
 PKG_ADDON_NAME="System Tools"
+PKG_ADDON_ICON_NAME="TOOLS"
+PKG_ADDON_ICON_SIZE="280"
 PKG_ADDON_TYPE="xbmc.python.script"
 
 PKG_DEPENDS_TARGET="toolchain \
@@ -98,7 +100,6 @@ addon() {
     # file
     cp -P $(get_install_dir file)/usr/bin/file ${ADDON_BUILD}/${PKG_ADDON_ID}/bin
     cp -P $(get_install_dir file)/usr/share/misc/magic.mgc ${ADDON_BUILD}/${PKG_ADDON_ID}/data
-    cp -P $(get_install_dir zstd)/usr/lib/libzstd.so* ${ADDON_BUILD}/${PKG_ADDON_ID}/lib.private
 
     # fuse
     cp -P $(get_install_dir fuse)/usr/bin/{fusermount,ulockmgr_server} ${ADDON_BUILD}/${PKG_ADDON_ID}/bin

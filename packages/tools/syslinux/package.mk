@@ -6,7 +6,7 @@ PKG_NAME="syslinux"
 PKG_VERSION="6.03"
 PKG_SHA256="26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e"
 PKG_ARCH="x86_64"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="http://syslinux.zytor.com/"
 PKG_URL="http://www.kernel.org/pub/linux/utils/boot/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_HOST="util-linux:host"
@@ -16,7 +16,7 @@ PKG_LONGDESC="The SYSLINUX project covers lightweight linux bootloaders."
 pre_configure_target() {
   PKG_MAKE_OPTS_TARGET="CC=${CC} AR=${AR} RANLIB=${RANLIB} installer"
 
-# Unset all compiler FLAGS
+  # Unset all compiler FLAGS
   unset CFLAGS
   unset CPPFLAGS
   unset CXXFLAGS

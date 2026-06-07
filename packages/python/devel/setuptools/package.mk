@@ -3,19 +3,11 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="setuptools"
-PKG_VERSION="52.0.0"
-PKG_SHA256="ff0c74d1b905a224d647f99c6135eacbec2620219992186b81aa20012bc7f882"
-PKG_LICENSE="OSS"
+PKG_VERSION="82.0.1"
+PKG_SHA256="7d872682c5d01cfde07da7bccc7b65469d3dca203318515ada1de5eda35efbf9"
+PKG_LICENSE="MIT"
 PKG_SITE="https://pypi.org/project/setuptools"
-PKG_URL="https://github.com/pypa/setuptools/archive/v${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_HOST="Python3:host"
+PKG_URL="https://files.pythonhosted.org/packages/source/${PKG_NAME:0:1}/${PKG_NAME}/${PKG_NAME,,}-${PKG_VERSION}.tar.gz"
+PKG_DEPENDS_HOST="pybuild:host"
 PKG_LONGDESC="Replaces Setuptools as the standard method for working with Python module distributions."
-PKG_TOOLCHAIN="manual"
-
-make_host() {
-  python3 bootstrap.py
-}
-
-makeinstall_host() {
-  exec_thread_safe python3 setup.py install --prefix=${TOOLCHAIN}
-}
+PKG_TOOLCHAIN="python"

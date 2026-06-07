@@ -1,18 +1,19 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="htop"
-PKG_VERSION="3.4.1"
-PKG_SHA256="af9ec878f831b7c27d33e775c668ec79d569aa781861c995a0fbadc1bdb666cf"
-PKG_LICENSE="GPL"
+PKG_VERSION="3.5.1"
+PKG_SHA256="dfc4a09845e9bc86f466a722e62b8f87d59028ff39689077ff2257a6a605061d"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://hisham.hm/htop"
 PKG_URL="https://github.com/htop-dev/htop/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain ncurses"
 PKG_LONGDESC="An interactive process viewer for Unix."
 PKG_TOOLCHAIN="autotools"
-PKG_BUILD_FLAGS="-sysroot"
+PKG_BUILD_FLAGS="-sysroot -cfg-libs"
 
 PKG_CONFIGURE_OPTS_TARGET="--disable-unicode \
+                           --disable-static \
                            HTOP_NCURSES_CONFIG_SCRIPT=ncurses-config"
 
 pre_configure_target() {

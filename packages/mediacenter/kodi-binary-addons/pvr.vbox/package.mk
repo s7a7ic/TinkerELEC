@@ -3,11 +3,11 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pvr.vbox"
-PKG_VERSION="21.1.5-Omega"
-PKG_SHA256="6550fa41f1d7312619dd9f4620a4b5b6c47240d71273df34a4300e580f617635"
-PKG_REV="3"
+PKG_VERSION="22.2.4-Piers"
+PKG_SHA256="707ce23fff0dd7acc9aff41e06806dd582236e8d760db782e81e46ef3b0df069"
+PKG_REV="2"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/kodi-pvr/pvr.vbox"
 PKG_URL="https://github.com/kodi-pvr/pvr.vbox/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain kodi-platform tinyxml2"

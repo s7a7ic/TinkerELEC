@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="gst-plugins-base"
-PKG_VERSION="1.24.2"
-PKG_SHA256="282f1cc8065c9b62eb6a0a20fb9e8328f8e5296df2458b7236daa729c41ae769"
-PKG_LICENSE="GPL-2.1-or-later"
+PKG_VERSION="1.29.1"
+PKG_SHA256="b038ea9dae71274d2c2853d51823187972ebd9e4a431a4696942fe0e356ddf40"
+PKG_LICENSE="LGPL-2.1-or-later"
 PKG_SITE="https://gstreamer.freedesktop.org/modules/gst-plugins-base.html"
 PKG_URL="https://gstreamer.freedesktop.org/src/gst-plugins-base/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain gstreamer"
@@ -54,9 +54,9 @@ pre_configure_target() {
                          -Dintrospection=disabled \
                          -Dnls=disabled \
                          -Dorc=disabled \
-                         -Dgobject-cast-checks=disabled \
-                         -Dglib-asserts=disabled \
-                         -Dglib-checks=disabled \
+                         -Dglib_debug=disabled \
+                         -Dglib_assert=false \
+                         -Dglib_checks=false \
                          -Dpackage-name=gst-plugins-base \
                          -Dpackage-origin=LibreELEC.tv \
                          -Ddoc=disabled"

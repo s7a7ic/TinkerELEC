@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="rpi-eeprom"
-PKG_VERSION="cb1a22eff0b15b15a686318a885d1f1a2563ff6f"
-PKG_SHA256="1f2f4c0ceab2c8e451d6ffbca7befaacbab3c59353d39a9cfebd985e1106ef15"
-PKG_LICENSE="BSD-3/custom"
+PKG_VERSION="25f837ab8009a643ed85b9aad94d911baddaf0c4"
+PKG_SHA256="68014da39215cc6111aff9fa3be3f14750d4d2073e9e86557b319a11ff2d34fb"
+PKG_LICENSE="BSD-3-Clause"
 PKG_SITE="https://github.com/raspberrypi/rpi-eeprom"
 PKG_URL="https://github.com/raspberrypi/rpi-eeprom/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="pciutils"
@@ -12,7 +12,7 @@ PKG_LONGDESC="rpi-eeprom: firmware, config and scripts to update RPi4 SPI bootlo
 PKG_TOOLCHAIN="manual"
 
 makeinstall_target() {
-  
+
   if [ "${DEVICE}" = "RPi4" ]; then
     _variant="2711"
   else

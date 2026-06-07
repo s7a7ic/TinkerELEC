@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 . /etc/profile
@@ -26,13 +26,9 @@ case "$DISTRO_ARCH" in
     ;;
 esac
 
-[ -n "$sc_h" ] && sc_H="--hostID $sc_h"
-[ -n "$sc_s" ] && sc_S="--soundcard $sc_s"
-[ -n "$sc_addr" ] && HOST="--host $sc_addr"
-if [ -n "$sc_delay" ]; then
-  [ $(journalctl -u service.snapclient | grep "Started" | wc -l) -eq 1 ] && \
-  sleep $sc_delay
-fi
+[ -n "$sc_h" ] && sc_H="--hostID '$sc_h'"
+[ -n "$sc_s" ] && sc_S="--soundcard '$sc_s'"
+[ -n "$sc_addr" ] && HOST="--host '$sc_addr'"
 
 HOME="$ADDON_HOME" \
 nice -n "$sc_n" \

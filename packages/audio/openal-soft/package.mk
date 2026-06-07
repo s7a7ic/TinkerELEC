@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="openal-soft"
-PKG_VERSION="1.23.1"
-PKG_SHA256="dfddf3a1f61059853c625b7bb03de8433b455f2f79f89548cbcbd5edca3d4a4a"
-PKG_LICENSE="GPL"
+PKG_VERSION="1.25.2"
+PKG_SHA256="fb27e5839aa11f0e5b9d33756965291fad5d6909ab928ea1f796f4a1a6877894"
+PKG_LICENSE="LGPL-2.0-or-later"
 PKG_SITE="http://www.openal.org/"
 PKG_URL="https://github.com/kcat/openal-soft/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain alsa-lib"
@@ -15,4 +15,3 @@ PKG_CMAKE_OPTS_TARGET="-DALSOFT_BACKEND_OSS=off \
                        -DALSOFT_BACKEND_WAVE=off \
                        -DALSOFT_EXAMPLES=off \
                        -DALSOFT_UTILS=off"
-

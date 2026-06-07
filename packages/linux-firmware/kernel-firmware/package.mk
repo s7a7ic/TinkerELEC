@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="kernel-firmware"
-PKG_VERSION="20250509"
-PKG_SHA256="f2c60d66f226a28130cb5643e6e544d3229673460e127c91ba03f1080cbd703e"
-PKG_LICENSE="other"
+PKG_VERSION="20260519"
+PKG_SHA256="b14e7197a290a7e5569f5ef790cde289bddc47e32126f2eb262a8e677fc39727"
+PKG_LICENSE="LicenseRef-linux-firmware"
 PKG_SITE="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/"
 PKG_URL="https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-${PKG_VERSION}.tar.xz"
 PKG_NEED_UNPACK="${PROJECT_DIR}/${PROJECT}/packages/${PKG_NAME} ${PROJECT_DIR}/${PROJECT}/devices/${DEVICE}/packages/${PKG_NAME}"
@@ -61,15 +61,15 @@ makeinstall_target() {
           echo "ERROR: Firmware file ${fwfile} does not exist - aborting"
           exit 1
         fi
-      done <<< "$(cd ${PKG_FW_SOURCE} && eval "find "${fwline}"")"
-    done < "${fwlist}"
+      done <<<"$(cd ${PKG_FW_SOURCE} && eval "find "${fwline}"")"
+    done <"${fwlist}"
   done
 
   PKG_KERNEL_CFG_FILE=$(kernel_config_path) || die
 
   # The following files are RPi specific and installed by brcmfmac_sdio-firmware-rpi instead.
   # They are also not required at all if the kernel is not suitably configured.
-  if listcontains "${FIRMWARE}" "brcmfmac_sdio-firmware-rpi" || \
+  if listcontains "${FIRMWARE}" "brcmfmac_sdio-firmware-rpi" ||
      ! grep -q "^CONFIG_BRCMFMAC_SDIO=y" ${PKG_KERNEL_CFG_FILE}; then
     rm -fr ${FW_TARGET_DIR}/brcm/brcmfmac43430*-sdio.*
     rm -fr ${FW_TARGET_DIR}/brcm/brcmfmac43455*-sdio.*

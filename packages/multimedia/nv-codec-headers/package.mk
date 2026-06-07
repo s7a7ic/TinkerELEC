@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nv-codec-headers"
@@ -10,6 +10,6 @@ PKG_URL="https://github.com/FFmpeg/nv-codec-headers/archive/n${PKG_VERSION}.tar.
 PKG_DEPENDS_TARGET="toolchain"
 PKG_LONGDESC="FFmpeg version of headers required to interface with Nvidias codec APIs."
 
-makeinstall_target(){
+makeinstall_target() {
   make DESTDIR=${SYSROOT_PREFIX} PREFIX=/usr install
 }

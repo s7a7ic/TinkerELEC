@@ -1,11 +1,11 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2020-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="crust"
 PKG_VERSION="0.6"
 PKG_SHA256="43b89585dd7b6f022200bd788a97a85a831feffa988affc04bca18757a133efd"
 PKG_ARCH="arm aarch64"
-PKG_LICENSE="BSD-3c"
+PKG_LICENSE="BSD-3-Clause AND GPL-2.0-only"
 PKG_SITE="https://github.com/crust-firmware/crust"
 PKG_URL="https://github.com/crust-firmware/crust/archive/v${PKG_VERSION}.tar.gz"
 PKG_LONGDESC="Crust: Libre SCP firmware for Allwinner sunxi SoCs"
@@ -35,14 +35,14 @@ make_target() {
 
   make distclean
   if [ "${BUILD_WITH_DEBUG}" = "yes" ]; then
-    echo "CONFIG_DEBUG_LOG=y" >> configs/${CRUST_CONFIG}
+    echo "CONFIG_DEBUG_LOG=y" >>configs/${CRUST_CONFIG}
   else
-    echo "CONFIG_SERIAL=n" >> configs/${CRUST_CONFIG}
+    echo "CONFIG_SERIAL=n" >>configs/${CRUST_CONFIG}
   fi
   # Boards with a PMIC need to disable CONFIG_PMIC_SHUTDOWN to get CIR wakeup from suspend
-  echo "CONFIG_PMIC_SHUTDOWN=n" >> configs/${CRUST_CONFIG}
-  echo "CONFIG_CIR=y" >> configs/${CRUST_CONFIG}
-  echo "CONFIG_CEC=y" >> configs/${CRUST_CONFIG}
+  echo "CONFIG_PMIC_SHUTDOWN=n" >>configs/${CRUST_CONFIG}
+  echo "CONFIG_CIR=y" >>configs/${CRUST_CONFIG}
+  echo "CONFIG_CEC=y" >>configs/${CRUST_CONFIG}
   make ${CRUST_CONFIG} BUILDCC=host-gcc
   make scp
 }

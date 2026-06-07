@@ -3,11 +3,11 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="screensaver.pyro"
-PKG_VERSION="21.0.2-Omega"
-PKG_SHA256="4a6b5d7efd789be40226ffe337bac8f64c47335c40085d940d624d42cdaa1be0"
-PKG_REV="3"
+PKG_VERSION="22.0.5-Piers"
+PKG_SHA256="a9813b0f2aa31a0652eab28496381ff706712baa5edb8487f82f0d584fd1509f"
+PKG_REV="2"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/xbmc/screensaver.pyro"
 PKG_URL="https://github.com/xbmc/screensaver.pyro/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain kodi-platform"

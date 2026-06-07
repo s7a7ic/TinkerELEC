@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="cli"
 PKG_VERSION="$(get_pkg_version moby)"
-PKG_SHA256="5864ccdfceef3a9e8ddb29b4a555d5b82a551b5258067aac164b6156c6cfdc08"
-PKG_LICENSE="ASL"
+PKG_SHA256="e5cf80d9e0b6630bb2e97decf664ad5f0c732b296b7c47030044c3a7287bbddb"
+PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://github.com/docker/cli"
 PKG_URL="https://github.com/docker/cli/archive/v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain go:host"
@@ -12,7 +12,7 @@ PKG_LONGDESC="The Docker CLI"
 PKG_TOOLCHAIN="manual"
 
 # Git commit of the matching tag https://github.com/docker/cli/tags
-export PKG_GIT_COMMIT="ecc694264de6b34e4b59d16245603382f22fa813"
+export PKG_GIT_COMMIT="79eb04c7d8e1d73247cb7fe011eecc645063e0f0"
 
 configure_target() {
   go_configure

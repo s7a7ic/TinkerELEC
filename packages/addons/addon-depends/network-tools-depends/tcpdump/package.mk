@@ -1,4 +1,4 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="tcpdump"
@@ -8,7 +8,7 @@ PKG_SITE="https://www.tcpdump.org/"
 PKG_URL="https://www.tcpdump.org/release/tcpdump-${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain libpcap libtirpc"
 PKG_LONGDESC="A program that allows you to dump the traffic on a network."
-PKG_BUILD_FLAGS="-sysroot"
+PKG_BUILD_FLAGS="-sysroot -cfg-libs"
 # use configure, not cmake. review cmake in future release.
 PKG_TOOLCHAIN="configure"
 

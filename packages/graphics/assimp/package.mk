@@ -1,10 +1,10 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="assimp"
-PKG_VERSION="5.3.1"
-PKG_SHA256="a07666be71afe1ad4bc008c2336b7c688aca391271188eb9108d0c6db1be53f1"
-PKG_LICENSE="BSD"
+PKG_VERSION="6.0.5"
+PKG_SHA256="edf3749559c2b7d1f758ffb66fc5bec62186221e623b7f2e8969f17ee46ecb6f"
+PKG_LICENSE="BSD-3-Clause"
 PKG_SITE="https://github.com/assimp/assimp"
 PKG_URL="https://github.com/assimp/assimp/archive/v${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain zlib"

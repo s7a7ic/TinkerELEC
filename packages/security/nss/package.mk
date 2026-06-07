@@ -3,9 +3,9 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="nss"
-PKG_VERSION="3.114"
-PKG_SHA256="aa927a8610354483b52fdb3c9445f3e2f4a231cc03754ed47e96d2697c2e2329"
-PKG_LICENSE="Mozilla Public License"
+PKG_VERSION="3.124"
+PKG_SHA256="362de77e31a16e64be500a22980448c7f08e98dd8ab85c29d0c5e41d4df68d1c"
+PKG_LICENSE="MPL-2.0"
 PKG_SITE="http://ftp.mozilla.org/"
 PKG_URL="https://ftp.mozilla.org/pub/security/nss/releases/NSS_${PKG_VERSION//./_}_RTM/src/nss-${PKG_VERSION}-with-nspr-$(get_pkg_version nspr).tar.gz"
 PKG_DEPENDS_HOST="nspr:host zlib:host"
@@ -25,14 +25,14 @@ make_host() {
   rm -rf ${PKG_BUILD}/dist
 
   INCLUDES="-I${TOOLCHAIN}/include" \
-  make BUILD_OPT=1 USE_64=1 \
-     PREFIX=${TOOLCHAIN} \
-     NSPR_INCLUDE_DIR=${TOOLCHAIN}/include/nspr \
-     USE_SYSTEM_ZLIB=1 ZLIB_LIBS="-lz -L${TOOLCHAIN}/lib" \
-     SKIP_SHLIBSIGN=1 \
-     NSS_TESTS="dummy" \
-     CC=${CC} LDFLAGS="${LDFLAGS} -L${TOOLCHAIN}/lib" \
-     V=1
+    make BUILD_OPT=1 USE_64=1 \
+    PREFIX=${TOOLCHAIN} \
+    NSPR_INCLUDE_DIR=${TOOLCHAIN}/include/nspr \
+    USE_SYSTEM_ZLIB=1 ZLIB_LIBS="-lz -L${TOOLCHAIN}/lib" \
+    SKIP_SHLIBSIGN=1 \
+    NSS_TESTS="dummy" \
+    CC=${CC} LDFLAGS="${LDFLAGS} -L${TOOLCHAIN}/lib" \
+    V=1
 }
 
 makeinstall_host() {
@@ -58,18 +58,18 @@ make_target() {
   rm -rf ${PKG_BUILD}/dist
 
   make BUILD_OPT=1 ${TARGET_USE_64} ${TARGET_x86_64} \
-     NSS_USE_SYSTEM_SQLITE=1 \
-     NSPR_INCLUDE_DIR=${SYSROOT_PREFIX}/usr/include/nspr \
-     NSS_USE_SYSTEM_SQLITE=1 \
-     USE_SYSTEM_ZLIB=1 ZLIB_LIBS=-lz \
-     SKIP_SHLIBSIGN=1 \
-     OS_TEST=${TARGET_ARCH} \
-     NSS_TESTS="dummy" \
-     NSINSTALL=${TOOLCHAIN}/bin/nsinstall \
-     CPU_ARCH_TAG=${TARGET_ARCH} \
-     CC=${CC} \
-     LDFLAGS="${LDFLAGS} -L${SYSROOT_PREFIX}/usr/lib" \
-     V=1
+    NSS_USE_SYSTEM_SQLITE=1 \
+    NSPR_INCLUDE_DIR=${SYSROOT_PREFIX}/usr/include/nspr \
+    NSS_USE_SYSTEM_SQLITE=1 \
+    USE_SYSTEM_ZLIB=1 ZLIB_LIBS=-lz \
+    SKIP_SHLIBSIGN=1 \
+    OS_TEST=${TARGET_ARCH} \
+    NSS_TESTS="dummy" \
+    NSINSTALL=${TOOLCHAIN}/bin/nsinstall \
+    CPU_ARCH_TAG=${TARGET_ARCH} \
+    CC=${CC} \
+    LDFLAGS="${LDFLAGS} -L${SYSROOT_PREFIX}/usr/lib" \
+    V=1
 }
 
 makeinstall_target() {

@@ -3,11 +3,11 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="screensaver.pingpong"
-PKG_VERSION="21.0.2-Omega"
-PKG_SHA256="4d7c15a0070e4792b4b56726d9a37ab6ca8c569186e0beebd256a57203d5e362"
-PKG_REV="3"
+PKG_VERSION="22.0.5-Piers"
+PKG_SHA256="4e3a50b8974b4fbc8d0b678dd6455730317aa605bfdaf7e84414d2f4ef98f0a3"
+PKG_REV="2"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/xbmc/screensaver.pingpong"
 PKG_URL="https://github.com/xbmc/screensaver.pingpong/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_TARGET="toolchain kodi-platform glm"

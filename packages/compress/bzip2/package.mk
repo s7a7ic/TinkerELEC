@@ -5,11 +5,11 @@
 PKG_NAME="bzip2"
 PKG_VERSION="1.0.8"
 PKG_SHA256="ab5a03176ee106d3f0fa90e381da478ddae405918153cca248e682cd0c4a2269"
-PKG_LICENSE="GPL"
+PKG_LICENSE="bzip2-1.0.6"
 PKG_SITE="https://sourceware.org/bzip2/"
 PKG_URL="https://sourceware.org/pub/bzip2/bzip2-${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_HOST="ccache:host"
-PKG_DEPENDS_TARGET="toolchain"
+PKG_DEPENDS_TARGET="make:host gcc:host"
 PKG_LONGDESC="A high-quality bzip2 data compressor."
 PKG_BUILD_FLAGS="+pic +pic:host"
 

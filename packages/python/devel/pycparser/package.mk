@@ -2,16 +2,11 @@
 # Copyright (C) 2024-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="pycparser"
-PKG_VERSION="2.22"
-PKG_SHA256="491c8be9c040f5390f5bf44a5b07752bd07f56edf992381b05c701439eec10f6"
+PKG_VERSION="3.0"
+PKG_SHA256="600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29"
 PKG_LICENSE="BSD-3-Clause"
 PKG_SITE="https://pypi.org/project/pycparser/"
 PKG_URL="https://files.pythonhosted.org/packages/source/${PKG_NAME:0:1}/${PKG_NAME}/${PKG_NAME}-${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_HOST="Python3:host setuptools:host"
 PKG_LONGDESC="Complete C99 parser in pure Python"
-PKG_TOOLCHAIN="manual"
-
-makeinstall_host() {
-  export DONT_BUILD_LEGACY_PYC=1
-  exec_thread_safe python3 setup.py install --prefix="${TOOLCHAIN}"
-}
+PKG_TOOLCHAIN="python"

@@ -3,16 +3,20 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="fontconfig"
-PKG_VERSION="2.15.0"
-PKG_SHA256="f5f359d6332861bd497570848fcb42520964a9e83d5e3abe397b6b6db9bcaaf4"
-PKG_LICENSE="OSS"
+PKG_VERSION="2.18.0"
+PKG_SHA256="e7064a4725431ddba06ff8b971ec5a4b422e23b0169ce215747beedcb30e9073"
+PKG_LICENSE="HPND-sell-variant"
 PKG_SITE="https://www.freedesktop.org/wiki/Software/fontconfig/"
-PKG_URL="https://www.freedesktop.org/software/fontconfig/release/${PKG_NAME}-${PKG_VERSION}.tar.gz"
+PKG_URL="https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/${PKG_VERSION}/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain util-linux util-macros freetype libxml2 zlib expat"
 PKG_LONGDESC="Fontconfig is a library for font customization and configuration."
 PKG_TOOLCHAIN="configure"
 
 PKG_CONFIGURE_OPTS_TARGET="--with-arch=${TARGET_ARCH} \
+                           ac_cv_va_copy=C99 \
+                           fc_cv_c99_vsnprintf=yes \
+                           ac_cv_have_working_snprintf=yes \
+                           ac_cv_have_working_vsnprintf=yes \
                            --with-cache-dir=/storage/.cache/fontconfig \
                            --with-default-fonts=/usr/share/fonts \
                            --without-add-fonts \
@@ -21,7 +25,7 @@ PKG_CONFIGURE_OPTS_TARGET="--with-arch=${TARGET_ARCH} \
                            --disable-rpath"
 
 pre_configure_target() {
-# ensure we dont use '-O3' optimization.
+  # ensure we dont use '-O3' optimization.
   CFLAGS=$(echo ${CFLAGS} | sed -e "s|-O3|-O2|")
   CXXFLAGS=$(echo ${CXXFLAGS} | sed -e "s|-O3|-O2|")
   CFLAGS+=" -I${PKG_BUILD}"

@@ -4,7 +4,7 @@
 
 PKG_NAME="mediacenter"
 PKG_VERSION=""
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://libreelec.tv"
 PKG_URL=""
 PKG_DEPENDS_TARGET="toolchain ${MEDIACENTER}"
@@ -18,20 +18,19 @@ if [ "${MEDIACENTER}" = "kodi" ]; then
     PKG_DEPENDS_TARGET+=" ${MEDIACENTER}-theme-${i}"
   done
 
-# python-based tool for kodi management
+  # python-based tool for kodi management
   PKG_DEPENDS_TARGET+=" texturecache.py"
 
-# some python stuff needed for various addons
+  # some python stuff needed for various addons
   PKG_DEPENDS_TARGET="${PKG_DEPENDS_TARGET} Pillow \
-                                          simplejson \
-                                          pycryptodome"
+                                            pycryptodome"
 
-# settings addon
+  # settings addon
   if [ -n "${DISTRO_PKG_SETTINGS}" ]; then
     PKG_DEPENDS_TARGET+=" ${DISTRO_PKG_SETTINGS}"
   fi
 
-# other packages
+  # other packages
   PKG_DEPENDS_TARGET+=" xmlstarlet"
 
   if [ "${JOYSTICK_SUPPORT}" = "yes" ]; then
@@ -43,7 +42,7 @@ if [ "${MEDIACENTER}" = "kodi" ]; then
     PKG_DEPENDS_TARGET+=" intel-vaapi-driver media-driver"
   fi
 
-  if listcontains "${GRAPHIC_DRIVERS}" "nvidia-ng"; then
+  if listcontains "${GRAPHIC_DRIVERS}" "(nvidia|nvidia-ng)"; then
     PKG_DEPENDS_TARGET+=" nvidia-vaapi-driver"
   fi
 fi

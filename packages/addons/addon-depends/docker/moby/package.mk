@@ -1,24 +1,26 @@
-# SPDX-License-Identifier: GPL-2.0
+# SPDX-License-Identifier: GPL-2.0-only
 # Copyright (C) 2022-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="moby"
-PKG_VERSION="28.5.2"
-PKG_SHA256="0e450c03c536a1304ba8fd26ca4c4ff96fac62182fd042fec90ffdf4a0969d40"
-PKG_LICENSE="ASL"
+PKG_VERSION="29.5.2"
+PKG_SHA256="1235ed325d324c76f52e52beaa1dac85c92a073bf2f9fcc5bb9f67e35a668028"
+PKG_LICENSE="Apache-2.0"
 PKG_SITE="https://mobyproject.org/"
-PKG_URL="https://github.com/moby/moby/archive/v${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain go:host systemd"
+PKG_URL="https://github.com/moby/moby/archive/docker-v${PKG_VERSION}.tar.gz"
+PKG_DEPENDS_TARGET="toolchain go:host nftables systemd"
 PKG_LONGDESC="Moby is an open-source project created by Docker to enable and accelerate software containerization."
 PKG_TOOLCHAIN="manual"
+PKG_NO_REFRESH_PATCHES="tools/moby/gen-patches.sh"
 
 # Git commit of the matching release https://github.com/moby/moby
-export PKG_GIT_COMMIT="89c5e8fd66634b6128fc4c0e6f1236e2540e46e0"
+export PKG_GIT_COMMIT="568f755ebeb1ac9c6a8febbda6cd371ea0a9630b"
 
 PKG_MOBY_BUILDTAGS="daemon \
                     autogen \
                     exclude_graphdriver_devicemapper \
                     exclude_graphdriver_aufs \
                     exclude_graphdriver_btrfs \
+                    exclude_graphdriver_zfs \
                     journald"
 
 configure_target() {
@@ -31,22 +33,19 @@ configure_target() {
   export VERSION=${PKG_VERSION}
   export BUILDTIME="$(date --utc)"
 
-  cat >"${PKG_BUILD}/go.mod" <<EOF
-module github.com/docker/docker
-
-go 1.18
-EOF
-
-  GO111MODULE=auto ${GOLANG} mod tidy -modfile 'vendor.mod' -compat 1.18
-  GO111MODULE=auto ${GOLANG} mod vendor -modfile vendor.mod
+  GO111MODULE=auto ${GOLANG} mod tidy -modfile 'go.mod' -compat 1.24.3
+  GO111MODULE=auto ${GOLANG} mod vendor -modfile go.mod
 
   source hack/make/.go-autogen
 }
 
 make_target() {
   mkdir -p bin
-  ${GOLANG} build -mod=mod -modfile=vendor.mod -v -o bin/docker-proxy -a -ldflags "${LDFLAGS}" ./cmd/docker-proxy
-  ${GOLANG} build -mod=mod -modfile=vendor.mod -v -o bin/dockerd -a -tags "${PKG_MOBY_BUILDTAGS}" -ldflags "${LDFLAGS}" ./cmd/dockerd
+  ${GOLANG} build -mod=mod -modfile=go.mod -v -o bin/docker-proxy -a -ldflags "${LDFLAGS}" ./cmd/docker-proxy
+  ${GOLANG} build -mod=mod -modfile=go.mod -v -o bin/dockerd -a -tags "${PKG_MOBY_BUILDTAGS}" -ldflags "${LDFLAGS}" ./cmd/dockerd
+
+  # fix permissions of .gopath to allow clean during CI build
+  chmod -R u+w .gopath
 }
 
 makeinstall_target() {

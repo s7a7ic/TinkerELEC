@@ -3,9 +3,9 @@
 # Copyright (C) 2019-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="boost"
-PKG_VERSION="1.84.0"
-PKG_SHA256="cc4b893acf645c9d4b698e9a0f08ca8846aa5d6c68275c14c3e7949c24109454"
-PKG_LICENSE="OSS"
+PKG_VERSION="1.91.0"
+PKG_SHA256="de5e6b0e4913395c6bdfa90537febd9028ea4c0735d2cdb0cd9b45d5f51264f5"
+PKG_LICENSE="BSL-1.0"
 PKG_SITE="https://www.boost.org/"
 PKG_URL="https://archives.boost.io/release/${PKG_VERSION}/source/${PKG_NAME}_${PKG_VERSION//./_}.tar.bz2"
 PKG_DEPENDS_HOST="toolchain:host"
@@ -35,10 +35,10 @@ configure_target() {
                   --with-python=${TOOLCHAIN}/bin/python \
                   --with-python-root=${SYSROOT_PREFIX}/usr
 
-  echo "using gcc : $(${CC} -v 2>&1  | tail -n 1 |awk '{print $3}') : ${CC}  : <compileflags>\"${CFLAGS}\" <linkflags>\"${LDFLAGS}\" ;" \
-    > tools/build/src/user-config.jam
-  echo "using python : ${PKG_PYTHON_VERSION/#python} : ${TOOLCHAIN} : ${SYSROOT_PREFIX}/usr/include : ${SYSROOT_PREFIX}/usr/lib ;" \
-    >> tools/build/src/user-config.jam
+  echo "using gcc : $(${CC} -v 2>&1  | tail -n 1 | awk '{print $3}') : ${CC}  : <compileflags>\"${CFLAGS}\" <linkflags>\"${LDFLAGS}\" ;" \
+    >tools/build/src/user-config.jam
+  echo "using python : ${PKG_PYTHON_VERSION#python} : ${TOOLCHAIN} : ${SYSROOT_PREFIX}/usr/include : ${SYSROOT_PREFIX}/usr/lib ;" \
+    >>tools/build/src/user-config.jam
 }
 
 makeinstall_target() {
@@ -54,7 +54,6 @@ makeinstall_target() {
                       --with-random \
                       --with-regex -sICU_PATH="${SYSROOT_PREFIX}/usr" \
                       --with-serialization \
-                      --with-system \
                       --with-thread \
                       install
 }

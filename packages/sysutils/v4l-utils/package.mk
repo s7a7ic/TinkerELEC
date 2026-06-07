@@ -5,9 +5,9 @@
 # with 1.0.0 repeat delay is broken. test on upgrade
 
 PKG_NAME="v4l-utils"
-PKG_VERSION="1.30.1"
-PKG_SHA256="c1cf549c2ec3cf39eb5ec7bf15731349e61b26a21b5e963922db422333bae197"
-PKG_LICENSE="GPL"
+PKG_VERSION="1.32.0"
+PKG_SHA256="6828828a17775526eb93fb258a9294d1d1073d633c344dd71ecd4e7a1ffb7dfc"
+PKG_LICENSE="GPL-2.0-or-later AND LGPL-2.1-or-later"
 PKG_SITE="https://linuxtv.org/"
 PKG_URL="https://linuxtv.org/downloads/v4l-utils/${PKG_NAME}-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain alsa-lib elfutils ir-bpf-decoders libbpf systemd zlib"
@@ -29,7 +29,7 @@ create_multi_keymap() {
       map="${INSTALL}/usr/lib/udev/rc_keymaps/${f}.toml"
       [ -e "${map}" ] && cat "${map}"
     done
-  ) > ${INSTALL}/usr/lib/udev/rc_keymaps/${name}.toml
+  ) >${INSTALL}/usr/lib/udev/rc_keymaps/${name}.toml
 }
 
 post_makeinstall_target() {
@@ -61,7 +61,7 @@ post_makeinstall_target() {
     for f in ${PKG_DIR}/keymaps/*; do
       if [ -e ${f} ]; then
         keymap=$(basename ${f})
-        cat ${f} > ${INSTALL}/usr/lib/udev/rc_keymaps/${keymap}
+        cat ${f} >${INSTALL}/usr/lib/udev/rc_keymaps/${keymap}
       fi
     done
   )
@@ -73,7 +73,7 @@ post_makeinstall_target() {
     # use multi-keymap instead of default one
     sed -i '/^\*\s*rc-rc6-mce\s*rc6_mce/d' ${INSTALL}/etc/rc_maps.cfg
 
-    cat << EOF >> ${INSTALL}/etc/rc_maps.cfg
+    cat <<EOF  >>${INSTALL}/etc/rc_maps.cfg
 #
 # Custom LibreELEC configuration starts here
 #

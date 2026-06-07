@@ -3,7 +3,7 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="linux"
-PKG_LICENSE="GPL"
+PKG_LICENSE="GPL-2.0-only"
 PKG_SITE="http://www.kernel.org"
 PKG_DEPENDS_HOST="ccache:host"
 PKG_DEPENDS_TARGET="linux:host kmod:host keyutils openssl:host ${KERNEL_EXTRA_DEPENDS_TARGET}"
@@ -16,24 +16,36 @@ PKG_PATCH_DIRS="${LINUX}"
 
 case "${LINUX}" in
   amlogic)
-    PKG_VERSION="86731a2a651e58953fc949573895f2fa6d456841" # 6.16-rc3
-    PKG_SHA256="008b00968a8bfc0627580b82a2d30c7304336a4f92a58e80cdbc2d4723e01840"
+    PKG_VERSION="3fd2ca34a3e7d1f52e7deaa27016379935ae0845" # 7.0.5
+    PKG_SHA256="1792c76670b88dde9f46652f70d4e04c599ba732aac66c8b687605a8094d95f6"
     PKG_URL="https://github.com/torvalds/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
-    PKG_PATCH_DIRS="default rtlwifi/6.18"
+    PKG_PATCH_DIRS="default dvb"
     ;;
   raspberrypi)
-    PKG_VERSION="21b410140c47ffab5668399f6f143c7d7b935c8b" # 6.12.61
-    PKG_SHA256="7c31df8061aae748a6e72417bfe743a54198fb5bdc96e229ecc605dc621d32ef"
+    PKG_VERSION="e165a3e0c5c6729d077c30c6d720c029d688d99d" # 6.18.32
+    PKG_SHA256="23c91a44cfce3fc9d38a52da156d0fdc19ae41b760627c59d724556078e1b7a6"
     PKG_URL="https://github.com/raspberrypi/linux/archive/${PKG_VERSION}.tar.gz"
     PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
-    PKG_PATCH_DIRS="raspberrypi rtlwifi/6.13 rtlwifi/6.14 rtlwifi/6.15 rtlwifi/6.18"
+    PKG_PATCH_DIRS="raspberrypi"
+    ;;
+  rockchip)
+    PKG_VERSION="05f7e89ab9731565d8a62e3b5d1ec206485eeb0b" # 6.19.0
+    PKG_SHA256="9e2cf7d100fba5c8a8d4f68f8a4926e8ae2a9d47ed6506a8796a19b1fb103b09"
+    PKG_URL="https://github.com/chewitt/linux/archive/${PKG_VERSION}.tar.gz"
+    PKG_SOURCE_NAME="linux-${LINUX}-${PKG_VERSION}.tar.gz"
+    PKG_PATCH_DIRS="default rockchip"
     ;;
   *)
-    PKG_VERSION="6.16.12"
-    PKG_SHA256="7ca4debc5ca912ebb8a76944a5c118afd5d09e31ef43c494adb14273da29a26e"
+    PKG_VERSION="7.0.8"
+    PKG_SHA256="1945afb22c9f4f7c78d971210f3bbb7deb09f5d8c41a38bfac772de25f6dcb22"
     PKG_URL="https://www.kernel.org/pub/linux/kernel/v${PKG_VERSION/.*/}.x/${PKG_NAME}-${PKG_VERSION}.tar.xz"
-    PKG_PATCH_DIRS="default rtlwifi/6.18"
+    PKG_PATCH_DIRS="default"
+    case ${DEVICE} in
+      RK3288|RK3328|RK3399)
+        PKG_PATCH_DIRS+=" rockchip-old"
+        ;;
+    esac
     ;;
 esac
 
@@ -103,7 +115,8 @@ makeinstall_host() {
 }
 
 pre_make_target() {
-  ( cd ${ROOT}
+  (
+    cd ${ROOT}
     rm -rf ${BUILD}/initramfs
     rm -f ${STAMPS_INSTALL}/initramfs/install_target ${STAMPS_INSTALL}/*/install_init
     ${SCRIPTS}/install initramfs
@@ -133,17 +146,30 @@ pre_make_target() {
     ${PKG_BUILD}/scripts/config --disable CONFIG_CIFS
   fi
 
-  # enable/disable iscsi support
-  [ "${ISCSI_SUPPORT}" = yes ] && OPTION="--enable" || OPTION="--disable"
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_SCSI_ISCSI_ATTRS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_TCP
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_BOOT_SYSFS
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT_FIND
-  ${PKG_BUILD}/scripts/config ${OPTION} CONFIG_ISCSI_IBFT
-
   # disable wireguard support if not enabled
   if [ ! "${WIREGUARD_SUPPORT}" = yes ]; then
     ${PKG_BUILD}/scripts/config --disable CONFIG_WIREGUARD
+  fi
+
+  # disable vfd support if not enabled
+  if [ ! "${VFD_SUPPORT}" = yes ]; then
+    ${PKG_BUILD}/scripts/config --disable CONFIG_PANEL_CHANGE_MESSAGE
+  else
+    # enable the module and set distro boot message
+    ${PKG_BUILD}/scripts/config --enable CONFIG_AUXDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LINEDISPLAY
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_KEYPAD
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_I2C
+    ${PKG_BUILD}/scripts/config --enable CONFIG_TM16XX_SPI
+    ${PKG_BUILD}/scripts/config --enable CONFIG_PANEL_CHANGE_MESSAGE
+    ${PKG_BUILD}/scripts/config --set-str CONFIG_PANEL_BOOT_MESSAGE "${VFD_MESSAGE}"
+    ${PKG_BUILD}/scripts/config --enable CONFIG_INPUT_MATRIXKMAP
+    # enable led activity triggers
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_TIMER # Colon
+    ${PKG_BUILD}/scripts/config --enable CONFIG_LEDS_TRIGGER_NETDEV # LAN/WLAN
+    ${PKG_BUILD}/scripts/config --enable CONFIG_USB_LEDS_TRIGGER_USBPORT # USB
+    ${PKG_BUILD}/scripts/config --enable CONFIG_MMC # SD
   fi
 
   if [ "${TARGET_ARCH}" = "x86_64" ]; then
@@ -175,7 +201,7 @@ pre_make_target() {
     kernel_make oldconfig
   else
     # accept default answers for .config changes
-    yes "" | kernel_make oldconfig > /dev/null
+    yes "" | kernel_make oldconfig >/dev/null
   fi
 
   if [ -f "${DISTRO_DIR}/${DISTRO}/kernel_options" ]; then
@@ -189,7 +215,7 @@ pre_make_target() {
       if [ "$(${PKG_BUILD}/scripts/config --state ${OPTION%%=*})" != "$(echo ${OPTION##*=} | tr -d '"')" ]; then
         MISSING_KERNEL_OPTIONS+="\t${OPTION}\n"
       fi
-    done < ${DISTRO_DIR}/${DISTRO}/kernel_options
+    done <${DISTRO_DIR}/${DISTRO}/kernel_options
 
     if [ -n "${MISSING_KERNEL_OPTIONS}" ]; then
       print_color CLR_WARNING "LINUX: kernel options not correct: \n${MISSING_KERNEL_OPTIONS%%}\nPlease run ./tools/check_kernel_config\n"
@@ -211,7 +237,8 @@ make_target() {
   DTC_FLAGS=-@ kernel_make ${KERNEL_TARGET} ${KERNEL_MAKE_EXTRACMD} modules
 
   if [ "${PKG_BUILD_PERF}" = "yes" ]; then
-    ( cd tools/perf
+    (
+      cd tools/perf
 
       # arch specific perf build args
       case "${TARGET_ARCH}" in
@@ -261,9 +288,9 @@ make_target() {
     if [ "${KERNEL_UIMAGE_COMP}" != "none" ]; then
       COMPRESSED_SIZE=$(stat -t "arch/${TARGET_KERNEL_ARCH}/boot/${KERNEL_TARGET}" | awk '{print $2}')
       # align to 1 MiB
-      COMPRESSED_SIZE=$(( ((${COMPRESSED_SIZE} - 1 >> 20) + 1) << 20 ))
-      PKG_KERNEL_UIMAGE_LOADADDR=$(printf '%X' "$(( ${KERNEL_UIMAGE_LOADADDR} + ${COMPRESSED_SIZE} ))")
-      PKG_KERNEL_UIMAGE_ENTRYADDR=$(printf '%X' "$(( ${KERNEL_UIMAGE_ENTRYADDR} + ${COMPRESSED_SIZE} ))")
+      COMPRESSED_SIZE=$((((${COMPRESSED_SIZE} - 1 >> 20) + 1) << 20))
+      PKG_KERNEL_UIMAGE_LOADADDR=$(printf '%X' "$((${KERNEL_UIMAGE_LOADADDR} + ${COMPRESSED_SIZE}))")
+      PKG_KERNEL_UIMAGE_ENTRYADDR=$(printf '%X' "$((${KERNEL_UIMAGE_ENTRYADDR} + ${COMPRESSED_SIZE}))")
     else
       PKG_KERNEL_UIMAGE_LOADADDR=${KERNEL_UIMAGE_LOADADDR}
       PKG_KERNEL_UIMAGE_ENTRYADDR=${KERNEL_UIMAGE_ENTRYADDR}
