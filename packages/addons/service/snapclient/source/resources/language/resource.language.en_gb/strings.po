@@ -72,3 +72,11 @@ msgstr ""
 msgctxt "#30016"
 msgid "Server"
 msgstr ""
+
+msgctxt "#30017"
+msgid "Boot startup delay"
+msgstr ""
+
+msgctxt "#30018"
+msgid "Configure a brief delay (in seconds) before starting snapclient service at boot, protecting against interference with ALSA audio output detection."
+msgstr ""
