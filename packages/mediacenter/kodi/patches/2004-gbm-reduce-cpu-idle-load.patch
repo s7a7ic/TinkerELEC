@@ -1,0 +1,13 @@
+This patch reduces kodi cpu load on system idle
+More Info: https://github.com/LibreELEC/LibreELEC.tv/issues/6157
+--- a/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp
++++ b/xbmc/windowing/gbm/WinSystemGbmGLESContext.cpp
+@@ -149,7 +149,7 @@
+   }
+   else
+   {
+-    KODI::TIME::Sleep(10ms);
++    KODI::TIME::Sleep(40ms);
+   }
+ }
+ 
