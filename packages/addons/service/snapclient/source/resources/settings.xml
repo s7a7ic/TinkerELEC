@@ -69,7 +69,7 @@
         </setting>
         <setting id="sc_delay" type="integer" label="30017" help="30018">
           <level>0</level>
-          <default>3</default>
+          <default>5</default>
           <constraints>
             <minimum>0</minimum>
             <step>1</step>
