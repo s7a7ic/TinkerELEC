@@ -12,8 +12,7 @@ PKG_LONGDESC="A cross-platform application and UI framework."
 PKG_BUILD_FLAGS="-sysroot"
 
 PKG_CONFIGURE_OPTS_TARGET="-prefix /usr
-                           -sysroot "${SYSROOT_PREFIX}"
-                           -hostprefix "${TOOLCHAIN}"
+                           -hostprefix /usr/host
                            -device linux-libreelec-g++
                            -opensource -confirm-license
                            -release
@@ -139,4 +138,8 @@ EOF
 
   unset CC CXX LD RANLIB AR AS CPPFLAGS CFLAGS LDFLAGS CXXFLAGS
   ./configure ${PKG_CONFIGURE_OPTS_TARGET}
+}
+
+makeinstall_target() {
+  make install INSTALL_ROOT="${INSTALL}"
 }
