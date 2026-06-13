@@ -1,0 +1,66 @@
+From 4a807116546a3de77e663ad389f4b2fc32b25853 Mon Sep 17 00:00:00 2001
+From: Rudi Heitbaum <rudi@heitbaum.com>
+Date: Fri, 13 Jun 2026 00:00:00 +0000
+Subject: [PATCH] add cmake BUILD_DEMOS, BUILD_TESTS options and install rules
+
+The cmake build unconditionally builds demos and tests; add options to
+skip them. The cmake build also has no install() rules; add rules for
+the library, headers and pkg-config files to match the autotools build.
+
+---
+ CMakeLists.txt     | 28 ++++++++++++++++++++++++--
+ src/CMakeLists.txt |  5 +++++
+ 2 files changed, 31 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 97a30457..9ea92f60 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -51,5 +51,29 @@ add_subdirectory(src/bin)
+ add_subdirectory(src/json)
+ add_subdirectory(src/unit)
+ add_subdirectory(tools)
+-add_subdirectory(demo)
+-add_subdirectory(test)
++option(BUILD_DEMOS "Build demo programs" ON)
++if(BUILD_DEMOS)
++  add_subdirectory(demo)
++endif()
++option(BUILD_TESTS "Build test programs" ON)
++if(BUILD_TESTS)
++  add_subdirectory(test)
++endif()
++
++include(GNUInstallDirs)
++
++install(DIRECTORY include/cxxtools
++    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
++    PATTERN "*.orig" EXCLUDE
++    PATTERN "doxygen.cfg" EXCLUDE
++)
++
++install(FILES
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools.pc
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools-bin.pc
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools-http.pc
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools-json.pc
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools-unit.pc
++    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cxxtools-xmlrpc.pc
++    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
++)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index f31bc7d6..060342aa 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -128,3 +128,8 @@ target_compile_features(cxxtools PUBLIC cxx_std_11)
+ target_include_directories(cxxtools PUBLIC ${CMAKE_SOURCE_DIR}/include)
+ target_include_directories(cxxtools PRIVATE ${CMAKE_SOURCE_DIR}/src)
+ target_link_libraries(cxxtools PRIVATE OpenSSL::SSL)
++
++install(TARGETS cxxtools
++    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++)
+--
+2.53.0
+
