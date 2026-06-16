@@ -3,14 +3,15 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="tntnet"
-PKG_VERSION="3.0"
-PKG_SHA256="718e5519b0a403f7f766358bf66a85c008119c48189d1c2b7651fd0af9018e27"
+PKG_VERSION="f0a4cc73fac53d47cc0e07325d105f1ebfa964f6"
+PKG_SHA256="5f3ff2305fe09704c7749173ea88d276fc093bf1b7262ead0b101517ae8b5afb"
 PKG_LICENSE="LGPL-2.1-or-later"
-PKG_SITE="http://www.tntnet.org/"
-PKG_URL="http://www.tntnet.org/download/${PKG_NAME}-${PKG_VERSION}.tar.gz"
+PKG_SITE="https://github.com/maekitalo/tntnet"
+PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
 PKG_DEPENDS_HOST="cxxtools:host zlib:host"
 PKG_DEPENDS_TARGET="toolchain tntnet:host libtool cxxtools zlib"
 PKG_LONGDESC="A web application server for C++."
+PKG_TOOLCHAIN="autotools"
 
 PKG_CONFIGURE_OPTS_HOST="--disable-unittest \
                          --disable-server \
