@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="tntnet"
-PKG_VERSION="f0a4cc73fac53d47cc0e07325d105f1ebfa964f6"
-PKG_SHA256="5f3ff2305fe09704c7749173ea88d276fc093bf1b7262ead0b101517ae8b5afb"
+PKG_VERSION="fdf69115cdac19e901fdc3bf6f7a06a30b2d87aa"
+PKG_SHA256="5fe407cf35dfdf50fa22c6f46a767b0eef72304c0d60b5992bdcd8d3982aa4c1"
 PKG_LICENSE="LGPL-2.1-or-later"
 PKG_SITE="https://github.com/maekitalo/tntnet"
 PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
