@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 PKG_NAME="RTL8723BS"
-PKG_VERSION="d3b3feee8eb342fca5c885f17ff2a84275461438"
-PKG_SHA256="acc4bba28d2d1da9aab931e8318cd0a903590b05714e528ea73841fe9bc5962f"
+PKG_VERSION="b514f67b26318548532e68273b6e9a271175cf6d"
+PKG_SHA256="4b829678bf79b884920eec566c38e02990f1d2f6374c78cc4de407047a739b37"
 PKG_LICENSE="GPL"
-PKG_SITE="https://github.com/s7a7ic/rockchip_wlan"
-PKG_URL="https://github.com/s7a7ic/rockchip_wlan/archive/${PKG_VERSION}.tar.gz"
+PKG_SITE="https://github.com/s7a7ic/rtl8723bs_linux_driver"
+PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
 PKG_LONGDESC="Realtek RTL8723BS Linux driver"
 PKG_IS_KERNEL_PKG="yes"
 PKG_DEPENDS_TARGET="autotools:host gcc:host linux"
