@@ -21,4 +21,6 @@ makeinstall_target() {
   cp ${PKG_BUILD}/rtw_8723*.ko ${INSTALL}/$(get_full_module_dir)/kernel/drivers/net/wireless/realtek/rtw88
   cp ${PKG_BUILD}/rtw_core.ko ${INSTALL}/$(get_full_module_dir)/kernel/drivers/net/wireless/realtek/rtw88
   cp ${PKG_BUILD}/rtw_sdio.ko ${INSTALL}/$(get_full_module_dir)/kernel/drivers/net/wireless/realtek/rtw88
+  mkdir -p ${INSTALL}/$(get_kernel_overlay_dir)/lib/firmware/rtw88/
+    cp -av ${PKG_BUILD}/firmware/rtw8723b_*.bin ${INSTALL}/$(get_kernel_overlay_dir)/lib/firmware/rtw88/
 }
