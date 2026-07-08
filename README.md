@@ -20,22 +20,19 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Features and Changes
 
-**Kodi 21.3 (Omega)**
+**Kodi 22 (Piers)**
 * I've previously tested pipewire as the default audio backend but reverted to alsa + pulse for compatibility reasons.
 * Patches for Kodi
-  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-200.02-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
-  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-200.04-gbm-reduce-cpu-idle-load.patch)
-  * fix bluetooth sound lag with pipewire [(patch from xbmc master branch)](packages/mediacenter/kodi/patches/kodi-200.05-pipewire-fix-bt-lag.patch)
-  * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
-  * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
-  * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-2002-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-2004-gbm-reduce-cpu-idle-load.patch)
+  * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-2001-disable-resume-playerstate-after-suspend.patch)
 * [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (in TinkerELEC image; needs to be enabled and selected)
   * smaller sidemenu and more vertical space
   * tv menu as first option
   * shutdown option removed from power menu in favor of using the power button
   * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
 
-**Kernel 6.16.12**
+**Kernel 7.1.2**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
 * CONFIG_HZ set to 100 instead of 300 (smoother UI response, probably less cpu interrupt overhead)
 * Disabled XFS / BTRFS support
@@ -71,9 +68,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 ## Known Problems
 
-**DNS resolution is not working after the setup-wizard**
-- Reboot system or restart connman and network-base service
-
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
@@ -85,7 +79,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
-  * So it's disabled with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+  * So it's disabled with this [patch](packages/mediacenter/kodi/patches/kodi-2001-disable-resume-playerstate-after-suspend.patch)
 * Shadertoy visualization for music playback causes graphical glitches on menu icons and text
 * Libretro: Setting the "stretch" mode to "original" for games causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
