@@ -7,9 +7,8 @@ name = "samsung_tv_remote"
 protocol = "nec"
 variant = "necx"
 
-# SPECIAL KEYS to use with irexec -d /storage/.config/lircrc
-# KEY_F6: call rest-api: power tv on
-# KEY_F5: load alternate keymap (inhibit kodi control)
+# SPECIAL KEYS: F5, F6, F7
+# mapped to a function under ~/.kodi/userdata/keymaps/special_keys.xml
 
 [protocols.scancodes]
 0x70702 = "KEY_F6" # power
@@ -22,7 +21,7 @@ variant = "necx"
 0x70758 = "KEY_EXIT" # return
 0x7072d = "KEY_MENU" # exit
 0x7076c = "KEY_POWER" # red - kodi power menu
-0x70714 = "KEY_ANGLE" # green - <display> - FullScreen
+0x70714 = "KEY_ZOOM" # green - <display> - FullScreen - KEY_FULL_SCREEN
 0x70715 = "KEY_VOLUMEDOWN" # yellow
 0x70716 = "KEY_VOLUMEUP" # blue
 0x70746 = "KEY_STOP" # stop
@@ -42,7 +41,7 @@ variant = "necx"
 0x70711 = "KEY_0" # 0
 0x7071a = "KEY_F5" # menu
 0x7074b = "KEY_F5" # tools
-0x7071f = "KEY_TITLE" # info - <title>
+0x7071f = "KEY_F7" # info - <title> - PlayerProcessInfo
 #0x7072c = "" # ttx/mix
 #0x70713 = "" # pre-ch
 0x7074f = "KEY_EPG" # guide
