@@ -99,7 +99,7 @@
 # Skins to install (Estuary)
 # Space separated list is supported,
 # e.g. SKINS="Estuary"
-  SKINS="Estuary tinkerelec"
+  SKINS="Estuary"
 
 # Default Skin (Estuary)
   SKIN_DEFAULT="Estuary"
