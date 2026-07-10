@@ -1,0 +1,27 @@
+Marius Dinu July 3, 2026, 8:44 a.m. UTC
+
+This board contains an EEPROM that holds the CPU serial number and ethernet
+MAC. It is used by U-boot when configured to use upstream device tree from
+Linux kernel.
+
+Signed-off-by: Marius Dinu <m95d+git@psihoexpert.ro>
+---
+ arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi | 5 +++++
+ 1 file changed, 5 insertions(+)
+  
+diff --git a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+index 8e27a20f2845..7e16022c7d9e 100644
+--- a/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
++++ b/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+@@ -344,6 +344,11 @@ regulator-state-mem {
+ 
+ &i2c2 {
+ 	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c08";
++		reg = <0x50>;
++	};
+ };
+ 
+ &i2c5 {
