@@ -7,7 +7,7 @@
   DESCRIPTION="TinkerELEC is a fast and user-friendly Kodi Entertainment Center distribution for the Asus Tinker Board S."
 
 # Distribution Source location
-  DISTRO_MIRROR="https://sources.libreelec.tv/mirror"
+  DISTRO_MIRROR=""
   DISTRO_SRC="https://github.com/s7a7ic/TinkerELEC/releases/tag/$DISTRO_VERSION"
 
 # Distribution Home URL
@@ -27,8 +27,6 @@
   DISTRO_BOOTLABEL="TINKERELEC"
   DISTRO_DISKLABEL="STORAGE"
 
-# VFD panel boot message (use UPPERCASE and padding)
-  VFD_MESSAGE="    TINKERELEC"
 
 ### BUILDSYSTEM SETTINGS ####
 
@@ -92,12 +90,6 @@
 
 # debug tty path
   DEBUG_TTY="/dev/tty3"
-
-# local console login prompt (yes / no)
-  LOCAL_LOGIN="no"
-
-# Enable SSH on boot (yes / no)
-  SSH_ENABLED_DEFAULT="yes"
 
 ### KODI SETTINGS ###
 # Mediacenter to use (kodi / no)
@@ -199,9 +191,6 @@
 # Use ! or - prefix to prevent a dependent package from being built with debug. Add + suffix to build dependenencies with debug.
   DEBUG_GROUPS="kodi+=kodi+,kodi-platform+,p8-platform+,!mesa"
   DEBUG_GROUP_YES="kodi+"
-
-# wireless daemon to use (wpa_supplicant/iwd)
-  WIRELESS_DAEMON="iwd"
 
 # build with NFS support (mounting nfs shares via the OS) (yes / no)
   NFS_SUPPORT="yes"
