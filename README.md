@@ -2,8 +2,8 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
-There are two distro releases (Tinker- / LibreELEC). The TinkerELEC image includes additional packages (modified skin, tinkerelec-config) for my own use-case.
-The LibreELEC (unofficial) release has the default branding without these modifications to be closer to the official RK3288 image.
+Previously I've released two images (TinkerELEC / LibreELEC) but decided to only publish the LibreELEC (unofficial) image to not cause confusion about what image to install.
+The TinkerELEC image is tied to my personal use-case, so it has no real benefit for a generic installation on a Tinker Board S. All previous releases and tags were removed.
 
 > [!CAUTION]
 > This fork was not tested on any other device than the **Tinker Board S**!
@@ -11,9 +11,7 @@ The LibreELEC (unofficial) release has the default branding without these modifi
 
 ## Reason
 
-I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The Rockchip RK3288 SoC has some regressions with current Linux kernels. So I'm trying to get a better working device with some minor changes.
-
-I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and created patches for the devicetree to be able to use the intended functionality of the front panel buttons (installable DTB via Kodi addon). Also, an IR receiver was added to be able to use a TV remote to control Kodi.
+I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Bluetooth chip (RTL8723BS), but the driver support isn't as good as expected. The Rockchip RK3288 SoC has some regressions with current Linux kernels. The goal is to get a better working device with some minor changes.
 
 > [!NOTE]
 > More information about my use-case, some useful scripts and configurations to use after the installation can be found in the [Project Repository](https://github.com/s7a7ic/TinkerELEC-Project).
@@ -21,7 +19,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 ## Features and Changes
 
 **Kodi 21.3 (Omega)**
-* I've previously tested pipewire as the default audio backend but reverted to alsa + pulse for compatibility reasons.
 * Patches for Kodi
   * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-200.02-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
   * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-200.04-gbm-reduce-cpu-idle-load.patch)
@@ -33,7 +30,6 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
   * smaller sidemenu and more vertical space
   * tv menu as first option
   * shutdown option removed from power menu in favor of using the power button
-  * ~~close power dialog on suspend~~ - removed because of fix in [Kodi 3e65418](https://github.com/xbmc/xbmc/commit/3e65418c699ee006eb22436dd5794b4d626eeeea)
 
 **Kernel 6.16.12**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
@@ -52,22 +48,7 @@ I'm using the "[NesPi Case+](https://github.com/RetroFlag/retroflag-picase)" and
 * Enable HVEC and RGA node: [dts-rk3288-tinker-hevc-rga](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-hevc-rga.patch)
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 * USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
-
-**Extra Package with modifications for my use-case (not in the LibreELEC.TinkerBoard image)**
-* Package: ["tinkerelec-config"](packages/tinkerelec/tinkerelec-config/)
-* On Suspend / On Resume [script support](packages/tinkerelec/tinkerelec-config/config/sleep.d/suspend_resume.power)
-* Prevent Kodi of reacting to events from the NesPi Case buttons or physical power buttons (modified 70-libinput-ignore-power-button.rules)
-* TV IR remote configuration
-* Gamepad configuration for Kodi
-* Disabled connman online check by default: `/storage/.config/connman_main.conf`
-
-**Patched DTB for my use-case**
-* Install the patched DTB file with this [Kodi addon package](packages/tinkerelec/addons/tinkerelec.nespi)
-* [Support for NesPi Case+ Buttons](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-nespi-case.patch)
-  * Power Button: wake from suspend and soft shutdown when delatching
-  * Reset Button: suspend, wake and reboot on longpress
-  * Power LED control through `/sys/class/leds/led-case` interface
-* [Infrared Receiver](packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-ir-receiver.patch)
+* Add eeprom node: [dts-rk3288-tinker-add-eeprom-node](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/dts-rk3288-tinker-add-eeprom-node.patch)
 
 ## Known Problems
 
