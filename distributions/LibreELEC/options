@@ -7,16 +7,16 @@
   DESCRIPTION="LibreELEC is a fast and user-friendly Kodi Entertainment Center distribution."
 
 # Distribution Source location
-  DISTRO_MIRROR="https://sources.libreelec.tv/mirror"
-  DISTRO_SRC="https://sources.libreelec.tv/$DISTRO_VERSION"
+  DISTRO_MIRROR=""
+  DISTRO_SRC="https://github.com/s7a7ic/TinkerELEC/releases/tag/$DISTRO_VERSION"
 
 # Distribution Home URL
-  DISTRO_HOME_URL="https://libreelec.tv"
+  DISTRO_HOME_URL="https://github.com/s7a7ic/TinkerELEC"
 
 # Welcome Message for SSH Server (up to 5 Lines)
   GREETING0="##############################################"
-  GREETING1="#                 LibreELEC                  #"
-  GREETING2="#            https://libreelec.tv            #"
+  GREETING1="#           LibreELEC (unofficial)           #"
+  GREETING2="#           for ASUS Tinker Board S          #"
   GREETING3="##############################################"
   GREETING4=""
 
