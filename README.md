@@ -26,10 +26,6 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
   * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
-* [Modified Estuary Skin](packages/tinkerelec/kodi-theme-tinkerelec) (in TinkerELEC image; needs to be enabled and selected)
-  * smaller sidemenu and more vertical space
-  * tv menu as first option
-  * shutdown option removed from power menu in favor of using the power button
 
 **Kernel 6.16.12**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
@@ -48,7 +44,7 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Enable HVEC and RGA node: [dts-rk3288-tinker-hevc-rga](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-hevc-rga.patch)
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 * USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
-* Add eeprom node: [dts-rk3288-tinker-add-eeprom-node](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/dts-rk3288-tinker-add-eeprom-node.patch)
+* Add eeprom node: [dts-rk3288-tinker-add-eeprom-node](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-add-eeprom-node.patch)
 
 ## Known Problems
 
