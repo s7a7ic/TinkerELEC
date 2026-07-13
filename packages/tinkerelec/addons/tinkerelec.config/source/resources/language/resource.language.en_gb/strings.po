@@ -10,29 +10,41 @@ msgid "TinkerELEC Config"
 msgstr ""
 
 msgctxt "#30001"
-msgid "CURL URL"
+msgid "URL for curl"
+msgstr ""
+
+msgctxt "#30101"
+msgid "URL to use for Home Assistant automations"
 msgstr ""
 
 msgctxt "#30002"
 msgid "Ping Host"
 msgstr ""
 
-msgctxt "#30003"
-msgid "Wake Hour"
+msgctxt "#30102"
+msgid "IP address to ping when waiting for network"
 msgstr ""
 
-msgctxt "#30004"
-msgid "Wake Minute"
+msgctxt "#30003"
+msgid "Wake Time"
+msgstr ""
+
+msgctxt "#30103"
+msgid "Time on which the device wakes up every day by RTC wake alarm"
 msgstr ""
 
 msgctxt "#30005"
 msgid "Inhibit TV Remote Control"
 msgstr ""
 
-msgctxt "#30006"
+msgctxt "#30105"
 msgid "Time to inhibit controls via TV Remote in seconds"
 msgstr ""
 
 msgctxt "#30007"
 msgid "Enable Shell History"
+msgstr ""
+
+msgctxt "#30107"
+msgid "Save shell history to ~/.ash_history"
 msgstr ""

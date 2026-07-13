@@ -26,6 +26,7 @@ function copyConfig {
       echo "C NEW ${target}"
       cp -a ${source} ${target}
     else
+      # TODO: handle link "cp -a?"
       if [ $(sha1sum ${target} | cut -d ' ' -f 1) != $(sha1sum ${source} | cut -d ' ' -f 1) ]; then
         echo "C DIFF ${target}"
         cp ${source} ${target}
@@ -73,8 +74,8 @@ case "$1" in
     export curl_url
     export inhibit_seconds
     export ping_host
-    [ "${shell_history}" = "false" ] && export histfile=/dev/null || export export histfile=$HOME/.bash_history
-    export wake_time="$(printf '%02d\n' "$wake_hour"):$(printf '%02d\n' "$wake_minute")"
+    [ "${shell_history}" = "false" ] && export histfile=/dev/null || export export histfile=$HOME/.ash_history
+    export wake_time
 
     envsubst < ${ADDON_DIR}/libreelec_config/profile.template > /storage/.profile
   ;;
