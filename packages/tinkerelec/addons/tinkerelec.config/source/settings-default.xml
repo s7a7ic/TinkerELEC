@@ -1,0 +1,8 @@
+<settings version="2">
+    <setting id="curl_url" default="true">https://my-curl-url:1880</setting>
+    <setting id="inhibit_seconds" default="true">240</setting>
+    <setting id="ping_host" default="true">192.168.0.1</setting>
+    <setting id="shell_history" default="true">false</setting>
+    <setting id="wake_hour" default="true">8</setting>
+    <setting id="wake_minute" default="true">0</setting>
+</settings>
