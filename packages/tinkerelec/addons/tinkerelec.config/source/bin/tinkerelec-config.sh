@@ -15,20 +15,17 @@ function copyConfig {
 
   for file in $fileList; do
     local source=${file}
-    local target=${2}/${file#${1}/} # add config filepath to target_dir
+    local target=${2}/${file#${1}/} # add filepath to target without source path
 
     if [[ ! -e ${target} && ! -L ${target} ]]; then
+      # create target_dir if it doesn't exist
       local target_dir=$(dirname ${target})
-      if [ ! -e ${target_dir} ]; then
-        echo "C DIR ${target_dir}"
-        mkdir -p ${target_dir}
-      fi
-      echo "C NEW ${target}"
+      [ ! -e ${target_dir} ] && mkdir -p ${target_dir}
+      # copy file as its not existing in target
       cp -a ${source} ${target}
     else
-      # TODO: handle link "cp -a?"
       if [ $(sha1sum ${target} | cut -d ' ' -f 1) != $(sha1sum ${source} | cut -d ' ' -f 1) ]; then
-        echo "C DIFF ${target}"
+        # overwrite file when its different
         cp -a ${source} ${target}
       fi
     fi
