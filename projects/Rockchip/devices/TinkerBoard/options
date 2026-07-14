@@ -24,7 +24,7 @@
     KERNEL_MAKE_EXTRACMD+=" rockchip/rk3288-tinker-s.dtb"
 
   # Additional drivers to install
-    ADDITIONAL_DRIVERS+=" RTL8723BS"
+    ADDITIONAL_DRIVERS+=" rtw88-rtl8723bs"
 
   # Graphic drivers to use
     GRAPHIC_DRIVERS="panfrost"
