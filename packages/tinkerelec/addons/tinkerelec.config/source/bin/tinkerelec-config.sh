@@ -29,7 +29,7 @@ function copyConfig {
       # TODO: handle link "cp -a?"
       if [ $(sha1sum ${target} | cut -d ' ' -f 1) != $(sha1sum ${source} | cut -d ' ' -f 1) ]; then
         echo "C DIFF ${target}"
-        cp ${source} ${target}
+        cp -a ${source} ${target}
       fi
     fi
   done
@@ -44,9 +44,8 @@ function install_oemsplash() {
 }
 
 function create_script_link() {
-  if [ -e ${1} -a ! -e /storage/.config/$(basename ${1}) ]; then
-    ln -s ${1} /storage/.config/$(basename ${1})
-  fi
+  [ -z ${2} ] && target=$(basename ${1}) || target=${2}
+  [ -e ${1} -a ! -e /storage/.config/${target} ] && ln -s ${1} /storage/.config/${target}
 }
 
 case "$1" in
@@ -54,6 +53,7 @@ case "$1" in
     copyConfig ${ADDON_DIR}/libreelec_config/config /storage/.config
     copyConfig ${ADDON_DIR}/kodi_config/buttonmaps /storage/.kodi/userdata/addon_data/peripheral.joystick/resources/buttonmaps/xml/linux
     copyConfig ${ADDON_DIR}/kodi_config/keymaps /storage/.kodi/userdata/keymaps
+    chmod +x /storage/.config/scripts/*.sh
 
     ADDON_SPLASH=${ADDON_DIR}/libreelec_config/oemsplash.png
     if [ -e ${ADDON_SPLASH} ]; then
@@ -68,6 +68,10 @@ case "$1" in
     create_script_link /storage/.config/scripts/autostart.sh
     create_script_link /storage/.config/scripts/autostop.sh
     create_script_link /storage/.config/scripts/shutdown.sh
+
+    [ ! -e /storage/.config/handle_ir ] && mkdir -p /storage/.config/handle_ir || rm /storage/.config/handle_ir/*
+    create_script_link /storage/.config/scripts/handle_ir.sh handle_ir/inhibit
+    create_script_link /storage/.config/scripts/handle_ir.sh handle_ir/power
   ;;
 
   profile)
