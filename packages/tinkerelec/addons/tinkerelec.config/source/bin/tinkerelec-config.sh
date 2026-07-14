@@ -45,15 +45,15 @@ function install_oemsplash() {
 
 function create_script_link() {
   [ -z ${2} ] && target=$(basename ${1}) || target=${2}
-  [ -e ${1} -a ! -e /storage/.config/${target} ] && ln -s ${1} /storage/.config/${target}
+  [ -e ${1} -a ! -e ${HOME}/.config/${target} ] && ln -s ${1} ${HOME}/.config/${target}
 }
 
 case "$1" in
   files)
-    copyConfig ${ADDON_DIR}/libreelec_config/config /storage/.config
-    copyConfig ${ADDON_DIR}/kodi_config/buttonmaps /storage/.kodi/userdata/addon_data/peripheral.joystick/resources/buttonmaps/xml/linux
-    copyConfig ${ADDON_DIR}/kodi_config/keymaps /storage/.kodi/userdata/keymaps
-    chmod +x /storage/.config/scripts/*.sh
+    copyConfig ${ADDON_DIR}/libreelec_config/config ${HOME}/.config
+    copyConfig ${ADDON_DIR}/kodi_config/buttonmaps ${HOME}/.kodi/userdata/addon_data/peripheral.joystick/resources/buttonmaps/xml/linux
+    copyConfig ${ADDON_DIR}/kodi_config/keymaps ${HOME}/.kodi/userdata/keymaps
+    chmod +x ${HOME}/.config/scripts/*.sh
 
     ADDON_SPLASH=${ADDON_DIR}/libreelec_config/oemsplash.png
     if [ -e ${ADDON_SPLASH} ]; then
@@ -65,13 +65,13 @@ case "$1" in
       fi
     fi
 
-    create_script_link /storage/.config/scripts/autostart.sh
-    create_script_link /storage/.config/scripts/autostop.sh
-    create_script_link /storage/.config/scripts/shutdown.sh
+    create_script_link ${HOME}/.config/scripts/autostart.sh
+    create_script_link ${HOME}/.config/scripts/autostop.sh
+    create_script_link ${HOME}/.config/scripts/shutdown.sh
 
-    [ ! -e /storage/.config/handle_ir ] && mkdir -p /storage/.config/handle_ir || rm /storage/.config/handle_ir/*
-    create_script_link /storage/.config/scripts/handle_ir.sh handle_ir/inhibit
-    create_script_link /storage/.config/scripts/handle_ir.sh handle_ir/power
+    [ ! -e ${HOME}/.config/handle_ir ] && mkdir -p ${HOME}/.config/handle_ir || rm ${HOME}/.config/handle_ir/*
+    create_script_link ${HOME}/.config/scripts/handle_ir.sh handle_ir/inhibit
+    create_script_link ${HOME}/.config/scripts/handle_ir.sh handle_ir/power
   ;;
 
   profile)
@@ -81,6 +81,6 @@ case "$1" in
     [ "${shell_history}" = "false" ] && export histfile=/dev/null || export export histfile=$HOME/.ash_history
     export wake_time
 
-    envsubst < ${ADDON_DIR}/libreelec_config/profile.template > /storage/.profile
+    envsubst < ${ADDON_DIR}/libreelec_config/profile.template > ${HOME}/.profile
   ;;
 esac
