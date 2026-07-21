@@ -1,0 +1,765 @@
+From 118876b069cc23ba10cba1f84d83ec6a059dbf1b Mon Sep 17 00:00:00 2001
+From: Philipp Kerling <yol@casix.org>
+Date: Sun, 24 Mar 2024 21:35:12 +0100
+Subject: [PATCH] Remove timezone setting within Kodi
+
+Kodi should just use whatever timezone is set up in the OS.
+There isn't really a convincing use case for changing the
+timezone in Kodi to be different from what the OS is set to.
+This setting was handled pretty inconsistently anyway (most OSes
+hide those settings, others disable it, on others it's just not going
+to be available due to g_timezone missing...).
+
+OS-like Kodi redistributions should add a proper OS-wide
+timezone setting to their respective settings/patchsets.
+
+This removes our dependency on a timezone database being
+available and reduces the code we have to maintain.
+---
+ .../resources/strings.po                      |  22 +-
+ system/settings/android.xml                   |  12 -
+ system/settings/settings.xml                  |  19 --
+ system/settings/windows.xml                   |  12 -
+ xbmc/guilib/guiinfo/SystemGUIInfo.cpp         |  14 -
+ xbmc/platform/posix/CMakeLists.txt            |   2 -
+ xbmc/platform/posix/PosixTimezone.cpp         | 285 ------------------
+ xbmc/platform/posix/PosixTimezone.h           |  60 ----
+ xbmc/platform/posix/XTimeUtils.cpp            |   5 -
+ xbmc/settings/Settings.cpp                    |  45 ---
+ xbmc/settings/Settings.h                      |   3 -
+ 11 files changed, 2 insertions(+), 477 deletions(-)
+ delete mode 100644 xbmc/platform/posix/PosixTimezone.cpp
+ delete mode 100644 xbmc/platform/posix/PosixTimezone.h
+
+diff --git a/addons/resource.language.en_gb/resources/strings.po b/addons/resource.language.en_gb/resources/strings.po
+index 9fb3dcb2b0627..cbf612389cf51 100644
+--- a/addons/resource.language.en_gb/resources/strings.po
++++ b/addons/resource.language.en_gb/resources/strings.po
+@@ -8078,15 +8078,7 @@ msgctxt "#14078"
+ msgid "Colours"
+ msgstr ""
+ 
+-#: system/settings/settings.xml
+-msgctxt "#14079"
+-msgid "Timezone country"
+-msgstr ""
+-
+-#: system/settings/settings.xml
+-msgctxt "#14080"
+-msgid "Timezone"
+-msgstr ""
++#empty strings from id 14072 to 14073
+ 
+ #: system/settings/settings.xml
+ msgctxt "#14081"
+@@ -19221,17 +19213,7 @@ msgctxt "#36116"
+ msgid "Choose which character set is used for displaying text in the user interface. This doesn't change the character set used for subtitles, for that go to Player > Language."
+ msgstr ""
+ 
+-#. Description of setting with label #14079 "Timezone country"
+-#: system/settings/settings.xml
+-msgctxt "#36117"
+-msgid "Select country location."
+-msgstr ""
+-
+-#. Description of setting with label #14080 "Timezone"
+-#: system/settings/settings.xml
+-msgctxt "#36118"
+-msgid "Select your current timezone."
+-msgstr ""
++#empty strings from id 36117 to 36118
+ 
+ #. Description of setting with label #285 "Preferred audio language"
+ #: system/settings/settings.xml
+diff --git a/system/settings/android.xml b/system/settings/android.xml
+index 661a978e32231..838990389a7f5 100644
+--- a/system/settings/android.xml
++++ b/system/settings/android.xml
+@@ -29,16 +29,4 @@
+       </group>
+     </category>
+   </section>
+-  <section id="interface">
+-    <category id="regional">
+-      <group id="2">
+-        <setting id="locale.timezonecountry">
+-          <visible>false</visible>
+-        </setting>
+-        <setting id="locale.timezone">
+-          <visible>false</visible>
+-        </setting>
+-      </group>
+-    </category>
+-  </section>
+ </settings>
+diff --git a/system/settings/settings.xml b/system/settings/settings.xml
+index e48fcf1c08142..2317cdf90c563 100755
+--- a/system/settings/settings.xml
++++ b/system/settings/settings.xml
+@@ -4030,25 +4030,6 @@
+           </dependencies>
+           <control type="list" format="string" />
+         </setting>
+-        <setting id="locale.timezonecountry" type="string" label="14079" help="36117">
+-          <level>1</level>
+-          <default>default</default> <!-- will be properly set on startup -->
+-          <constraints>
+-            <options>timezonecountries</options>
+-          </constraints>
+-          <control type="list" format="string" />
+-        </setting>
+-        <setting id="locale.timezone" type="string" label="14080" help="36118">
+-          <level>1</level>
+-          <default>default</default> <!-- will be properly set on startup -->
+-          <constraints>
+-            <options>timezones</options>
+-          </constraints>
+-          <dependencies>
+-            <dependency type="update" setting="locale.timezonecountry" />
+-          </dependencies>
+-          <control type="list" format="string" />
+-        </setting>
+         <setting id="locale.shortdateformat" type="string" label="14109" help="36173">
+           <level>2</level>
+           <default>regional</default>
+diff --git a/system/settings/windows.xml b/system/settings/windows.xml
+index 163cb5c2d3ae1..523d0c9cab9f5 100644
+--- a/system/settings/windows.xml
++++ b/system/settings/windows.xml
+@@ -58,16 +58,4 @@
+       </group>
+     </category>
+   </section>
+-  <section id="interface">
+-    <category id="regional">
+-      <group id="2">
+-        <setting id="locale.timezonecountry">
+-          <visible>false</visible>
+-        </setting>
+-        <setting id="locale.timezone">
+-          <visible>false</visible>
+-        </setting>
+-      </group>
+-    </category>
+-  </section>
+ </settings>
+diff --git a/xbmc/guilib/guiinfo/SystemGUIInfo.cpp b/xbmc/guilib/guiinfo/SystemGUIInfo.cpp
+index 9a05031e0e74a..70794125c41ca 100644
+--- a/xbmc/guilib/guiinfo/SystemGUIInfo.cpp
++++ b/xbmc/guilib/guiinfo/SystemGUIInfo.cpp
+@@ -327,20 +327,6 @@ bool CSystemGUIInfo::GetLabel(std::string& value, const CFileItem *item, int con
+       return true;
+     }
+ 
+-    case SYSTEM_LOCALE_TIMEZONECOUNTRY:
+-    {
+-      value = CServiceBroker::GetSettingsComponent()->GetSettings()->GetString(
+-          CSettings::SETTING_LOCALE_TIMEZONECOUNTRY);
+-      return true;
+-    }
+-
+-    case SYSTEM_LOCALE_TIMEZONE:
+-    {
+-      value = CServiceBroker::GetSettingsComponent()->GetSettings()->GetString(
+-          CSettings::SETTING_LOCALE_TIMEZONE);
+-      return true;
+-    }
+-
+     case SYSTEM_LOCALE_REGION:
+     {
+       value = g_langInfo.GetCurrentRegion();
+diff --git a/xbmc/platform/posix/CMakeLists.txt b/xbmc/platform/posix/CMakeLists.txt
+index 7907159cf9b94..aa6c2fca79e68 100644
+--- a/xbmc/platform/posix/CMakeLists.txt
++++ b/xbmc/platform/posix/CMakeLists.txt
+@@ -6,7 +6,6 @@ set(SOURCES ConvUtils.cpp
+             PlatformPosix.cpp
+             PosixMountProvider.cpp
+             PosixResourceCounter.cpp
+-            PosixTimezone.cpp
+             XHandle.cpp
+             XTimeUtils.cpp)
+ 
+@@ -17,7 +16,6 @@ set(HEADERS ConvUtils.h
+             PlatformPosix.h
+             PosixMountProvider.h
+             PosixResourceCounter.h
+-            PosixTimezone.h
+             XHandle.h)
+ 
+ core_add_library(platform_posix)
+diff --git a/xbmc/platform/posix/PosixTimezone.cpp b/xbmc/platform/posix/PosixTimezone.cpp
+deleted file mode 100644
+index e76fd722e90a9..0000000000000
+--- a/xbmc/platform/posix/PosixTimezone.cpp
++++ /dev/null
+@@ -1,285 +0,0 @@
+-/*
+- *  Copyright (C) 2005-2018 Team Kodi
+- *  This file is part of Kodi - https://kodi.tv
+- *
+- *  SPDX-License-Identifier: GPL-2.0-or-later
+- *  See LICENSES/README.md for more information.
+- */
+-
+-#include "PosixTimezone.h"
+-
+-#include "ServiceBroker.h"
+-#include "XBDateTime.h"
+-#include "settings/Settings.h"
+-#include "settings/SettingsComponent.h"
+-#include "settings/lib/Setting.h"
+-#include "settings/lib/SettingDefinitions.h"
+-#include "utils/StringUtils.h"
+-#include "utils/SystemInfo.h"
+-
+-#include <algorithm>
+-#include <climits>
+-#include <cstdlib>
+-#include <ctime>
+-
+-#include "PlatformDefs.h"
+-
+-CPosixTimezone::CPosixTimezone()
+-{
+-   char* line = NULL;
+-   size_t linelen = 0;
+-   int nameonfourthfield = 0;
+-   std::string s;
+-   std::vector<std::string> tokens;
+-
+-   // Load timezones
+-   FILE* fp = fopen("/usr/share/zoneinfo/zone.tab", "r");
+-   if (fp)
+-   {
+-      std::string countryCode;
+-      std::string timezoneName;
+-
+-      while (getdelim(&line, &linelen, '\n', fp) > 0)
+-      {
+-         tokens.clear();
+-         s = line;
+-         StringUtils::Trim(s);
+-
+-         if (s.length() == 0)
+-            continue;
+-
+-         if (s[0] == '#')
+-            continue;
+-
+-         StringUtils::Tokenize(s, tokens, " \t");
+-         if (tokens.size() < 3)
+-            continue;
+-
+-         countryCode = tokens[0];
+-         timezoneName = tokens[2];
+-
+-         if (m_timezonesByCountryCode.count(countryCode) == 0)
+-         {
+-            std::vector<std::string> timezones;
+-            timezones.push_back(timezoneName);
+-            m_timezonesByCountryCode[countryCode] = timezones;
+-         }
+-         else
+-         {
+-            std::vector<std::string>& timezones = m_timezonesByCountryCode[countryCode];
+-            timezones.push_back(timezoneName);
+-         }
+-
+-         m_countriesByTimezoneName[timezoneName] = countryCode;
+-      }
+-      fclose(fp);
+-   }
+-
+-   if (line)
+-   {
+-     free(line);
+-     line = NULL;
+-     linelen = 0;
+-   }
+-
+-   // Load countries
+-   fp = fopen("/usr/share/zoneinfo/iso3166.tab", "r");
+-   if (!fp)
+-   {
+-      fp = fopen("/usr/share/misc/iso3166", "r");
+-      nameonfourthfield = 1;
+-   }
+-   if (fp)
+-   {
+-      std::string countryCode;
+-      std::string countryName;
+-
+-      while (getdelim(&line, &linelen, '\n', fp) > 0)
+-      {
+-         s = line;
+-         StringUtils::Trim(s);
+-
+-        //! @todo STRING_CLEANUP
+-         if (s.length() == 0)
+-            continue;
+-
+-         if (s[0] == '#')
+-            continue;
+-
+-         // Search for the first non space from the 2nd character and on
+-         int i = 2;
+-         while (s[i] == ' ' || s[i] == '\t') i++;
+-
+-         if (nameonfourthfield)
+-         {
+-            // skip three letter
+-            while (s[i] != ' ' && s[i] != '\t') i++;
+-            while (s[i] == ' ' || s[i] == '\t') i++;
+-            // skip number
+-            while (s[i] != ' ' && s[i] != '\t') i++;
+-            while (s[i] == ' ' || s[i] == '\t') i++;
+-         }
+-
+-         countryCode = s.substr(0, 2);
+-         countryName = s.substr(i);
+-
+-         m_counties.push_back(countryName);
+-         m_countryByCode[countryCode] = countryName;
+-         m_countryByName[countryName] = countryCode;
+-      }
+-      sort(m_counties.begin(), m_counties.end(), sortstringbyname());
+-      fclose(fp);
+-   }
+-   free(line);
+-}
+-
+-void CPosixTimezone::OnSettingChanged(const std::shared_ptr<const CSetting>& setting)
+-{
+-  if (setting == NULL)
+-    return;
+-
+-  const std::string &settingId = setting->GetId();
+-  if (settingId == CSettings::SETTING_LOCALE_TIMEZONE)
+-  {
+-    SetTimezone(std::static_pointer_cast<const CSettingString>(setting)->GetValue());
+-
+-    CDateTime::ResetTimezoneBias();
+-  }
+-  else if (settingId == CSettings::SETTING_LOCALE_TIMEZONECOUNTRY)
+-  {
+-    // nothing to do here. Changing locale.timezonecountry will trigger an
+-    // update of locale.timezone and automatically adjust its value
+-    // and execute OnSettingChanged() for it as well (see above)
+-  }
+-}
+-
+-void CPosixTimezone::OnSettingsLoaded()
+-{
+-  SetTimezone(CServiceBroker::GetSettingsComponent()->GetSettings()->GetString(CSettings::SETTING_LOCALE_TIMEZONE));
+-  CDateTime::ResetTimezoneBias();
+-}
+-
+-std::vector<std::string> CPosixTimezone::GetCounties()
+-{
+-   return m_counties;
+-}
+-
+-std::vector<std::string> CPosixTimezone::GetTimezonesByCountry(const std::string& country)
+-{
+-   return m_timezonesByCountryCode[m_countryByName[country]];
+-}
+-
+-std::string CPosixTimezone::GetCountryByTimezone(const std::string& timezone)
+-{
+-#if defined(TARGET_DARWIN)
+-   return "?";
+-#else
+-   return m_countryByCode[m_countriesByTimezoneName[timezone]];
+-#endif
+-}
+-
+-void CPosixTimezone::SetTimezone(const std::string& timezoneName)
+-{
+-#if !defined(TARGET_DARWIN)
+-  bool use_timezone = true;
+-#else
+-  bool use_timezone = false;
+-#endif
+-
+-  if (use_timezone)
+-  {
+-    static char env_var[255];
+-    snprintf(env_var, sizeof(env_var), "TZ=:%s", timezoneName.c_str());
+-    putenv(env_var);
+-    tzset();
+-  }
+-}
+-
+-std::string CPosixTimezone::GetOSConfiguredTimezone()
+-{
+-  std::string timezoneName;
+-
+-  // try Slackware approach first
+-  timezoneName = ReadFromLocaltime("/etc/localtime-copied-from");
+-
+-  // RHEL and maybe other distros make /etc/localtime a symlink
+-  if (timezoneName.empty())
+-    timezoneName = ReadFromLocaltime("/etc/localtime");
+-
+-  // now try Debian approach
+-  if (timezoneName.empty())
+-    timezoneName = ReadFromTimezone("/etc/timezone");
+-
+-  return timezoneName;
+-}
+-
+-std::string CPosixTimezone::ReadFromLocaltime(const std::string_view filename)
+-{
+-  char path[PATH_MAX];
+-  if(realpath(filename.data(), path) == nullptr)
+-    return "";
+-
+-  // Read the timezone starting from the second last occurrence of /
+-  std::string str = path;
+-  size_t pos = str.rfind('/');
+-  if (pos == std::string::npos)
+-    return "";
+-
+-  pos = str.rfind('/', pos - 1);
+-  if (pos == std::string::npos)
+-    return "";
+-
+-  return str.substr(pos + 1);
+-}
+-
+-std::string CPosixTimezone::ReadFromTimezone(const std::string_view filename)
+-{
+-  std::string timezoneName;
+-  std::FILE* file = std::fopen(filename.data(), "r");
+-
+-  if (file != nullptr)
+-  {
+-    char tz[255];
+-    if (std::fgets(tz, sizeof(tz), file) != nullptr)
+-    {
+-      timezoneName = tz;
+-    }
+-
+-    std::fclose(file);
+-  }
+-
+-  return timezoneName;
+-}
+-
+-void CPosixTimezone::SettingOptionsTimezoneCountriesFiller(
+-    const std::shared_ptr<const CSetting>& setting,
+-    std::vector<StringSettingOption>& list,
+-    std::string& current,
+-    void* data)
+-{
+-  std::vector<std::string> countries = g_timezone.GetCounties();
+-  for (unsigned int i = 0; i < countries.size(); i++)
+-    list.emplace_back(countries[i], countries[i]);
+-}
+-
+-void CPosixTimezone::SettingOptionsTimezonesFiller(const std::shared_ptr<const CSetting>& setting,
+-                                                   std::vector<StringSettingOption>& list,
+-                                                   std::string& current,
+-                                                   void* data)
+-{
+-  current = std::static_pointer_cast<const CSettingString>(setting)->GetValue();
+-  bool found = false;
+-  std::vector<std::string> timezones = g_timezone.GetTimezonesByCountry(CServiceBroker::GetSettingsComponent()->GetSettings()->GetString(CSettings::SETTING_LOCALE_TIMEZONECOUNTRY));
+-  for (unsigned int i = 0; i < timezones.size(); i++)
+-  {
+-    if (!found && StringUtils::EqualsNoCase(timezones[i], current))
+-      found = true;
+-
+-    list.emplace_back(timezones[i], timezones[i]);
+-  }
+-
+-  if (!found && !timezones.empty())
+-    current = timezones[0];
+-}
+-
+-CPosixTimezone g_timezone;
+diff --git a/xbmc/platform/posix/PosixTimezone.h b/xbmc/platform/posix/PosixTimezone.h
+deleted file mode 100644
+index 26a7f0934079c..0000000000000
+--- a/xbmc/platform/posix/PosixTimezone.h
++++ /dev/null
+@@ -1,60 +0,0 @@
+-/*
+- *  Copyright (C) 2005-2018 Team Kodi
+- *  This file is part of Kodi - https://kodi.tv
+- *
+- *  SPDX-License-Identifier: GPL-2.0-or-later
+- *  See LICENSES/README.md for more information.
+- */
+-
+-#pragma once
+-
+-#include "settings/lib/ISettingCallback.h"
+-#include "settings/lib/ISettingsHandler.h"
+-
+-#include <map>
+-#include <string>
+-#include <vector>
+-
+-class CSetting;
+-struct StringSettingOption;
+-
+-class CPosixTimezone : public ISettingCallback, public ISettingsHandler
+-{
+-public:
+-   CPosixTimezone();
+-
+-  void OnSettingChanged(const std::shared_ptr<const CSetting>& setting) override;
+-
+-   void OnSettingsLoaded() override;
+-
+-   std::string GetOSConfiguredTimezone();
+-
+-   std::vector<std::string> GetCounties();
+-   std::vector<std::string> GetTimezonesByCountry(const std::string& country);
+-   std::string GetCountryByTimezone(const std::string& timezone);
+-
+-  void SetTimezone(const std::string& timezone);
+-   int m_IsDST = 0;
+-
+-  static void SettingOptionsTimezoneCountriesFiller(const std::shared_ptr<const CSetting>& setting,
+-                                                    std::vector<StringSettingOption>& list,
+-                                                    std::string& current,
+-                                                    void* data);
+-  static void SettingOptionsTimezonesFiller(const std::shared_ptr<const CSetting>& setting,
+-                                            std::vector<StringSettingOption>& list,
+-                                            std::string& current,
+-                                            void* data);
+-
+-private:
+-  std::string ReadFromLocaltime(std::string_view filename);
+-  std::string ReadFromTimezone(std::string_view filename);
+-  std::vector<std::string> m_counties;
+-  std::map<std::string, std::string> m_countryByCode;
+-  std::map<std::string, std::string> m_countryByName;
+-
+-  std::map<std::string, std::vector<std::string>> m_timezonesByCountryCode;
+-  std::map<std::string, std::string> m_countriesByTimezoneName;
+-};
+-
+-extern CPosixTimezone g_timezone;
+-
+diff --git a/xbmc/platform/posix/XTimeUtils.cpp b/xbmc/platform/posix/XTimeUtils.cpp
+index e78e5cff48ac8..914bf0e72cd78 100644
+--- a/xbmc/platform/posix/XTimeUtils.cpp
++++ b/xbmc/platform/posix/XTimeUtils.cpp
+@@ -8,8 +8,6 @@
+ 
+ #include "utils/XTimeUtils.h"
+ 
+-#include "PosixTimezone.h"
+-
+ #include <errno.h>
+ #include <mutex>
+ #include <time.h>
+@@ -63,8 +61,6 @@ void GetLocalTime(SystemTime* systemTime)
+   systemTime->minute = now.tm_min;
+   systemTime->second = now.tm_sec;
+   systemTime->milliseconds = 0;
+-  // NOTE: localtime_r() is not required to set this, but we Assume that it's set here.
+-  g_timezone.m_IsDST = now.tm_isdst;
+ }
+ 
+ int FileTimeToLocalFileTime(const FileTime* fileTime, FileTime* localFileTime)
+@@ -101,7 +97,6 @@ int SystemTimeToFileTime(const SystemTime* systemTime, FileTime* fileTime)
+   sysTime.tm_min = systemTime->minute;
+   sysTime.tm_sec = systemTime->second;
+   sysTime.tm_yday = dayoffset[sysTime.tm_mon] + (sysTime.tm_mday - 1);
+-  sysTime.tm_isdst = g_timezone.m_IsDST;
+ 
+   // If this is a leap year, and we're past the 28th of Feb, increment tm_yday.
+   if (IsLeapYear(systemTime->year) && (sysTime.tm_yday > 58))
+diff --git a/xbmc/settings/Settings.cpp b/xbmc/settings/Settings.cpp
+index e8e28a59f9805..5d940f674c091 100644
+--- a/xbmc/settings/Settings.cpp
++++ b/xbmc/settings/Settings.cpp
+@@ -21,9 +21,6 @@
+ #include "input/keyboard/KeyboardLayoutManager.h"
+ 
+ #include <mutex>
+-#if defined(TARGET_POSIX)
+-#include "platform/posix/PosixTimezone.h"
+-#endif // defined(TARGET_POSIX)
+ #include "network/upnp/UPnPSettings.h"
+ #include "network/WakeOnAccess.h"
+ #if defined(TARGET_DARWIN_OSX) and defined(HAS_XBMCHELPER)
+@@ -327,31 +324,9 @@ void CSettings::InitializeControls()
+   GetSettingsManager()->RegisterSettingControl("colorbutton", this);
+ }
+ 
+-void CSettings::InitializeVisibility()
+-{
+-  // hide some settings if necessary
+-#if defined(TARGET_DARWIN_EMBEDDED)
+-  std::shared_ptr<CSettingString> timezonecountry = std::static_pointer_cast<CSettingString>(GetSettingsManager()->GetSetting(CSettings::SETTING_LOCALE_TIMEZONECOUNTRY));
+-  std::shared_ptr<CSettingString> timezone = std::static_pointer_cast<CSettingString>(GetSettingsManager()->GetSetting(CSettings::SETTING_LOCALE_TIMEZONE));
+-
+-  timezonecountry->SetRequirementsMet(false);
+-  timezone->SetRequirementsMet(false);
+-#endif
+-}
+-
+ void CSettings::InitializeDefaults()
+ {
+   // set some default values if necessary
+-#if defined(TARGET_POSIX)
+-  std::shared_ptr<CSettingString> timezonecountry = std::static_pointer_cast<CSettingString>(GetSettingsManager()->GetSetting(CSettings::SETTING_LOCALE_TIMEZONECOUNTRY));
+-  std::shared_ptr<CSettingString> timezone = std::static_pointer_cast<CSettingString>(GetSettingsManager()->GetSetting(CSettings::SETTING_LOCALE_TIMEZONE));
+-
+-  if (timezonecountry->IsVisible())
+-    timezonecountry->SetDefault(g_timezone.GetCountryByTimezone(g_timezone.GetOSConfiguredTimezone()));
+-  if (timezone->IsVisible())
+-    timezone->SetDefault(g_timezone.GetOSConfiguredTimezone());
+-#endif // defined(TARGET_POSIX)
+-
+ #if defined(TARGET_WINDOWS)
+   // We prefer a fake fullscreen mode (window covering the screen rather than dedicated fullscreen)
+   // as it works nicer with switching to other applications. However on some systems vsync is broken
+@@ -432,10 +407,6 @@ void CSettings::InitializeOptionFillers()
+   GetSettingsManager()->RegisterSettingOptionsFiller("skincolors", ADDON::CSkinInfo::SettingOptionsSkinColorsFiller);
+   GetSettingsManager()->RegisterSettingOptionsFiller("skinfonts", ADDON::CSkinInfo::SettingOptionsSkinFontsFiller);
+   GetSettingsManager()->RegisterSettingOptionsFiller("skinthemes", ADDON::CSkinInfo::SettingOptionsSkinThemesFiller);
+-#ifdef TARGET_LINUX
+-  GetSettingsManager()->RegisterSettingOptionsFiller("timezonecountries", CPosixTimezone::SettingOptionsTimezoneCountriesFiller);
+-  GetSettingsManager()->RegisterSettingOptionsFiller("timezones", CPosixTimezone::SettingOptionsTimezonesFiller);
+-#endif
+   GetSettingsManager()->RegisterSettingOptionsFiller(
+       "keyboardlayouts", KEYBOARD::CKeyboardLayoutManager::SettingOptionsKeyboardLayoutsFiller);
+   GetSettingsManager()->RegisterSettingOptionsFiller(
+@@ -532,9 +503,6 @@ void CSettings::InitializeISettingsHandlers()
+   GetSettingsManager()->RegisterSettingsHandler(&CWakeOnAccess::GetInstance());
+   GetSettingsManager()->RegisterSettingsHandler(&CRssManager::GetInstance());
+   GetSettingsManager()->RegisterSettingsHandler(&g_langInfo);
+-#if defined(TARGET_LINUX) && !defined(TARGET_ANDROID) && !defined(__UCLIBC__)
+-  GetSettingsManager()->RegisterSettingsHandler(&g_timezone);
+-#endif
+   GetSettingsManager()->RegisterSettingsHandler(&CMediaSettings::GetInstance());
+ }
+ 
+@@ -542,9 +510,6 @@ void CSettings::UninitializeISettingsHandlers()
+ {
+   // unregister ISettingsHandler implementations
+   GetSettingsManager()->UnregisterSettingsHandler(&CMediaSettings::GetInstance());
+-#if defined(TARGET_LINUX)
+-  GetSettingsManager()->UnregisterSettingsHandler(&g_timezone);
+-#endif // defined(TARGET_LINUX)
+   GetSettingsManager()->UnregisterSettingsHandler(&g_langInfo);
+   GetSettingsManager()->UnregisterSettingsHandler(&CRssManager::GetInstance());
+   GetSettingsManager()->UnregisterSettingsHandler(&CWakeOnAccess::GetInstance());
+@@ -629,13 +594,6 @@ void CSettings::InitializeISettingCallbacks()
+   settingSet.insert(CSettings::SETTING_LOOKANDFEEL_RSSEDIT);
+   GetSettingsManager()->RegisterCallback(&CRssManager::GetInstance(), settingSet);
+ 
+-#if defined(TARGET_LINUX)
+-  settingSet.clear();
+-  settingSet.insert(CSettings::SETTING_LOCALE_TIMEZONE);
+-  settingSet.insert(CSettings::SETTING_LOCALE_TIMEZONECOUNTRY);
+-  GetSettingsManager()->RegisterCallback(&g_timezone, settingSet);
+-#endif
+-
+ #if defined(TARGET_DARWIN_OSX) and defined(HAS_XBMCHELPER)
+   settingSet.clear();
+   settingSet.insert(CSettings::SETTING_INPUT_APPLEREMOTEMODE);
+@@ -678,9 +636,6 @@ void CSettings::UninitializeISettingCallbacks()
+   GetSettingsManager()->UnregisterCallback(&g_langInfo);
+   GetSettingsManager()->UnregisterCallback(&g_passwordManager);
+   GetSettingsManager()->UnregisterCallback(&CRssManager::GetInstance());
+-#if defined(TARGET_LINUX)
+-  GetSettingsManager()->UnregisterCallback(&g_timezone);
+-#endif // defined(TARGET_LINUX)
+ #if defined(TARGET_DARWIN_OSX) and defined(HAS_XBMCHELPER)
+   GetSettingsManager()->UnregisterCallback(&XBMCHelper::GetInstance());
+ #endif
+diff --git a/xbmc/settings/Settings.h b/xbmc/settings/Settings.h
+index bfc5e6072cdcb..35ea531b144ed 100644
+--- a/xbmc/settings/Settings.h
++++ b/xbmc/settings/Settings.h
+@@ -45,8 +45,6 @@ class CSettings : public CSettingsBase, public CSettingCreator, public CSettingC
+   static constexpr auto SETTING_LOCALE_CHARSET = "locale.charset";
+   static constexpr auto SETTING_LOCALE_KEYBOARDLAYOUTS = "locale.keyboardlayouts";
+   static constexpr auto SETTING_LOCALE_ACTIVEKEYBOARDLAYOUT = "locale.activekeyboardlayout";
+-  static constexpr auto SETTING_LOCALE_TIMEZONECOUNTRY = "locale.timezonecountry";
+-  static constexpr auto SETTING_LOCALE_TIMEZONE = "locale.timezone";
+   static constexpr auto SETTING_LOCALE_SHORTDATEFORMAT = "locale.shortdateformat";
+   static constexpr auto SETTING_LOCALE_LONGDATEFORMAT = "locale.longdateformat";
+   static constexpr auto SETTING_LOCALE_TIMEFORMAT = "locale.timeformat";
+@@ -602,7 +600,6 @@ class CSettings : public CSettingsBase, public CSettingCreator, public CSettingC
+   void UninitializeOptionFillers() override;
+   void InitializeConditions() override;
+   void UninitializeConditions() override;
+-  void InitializeVisibility() override;
+   void InitializeDefaults() override;
+   void InitializeISettingsHandlers() override;
+   void UninitializeISettingsHandlers() override;
+
+From 4ec7c185fd92360f8d557cbd05eeb2fe4be1de4f Mon Sep 17 00:00:00 2001
+From: Philipp Kerling <yol@casix.org>
+Date: Sat, 6 Apr 2024 18:21:58 +0200
+Subject: [PATCH] Remove timezone/timezonecountry infolabels from guilib
+
+This is a leftover from PR #24899 (removal of timezone setting
+from Kodi). Removal of the functionality means that the
+infolabels should also not be advertised.
+---
+ xbmc/GUIInfoManager.cpp             | 15 ++++-----------
+ xbmc/guilib/guiinfo/GUIInfoLabels.h |  2 --
+ 2 files changed, 4 insertions(+), 13 deletions(-)
+
+diff --git a/xbmc/GUIInfoManager.cpp b/xbmc/GUIInfoManager.cpp
+index af5d371a414ff..0b5d49f78959a 100644
+--- a/xbmc/GUIInfoManager.cpp
++++ b/xbmc/GUIInfoManager.cpp
+@@ -1763,14 +1763,15 @@ const infomap weather[] =        {{ "isfetched",        WEATHER_IS_FETCHED },
+ ///                  _string_,
+ ///     @return Locale-specific information depending on the requested type.
+ ///     @param type - Can be one of the following:
+-///       - <b>timezonecountry</b> The country name for the current time zone.
+-///       - <b>timezone</b> The full timezone name with country and optional region.
+ ///       - <b>region</b> The currently selected region name within the selected language ( \link System_Language `System.Language` \endlink).
+ ///       - <b>iso</b> The country code of the currently selected region as specified in <a href="https://kodi.wiki/view/Language_support#What_is_langinfo.xml">langinfo.xml</a>.
+ ///     <p><hr>
+ ///     @skinning_v21 **[New Infolabel]** \link System_Locale
+ ///     `System.Locale(type)`\endlink
+ ///     <p>
++///     @skinning_v22 **[Removed options]** `timezonecountry` and `timezone` from \link System_Locale
++///     `System.Locale(type)`\endlink
++///     <p>
+ ///   }
+ ///   \table_row3{   <b>`System.ProfileName`</b>,
+ ///                  \anchor System_ProfileName
+@@ -10239,15 +10240,7 @@ int CGUIInfoManager::TranslateSingleString(const std::string &strCondition, bool
+           return AddMultiInfo(CGUIInfo(SYSTEM_IDLE_TIME, atoi(param.c_str())));
+         else if (prop.name == "locale")
+         {
+-          if (param == "timezonecountry")
+-          {
+-            return SYSTEM_LOCALE_TIMEZONECOUNTRY;
+-          }
+-          else if (param == "timezone")
+-          {
+-            return SYSTEM_LOCALE_TIMEZONE;
+-          }
+-          else if (param == "region")
++          if (param == "region")
+           {
+             return SYSTEM_LOCALE_REGION;
+           }
+diff --git a/xbmc/guilib/guiinfo/GUIInfoLabels.h b/xbmc/guilib/guiinfo/GUIInfoLabels.h
+index 8c17ce2a4924f..bcd0bb52c5f1a 100644
+--- a/xbmc/guilib/guiinfo/GUIInfoLabels.h
++++ b/xbmc/guilib/guiinfo/GUIInfoLabels.h
+@@ -568,8 +568,6 @@
+ #define SYSTEM_BUILD_VERSION_CODE 1007
+ #define SYSTEM_BUILD_VERSION_GIT 1008
+ 
+-static constexpr unsigned int SYSTEM_LOCALE_TIMEZONECOUNTRY = 1009;
+-static constexpr unsigned int SYSTEM_LOCALE_TIMEZONE = 1010;
+ static constexpr unsigned int SYSTEM_LOCALE_REGION = 1011;
+ static constexpr unsigned int SYSTEM_LOCALE = 1012;
+ 
