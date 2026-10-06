@@ -2,11 +2,8 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
-Previously I've released two images (TinkerELEC / LibreELEC) but decided to only publish the LibreELEC (unofficial) image to not cause confusion about what image to install.
-The TinkerELEC image is tied to my personal use-case, so it has no real benefit for a generic installation on a Tinker Board S. All previous releases and tags were removed.
-
 > [!CAUTION]
-> This fork was not tested on any other device than the **Tinker Board S**!
+> Not tested on any other device than the **Tinker Board S**!
 > Debian 12 (Bookworm) is used currently to build images from this source code.
 
 ## Reason
@@ -24,7 +21,8 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-200.04-gbm-reduce-cpu-idle-load.patch)
   * fix bluetooth sound lag with pipewire [(patch from xbmc master branch)](packages/mediacenter/kodi/patches/kodi-200.05-pipewire-fix-bt-lag.patch)
   * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
-  * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
+  * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-crashfix-on-skin-or-lang-reload.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
+    * updated with [merged commit to Kodi 22](https://github.com/xbmc/xbmc/pull/28928)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
   * [removed timezone setting](packages/mediacenter/kodi/patches/kodi-200.10-remove-timezone-setting.patch)
 * Updated LibreELEC-settings from LibreELEC/master
@@ -37,6 +35,7 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Disabled XFS / BTRFS support
 
 **System / Image changes**
+* Rebranded LIBREELEC_ variables to DISTRO_ (like in LibreELEC/master)
 * Alternative wireless vendor driver: [RTL8723BS](packages/linux-drivers/RTL8723BS)
 * Alternative rtw88 wireless driver [rtw88_rtl8723bs](packages/linux-drivers/rtw88_rtl8723bs) - credits to [MocLG](https://github.com/MocLG/rtw88-rtl8723bs)
 * Additional packages included in image: btop, emmctool, evtest, rsync
@@ -50,7 +49,6 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Some minor package cleanups
   * Removed `SuspendMode=false` from systemd sleep.conf as it's deprecated
   * Removed `kodi-lirc-suspend.service` as it's deprecated
-* Rebranded LIBREELEC_ variables to DISTRO_ (like in LibreELEC/master)
 
 **Tinker Board S specific**
 * Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
