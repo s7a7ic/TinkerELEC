@@ -26,6 +26,10 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * [removed pcre dependency](packages/mediacenter/kodi/patches/kodi-200.06-remove-use-of-prcecpp.patch) in favor of pcre2
   * [crash fix](packages/mediacenter/kodi/patches/kodi-200.03-rework-add-on-skin-reloading.patch) when changing skins or language [(xbmc issue)](https://github.com/xbmc/xbmc/issues/27552)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
+  * [removed timezone setting](packages/mediacenter/kodi/patches/kodi-200.10-remove-timezone-setting.patch)
+* Updated LibreELEC-settings from LibreELEC/master
+  * Configuration of Timezone
+  * Bluetooth: icons for headphones, signal strength bar, connection fixes
 
 **Kernel 6.16.12**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
@@ -33,9 +37,20 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Disabled XFS / BTRFS support
 
 **System / Image changes**
-* Alternative wireless driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
+* Alternative wireless vendor driver: [RTL8723BS](packages/linux-drivers/RTL8723BS)
+* Alternative rtw88 wireless driver [rtw88_rtl8723bs](packages/linux-drivers/rtw88_rtl8723bs) - credits to [MocLG](https://github.com/MocLG/rtw88-rtl8723bs)
 * Additional packages included in image: btop, emmctool, evtest, rsync
+* Updated u-boot to version 2026.04 which fixes a boot issue when installing to emmc
+* `emmctool`
+  * Added support for Tinker Board S
+  * Fixed u-boot version output
+* Updated iwd to version 3.12
+* Added connman patches from LibreELEC/master
+* Updated wireguard-tools to 1.0.20260223
 * Some minor package cleanups
+  * Removed `SuspendMode=false` from systemd sleep.conf as it's deprecated
+  * Removed `kodi-lirc-suspend.service` as it's deprecated
+* Rebranded LIBREELEC_ variables to DISTRO_ (like in LibreELEC/master)
 
 **Tinker Board S specific**
 * Added alsa [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf) for working audio over the 3.5mm audio jack
@@ -47,9 +62,6 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Add eeprom node: [dts-rk3288-tinker-add-eeprom-node](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-add-eeprom-node.patch)
 
 ## Known Problems
-
-**DNS resolution is not working after the setup-wizard**
-- Reboot system or restart connman and network-base service
 
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
