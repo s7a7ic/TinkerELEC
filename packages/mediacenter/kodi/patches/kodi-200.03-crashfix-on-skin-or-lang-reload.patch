@@ -1,0 +1,147 @@
+# https://github.com/xbmc/xbmc/pull/28928
+--- a/xbmc/application/Application.cpp
++++ b/xbmc/application/Application.cpp
+@@ -3232,6 +3232,10 @@
+   CServiceBroker::GetAppMessenger()->ProcessMessages();
+   if (m_bStop) return; //we're done, everything has been unloaded
+ 
++  // the main loop reaches this with no GUI message handler suspended on the stack, which
++  // is what a deferred skin reload is waiting for
++  GetComponent<CApplicationSkinHandling>()->ProcessPendingSkinReload();
++
+   // do any processing that isn't needed on each run
+   if( m_slowTimer.GetElapsedMilliseconds() > 500 )
+   {
+--- a/xbmc/application/ApplicationSkinHandling.cpp
++++ b/xbmc/application/ApplicationSkinHandling.cpp
+@@ -376,9 +376,23 @@
+ 
+ void CApplicationSkinHandling::ReloadSkin(bool confirm)
+ {
++  auto gui = CServiceBroker::GetGUI();
++  if (gui == nullptr)
++    return;
++
+   if (!g_SkinInfo || m_bInitializing)
+     return; // Don't allow reload before skin is loaded by system
+ 
++  // Reloading destroys every control in every window, and the GUI message handlers
++  // suspended below a nested render loop still hold pointers into that tree. Wait for
++  // the stack to unwind.
++  if (gui->GetWindowManager().IsNested())
++  {
++    m_pendingSkinReload = true;
++    m_pendingSkinReloadConfirm = m_pendingSkinReloadConfirm || confirm;
++    return;
++  }
++
+   std::string oldSkin = g_SkinInfo->ID();
+ 
+   CGUIMessage msg(GUI_MSG_LOAD_SKIN, -1,
+@@ -425,6 +439,21 @@
+   m_confirmSkinChange = true;
+ }
+ 
++void CApplicationSkinHandling::ProcessPendingSkinReload()
++{
++  if (!m_pendingSkinReload)
++    return;
++
++  const auto gui = CServiceBroker::GetGUI();
++  if (gui == nullptr || gui->GetWindowManager().IsNested())
++    return;
++
++  const bool confirm = m_pendingSkinReloadConfirm;
++  m_pendingSkinReload = false;
++  m_pendingSkinReloadConfirm = false;
++  ReloadSkin(confirm);
++}
++
+ bool CApplicationSkinHandling::OnSettingChanged(const CSetting& setting)
+ {
+   const std::string& settingId = setting.GetId();
+--- a/xbmc/application/ApplicationSkinHandling.h
++++ b/xbmc/application/ApplicationSkinHandling.h
+@@ -44,9 +44,18 @@
+  */
+   void ProcessSkin() const;
+ 
++  /*!
++   * \brief Run a skin reload that was deferred out of a nested render loop.
++   *
++   * Does nothing unless a reload is pending and the render loop has unwound.
++   */
++  void ProcessPendingSkinReload();
++
+   bool m_saveSkinOnUnloading = true;
+   bool m_confirmSkinChange = true;
+   bool m_ignoreSkinSettingChanges = false;
++  bool m_pendingSkinReload = false;
++  bool m_pendingSkinReloadConfirm = false;
+   IMsgTargetCallback* m_msgCb;
+   IWindowManagerCallback* m_wCb;
+   bool& m_bInitializing;
+--- a/xbmc/guilib/GUIWindow.cpp
++++ b/xbmc/guilib/GUIWindow.cpp
+@@ -426,8 +426,24 @@
+   {
+     while (focusedControl && focusedControl != this)
+     {
++      // noted while the control is known to be alive, as handling the action can free it
++      const uint32_t controlsGeneration = m_controlsGeneration;
++
+       if (focusedControl->OnAction(action))
+         return true;
++
++      // the controls were rebuilt under us, so focusedControl is dangling and its parent
++      // cannot be read. The generation is what makes this reliable: a freed control's
++      // address can be reused by the new tree, which pointer identity cannot detect.
++      if (m_controlsGeneration != controlsGeneration)
++      {
++        CLog::Log(LOGDEBUG,
++                  "CGUIWindow::OnAction: controls of window {} were destroyed while "
++                  "handling the action, not propagating it to the parent",
++                  GetID());
++        return true;
++      }
++
+       focusedControl = focusedControl->GetParentControl();
+     }
+   }
+@@ -812,6 +828,7 @@
+ 
+ void CGUIWindow::ClearAll()
+ {
++  ++m_controlsGeneration;
+   OnWindowUnload();
+   CGUIControlGroup::ClearAll();
+   m_windowLoaded = false;
+--- a/xbmc/guilib/GUIWindow.h
++++ b/xbmc/guilib/GUIWindow.h
+@@ -243,6 +243,9 @@
+   RESOLUTION_INFO m_coordsRes; // resolution that the window coordinates are in.
+   bool m_needsScaling;
+   bool m_windowLoaded;  // true if the window's xml file has been loaded
++  //! bumped whenever the controls are cleared, so a control held across a call that may
++  //! destroy the tree can be told apart from one that is still alive
++  uint32_t m_controlsGeneration{0};
+   LOAD_TYPE m_loadType;
+   bool m_dynamicResourceAlloc;
+   bool m_closing;
+--- a/xbmc/guilib/GUIWindowManager.h
++++ b/xbmc/guilib/GUIWindowManager.h
+@@ -124,6 +124,14 @@
+    */
+   bool Initialized() const { return m_initialized; }
+ 
++  /*! \brief Return whether a nested render loop is currently running.
++   *   A modal dialog pumps the application from its own Open() loop, leaving the GUI
++   *   message handlers below it suspended while still holding pointers into the control
++   *   tree. Destroying windows or controls has to wait until the stack has unwound.
++   *   \return true if called from within a nested render loop, false otherwise.
++   */
++  bool IsNested() const { return m_iNested > 0; }
++
+   /*! \brief Create and initialize all windows and dialogs
+    */
+   void CreateWindows();
