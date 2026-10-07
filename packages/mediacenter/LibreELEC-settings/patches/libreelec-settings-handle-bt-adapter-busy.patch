@@ -1,16 +1,11 @@
 --- a/resources/lib/modules/bluetooth.py
 +++ b/resources/lib/modules/bluetooth.py
-@@ -128,8 +128,31 @@
+@@ -128,8 +128,26 @@
  
      @log.log_function()
      def init_adapter(self):
 -        dbus_bluez.adapter_set_alias(self.dbusBluezAdapter, hostname.get_hostname())
 -        dbus_bluez.adapter_set_powered(self.dbusBluezAdapter, True)
-+        """
-+        Initialise the BlueZ adapter (set hostname alias + power it on).
-+        After suspend/resume the adapter can still be in a transient 'Busy'
-+        state; treat that as non-fatal and optionally retry a few times.
-+        """
 +        for attempt in range(0, 5):
 +            try:
 +                dbus_bluez.adapter_set_alias(self.dbusBluezAdapter, hostname.get_hostname())
@@ -22,12 +17,12 @@
 +                # while the controller is still recovering from suspend.
 +                err_name = getattr(e, "name", "") or str(e)
 +                if "Busy" in err_name or "NotReady" in err_name:
-+                    log.log(f"busy/not-ready (attempt {attempt + 1}/5): {e}", log.DEBUG)
++                    log.log(f"busy/not-ready (attempt {attempt + 1}/5): {e}", log.WARNING)
 +                    if attempt < 5:
 +                        time.sleep(1.0)
 +                        continue
 +
-+                    log.log("init_adapter: giving up after 5 retries", log.WARNING)
++                    log.log("giving up after 5 retries", log.WARNING)
 +                    return
 +                # any other D-Bus error is unexpected -> re-raise
 +                raise
