@@ -20,20 +20,19 @@ hciattach_rome: display ROM and TLV info by default
 Signed-off-by: Gary Bisson <gary.bisson@boundarydevices.com>
 ---
  Makefile.tools         |    1 +
- android/Android.mk     |    1 +
  tools/hciattach.c      |   12 +
  tools/hciattach.h      |    1 +
  tools/hciattach_rome.c | 1872 ++++++++++++++++++++++++++++++++++++++++
  tools/hciattach_rome.h |  388 +++++++++
- 6 files changed, 2275 insertions(+)
+ 5 files changed, 2274 insertions(+)
  create mode 100644 tools/hciattach_rome.c
  create mode 100644 tools/hciattach_rome.h
 
 diff --git a/Makefile.tools b/Makefile.tools
-index b7b422506..e0e995089 100644
+index 6188449f1..a8acaeef3 100644
 --- a/Makefile.tools
 +++ b/Makefile.tools
-@@ -417,6 +417,7 @@ tools_hciattach_SOURCES = tools/hciattach.c tools/hciattach.h \
+@@ -425,6 +425,7 @@ tools_hciattach_SOURCES = tools/hciattach.c tools/hciattach.h \
  						tools/hciattach_ti.c \
  						tools/hciattach_tialt.c \
  						tools/hciattach_ath3k.c \
@@ -41,20 +40,8 @@ index b7b422506..e0e995089 100644
  						tools/hciattach_qualcomm.c \
  						tools/hciattach_intel.c \
  						tools/hciattach_bcm43xx.c
-diff --git a/android/Android.mk b/android/Android.mk
-index 76a826b47..01599c04b 100644
---- a/android/Android.mk
-+++ b/android/Android.mk
-@@ -697,6 +697,7 @@ LOCAL_SRC_FILES := \
- 	bluez/tools/hciattach_ti.c \
- 	bluez/tools/hciattach_tialt.c \
- 	bluez/tools/hciattach_ath3k.c \
-+	bluez/tools/hciattach_rome.c \
- 	bluez/tools/hciattach_qualcomm.c \
- 	bluez/tools/hciattach_intel.c \
- 	bluez/tools/hciattach_bcm43xx.c \
 diff --git a/tools/hciattach.c b/tools/hciattach.c
-index fad176c9b..02a65c692 100644
+index 8554375a3..48c1704e5 100644
 --- a/tools/hciattach.c
 +++ b/tools/hciattach.c
 @@ -252,6 +252,11 @@ static int ath3k_pm(int fd, struct uart_t *u, struct termios *ti)
@@ -91,7 +78,7 @@ index fad176c9b..02a65c692 100644
  	if (fd < 0) {
  		perror("Can't open serial port");
 diff --git a/tools/hciattach.h b/tools/hciattach.h
-index 249aab49e..85c801ccf 100644
+index dfa4c1e7a..7333c7c97 100644
 --- a/tools/hciattach.h
 +++ b/tools/hciattach.h
 @@ -56,6 +56,7 @@ int bgb2xx_init(int dd, bdaddr_t *bdaddr);
@@ -104,7 +91,7 @@ index 249aab49e..85c801ccf 100644
  int bcm43xx_init(int fd, int def_speed, int speed, struct termios *ti,
 diff --git a/tools/hciattach_rome.c b/tools/hciattach_rome.c
 new file mode 100644
-index 000000000..9a7f222c4
+index 000000000..1b7a27fd3
 --- /dev/null
 +++ b/tools/hciattach_rome.c
 @@ -0,0 +1,1872 @@
@@ -2374,3 +2361,6 @@ index 000000000..597743e0b
 +    TUFELLO_VER_1_1 = ((ROME_PATCH_VER_0302 << 16 ) | ROME_SOC_ID_23 )
 +};
 +#endif /* HW_ROME_H */
+-- 
+2.53.0
+
