@@ -26,8 +26,8 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
   * [removed timezone setting](packages/mediacenter/kodi/patches/kodi-200.10-remove-timezone-setting.patch)
 * Updated LibreELEC-settings from LibreELEC/master
-  * Configuration of Timezone
-  * Bluetooth: icons for headphones, signal strength bar, connection fixes
+  * Various fixes and configuration of timezone
+  * Bluetooth: icons for headphones, signal strength bar
 
 **Kernel 6.16.12**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
@@ -45,6 +45,7 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * Fixed u-boot version output
 * Updated iwd to version 3.12
 * Added connman patches from LibreELEC/master
+* Updated bluez to version 5.87
 * Updated wireguard-tools to 1.0.20260223
 * Some minor package cleanups
   * Removed `SuspendMode=false` from systemd sleep.conf as it's deprecated
@@ -96,19 +97,19 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **USB Device detection when system is running**
 * System didn't detect USB devices plugged in when fully booted and running
-* Fixed with [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
+* Fixed with the [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
 * (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/patches/linux-6.12/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 **Audio over 3.5mm Jack**
 * Added required [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf)
 * The output source in Kodi and pipewire is called "USB Audio ..."
 
-## Install to EMMC
+## Install to eMMC
 
-To install a TinkerELEC image from SDCARD onto the internal emmc storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool).
+To install the image from SDCARD onto the internal eMMC storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool).
 
 > [!CAUTION]
-> Use `emmctool` with care. Can wipe data from emmc/sdcard storage.
+> Use `emmctool` with care. Do a backup first to prevent losing data.
 
 ## Credits
 
