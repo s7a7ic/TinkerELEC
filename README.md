@@ -67,10 +67,6 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
   * For this reason the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) and the alternative driver is used
 
-**Bluetooth**
-* Large error message in kodi.log after resume from suspend (bluetooth still works)
-  * SETTINGS: bluetooth.init_adapter # DBusError('org.bluez.Error.Busy -- ') ...
-
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
   * So it's disabled with this [patch](packages/mediacenter/kodi/patches/kodi-200.01-disable-resume-playerstate-after-suspend.patch)
@@ -94,6 +90,9 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
+* Large error message in kodi.log after resume from suspend (bluetooth still works)
+  * SETTINGS: bluetooth.init_adapter # DBusError('org.bluez.Error.Busy -- ')
+  * Fixed with [patch for LibreELEC-settings](packages/mediacenter/LibreELEC-settings/patches/libreelec-settings-handle-bt-adapter-busy.patch)
 
 **USB Device detection when system is running**
 * System didn't detect USB devices plugged in when fully booted and running
