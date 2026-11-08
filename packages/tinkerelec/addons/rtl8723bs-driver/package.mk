@@ -38,10 +38,8 @@ addon() {
 
 # install and enable the addon by default if it's build as an image dependency
 post_install() {
-  ADDON_MANIFEST=$(get_install_dir kodi)/usr/share/kodi/system/addon-manifest.xml
-  xmlstarlet ed -L --subnode "/addons" -t elem -n "addon" -v "script.rtl8723bs-driver" ${ADDON_MANIFEST}
   mkdir -p ${INSTALL}/usr/config/modprobe.d
-  cp ${PKG_DIR}/files/modprobe.d/blacklist-rtl8723bs.conf ${INSTALL}/usr/config/modprobe.d/
+    cp ${PKG_DIR}/files/modprobe.d/blacklist-rtl8723bs.conf ${INSTALL}/usr/config/modprobe.d/
   mkdir -p ${INSTALL}/usr/cache/kernel-overlays
-  cp ${PKG_DIR}/files/kernel-overlays/rtl8723bs-driver.conf ${INSTALL}/usr/cache/kernel-overlays/
+    cp ${PKG_DIR}/files/kernel-overlays/rtl8723bs-driver.conf ${INSTALL}/usr/cache/kernel-overlays/
 }
