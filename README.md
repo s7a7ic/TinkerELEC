@@ -36,8 +36,9 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **System / Image changes**
 * Rebranded LIBREELEC_ variables to DISTRO_ (like in LibreELEC/master)
-* Alternative wireless vendor driver: [RTL8723BS](packages/linux-drivers/RTL8723BS)
-* Alternative rtw88 wireless driver [rtw88_rtl8723bs](packages/linux-drivers/rtw88_rtl8723bs) - credits to [MocLG](https://github.com/MocLG/rtw88-rtl8723bs)
+* [Addon](packages/tinkerelec/addons/rtl8723bs-driver) for the selection of the prefered RTL8723BS WiFi driver
+  * Alternative wireless vendor driver: [RTL8723BS](packages/linux-drivers/RTL8723BS)
+  * Alternative rtw88 wireless driver [rtw88-rtl8723bs](packages/linux-drivers/rtw88-rtl8723bs) - credits to [MocLG](https://github.com/MocLG/rtw88-rtl8723bs)
 * Additional packages included in image: btop, emmctool, evtest, rsync
 * Updated u-boot to version 2026.04 which fixes a boot issue when installing to emmc
 * `emmctool`
@@ -65,7 +66,6 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
-  * For this reason the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) and the alternative driver is used
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
@@ -85,8 +85,7 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **Wireless LAN (internal)**
 * Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 7.0)
-* Loading of the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) for TinkerBoard
-  * The prefered wireless driver can be changed in the `/storage/.config/modprobe.d/rtl8723bs-driver.conf` file
+* The [rtl8723bs-driver addon](packages/tinkerelec/addons/rtl8723bs-driver) is included for the selection of the prefered RTL8723BS WiFi driver.
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
