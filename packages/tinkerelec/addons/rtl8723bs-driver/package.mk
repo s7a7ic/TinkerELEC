@@ -5,8 +5,8 @@ PKG_ARCH="any"
 PKG_LICENSE="GPLv2"
 PKG_DEPENDS_TARGET="toolchain RTL8723BS rtw88-rtl8723bs"
 PKG_SECTION="script"
-PKG_SHORTDESC="Driver for the Realtek RTL8723BS"
-PKG_LONGDESC="This Addon includes different drivers for the Realtek RTL8723BS and gives the possibility to change which module should be used."
+PKG_SHORTDESC="WiFi driver selector for the Realtek RTL8723BS"
+PKG_LONGDESC="This Addon includes WiFi drivers for the Realtek RTL8723BS and gives the possibility to select which kernel module to use."
 PKG_TOOLCHAIN="manual"
 
 PKG_IS_ADDON="yes"
@@ -26,20 +26,19 @@ addon() {
   cp $(get_build_dir RTL8723BS)/8723bs.ko \
     ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8723bs/
 
-  # copy rtw88-rtl8723bs module files
+  # copy rtw88-rtl8723bs module and firmware files
   RTW88_DIR=$(get_build_dir rtw88-rtl8723bs)
   cp ${RTW88_DIR}/rtw_8723x.ko ${RTW88_DIR}/rtw_8723b.ko ${RTW88_DIR}/rtw_8723bs.ko \
     ${RTW88_DIR}/rtw_core.ko ${RTW88_DIR}/rtw_sdio.ko \
     ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtw88/
-
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/firmware/rtw88
     cp -av ${RTW88_DIR}/firmware/rtw8723b_*.bin ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/firmware/rtw88/
 }
 
-# install and enable the addon by default if it's build as an image dependency
+# add default configuration if it's build as an image dependency
 post_install() {
   mkdir -p ${INSTALL}/usr/config/modprobe.d
-    cp ${PKG_DIR}/files/modprobe.d/blacklist-rtl8723bs.conf ${INSTALL}/usr/config/modprobe.d/
+    cp ${PKG_DIR}/files/rtl8723bs-driver.conf ${INSTALL}/usr/config/modprobe.d/
   mkdir -p ${INSTALL}/usr/cache/kernel-overlays
-    cp ${PKG_DIR}/files/kernel-overlays/rtl8723bs-driver.conf ${INSTALL}/usr/cache/kernel-overlays/
+    cp ${PKG_DIR}/files/rtl8723bs-overlay.conf ${INSTALL}/usr/cache/kernel-overlays/
 }

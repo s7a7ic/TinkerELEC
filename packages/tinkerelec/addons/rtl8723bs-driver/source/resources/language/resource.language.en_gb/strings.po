@@ -1,0 +1,22 @@
+# Kodi Media Center language file
+# Addon Name: rtl8723bs-driver
+# Addon id: script.rtl8723bs-driver
+# Addon Provider: s7a7ic
+msgid ""
+msgstr ""
+
+msgctxt "#32000"
+msgid "RTL8723BS Driver"
+msgstr "RTL8723BS Driver"
+
+msgctxt "#32001"
+msgid "Currently loaded module"
+msgstr "Currently loaded module"
+
+msgctxt "#32002"
+msgid "Module to use"
+msgstr "Module to use"
+
+msgctxt "#32003"
+msgid "Changes take effect after reboot"
+msgstr "Changes take effect after reboot"
