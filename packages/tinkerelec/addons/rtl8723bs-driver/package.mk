@@ -15,31 +15,34 @@ PKG_IS_KERNEL_PKG="yes"
 
 KVER="6.16.12"
 
-addon() {
-  mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/{rtw88,rtl8723bs}
+copy_modules() {
+  local TARGET_DIR="$1"
+  mkdir -p ${TARGET_DIR}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/{rtw88,rtl8723bs}
 
   # copy RTL8723BS module file
   cp -av $(get_build_dir RTL8723BS)/8723bs.ko \
-    ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8723bs/
+    ${TARGET_DIR}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtl8723bs/
 
   # copy rtw88-rtl8723bs module and firmware files
   RTW88_DIR=$(get_build_dir rtw88-rtl8723bs)
   cp -av ${RTW88_DIR}/rtw_8723x.ko ${RTW88_DIR}/rtw_8723b.ko ${RTW88_DIR}/rtw_8723bs.ko \
     ${RTW88_DIR}/rtw_core.ko ${RTW88_DIR}/rtw_sdio.ko \
-    ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtw88/
-  mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/firmware/rtw88
-    cp -av ${RTW88_DIR}/firmware/rtw8723b_*.bin ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/firmware/rtw88/
+    ${TARGET_DIR}/kernel-overlay/lib/modules/${KVER}/kernel/drivers/net/wireless/realtek/rtw88/
+  mkdir -p ${TARGET_DIR}/kernel-overlay/lib/firmware/rtw88
+    cp -av ${RTW88_DIR}/firmware/rtw8723b_*.bin ${TARGET_DIR}/kernel-overlay/lib/firmware/rtw88/
+}
+
+addon() {
+  copy_modules "${ADDON_BUILD}/${PKG_ADDON_ID}"
 }
 
 # when building as an image dependency
 makeinstall_target() {
-  ADDON_DIR=${ADDON_BUILD}/${PKG_ADDON_ID}
+  ADDON_DIR=${INSTALL}/usr/share/kodi/addons/${PKG_ADDON_ID}
   mkdir -p ${ADDON_DIR}
     cp -a ${PKG_DIR}/source/* ${ADDON_DIR}/
-  # call default addon build function
-  addon
-  mkdir -p ${INSTALL}/usr/share/kodi/addons
-    cp -a ${ADDON_DIR} ${INSTALL}/usr/share/kodi/addons/
+  copy_modules "${ADDON_DIR}"
+  # add default config for kernel-overlay and modprobe.d
   mkdir -p ${INSTALL}/usr/config/modprobe.d
     cp ${PKG_DIR}/files/rtl8723bs-driver.conf ${INSTALL}/usr/config/modprobe.d/
   mkdir -p ${INSTALL}/usr/cache/kernel-overlays
