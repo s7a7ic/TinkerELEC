@@ -31,19 +31,15 @@ addon() {
     cp -av ${RTW88_DIR}/firmware/rtw8723b_*.bin ${ADDON_BUILD}/${PKG_ADDON_ID}/kernel-overlay/lib/firmware/rtw88/
 }
 
-# prepare when building with image
+# when building as an image dependency
 makeinstall_target() {
   ADDON_DIR=${ADDON_BUILD}/${PKG_ADDON_ID}
   mkdir -p ${ADDON_DIR}
-    cp -r ${PKG_DIR}/source/* ${ADDON_DIR}/
+    cp -a ${PKG_DIR}/source/* ${ADDON_DIR}/
   # call default addon build function
   addon
-}
-
-# add default configuration if it's build as an image dependency
-post_install() {
   mkdir -p ${INSTALL}/usr/share/kodi/addons
-    cp -R ${ADDON_BUILD}/${PKG_ADDON_ID} ${INSTALL}/usr/share/kodi/addons/
+    cp -a ${ADDON_DIR} ${INSTALL}/usr/share/kodi/addons/
   mkdir -p ${INSTALL}/usr/config/modprobe.d
     cp ${PKG_DIR}/files/rtl8723bs-driver.conf ${INSTALL}/usr/config/modprobe.d/
   mkdir -p ${INSTALL}/usr/cache/kernel-overlays
