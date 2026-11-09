@@ -1,8 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<settings>
-  <category label="32000">
-    <setting label="32001" type="text" id="current_module" default="unknown" enable="false"/>
-    <setting type="lsep" label="32003"/>
-    <setting label="32002" type="select" id="selected_module" values="8723bs|rtw_8723bs|r8723bs" default="8723bs"/>
-  </category>
+<?xml version="1.0" ?>
+<settings version="1">
+  <section id="script.rtl8723bs-driver">
+    <category id="snapclient" label="32000" help="">
+      <group id="1">
+        <setting id="current_module" type="string" label="32001" help="">
+          <level>0</level>
+          <default/>
+          <enable>false</enable>
+          <constraints>
+            <allowempty>true</allowempty>
+          </constraints>
+          <control type="edit" format="string">
+            <heading>32001</heading>
+          </control>
+        </setting>
+      </group>
+      <group id="2" label="32003">
+        <setting id="selected_module" type="string" label="32002" help="">
+          <level>0</level>
+          <default>8723bs</default>
+          <constraints>
+            <options>
+              <option label="32100">8723bs</option>
+              <option label="32101">rtw_8723bs</option>
+              <option label="32102">r8723bs</option>
+            </options>
+          </constraints>
+          <control type="list" format="string">
+            <heading>32002</heading>
+          </control>
+        </setting>
+      </group>
+    </category>
+  </section>
 </settings>

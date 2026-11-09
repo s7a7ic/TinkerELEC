@@ -20,3 +20,15 @@ msgstr "Module to use"
 msgctxt "#32003"
 msgid "Changes take effect after reboot"
 msgstr "Changes take effect after reboot"
+
+msgctxt "#32100"
+msgid "8723bs (vendor, recommended)"
+msgstr "8723bs (vendor, recommended)"
+
+msgctxt "#32101"
+msgid "rtw_8723bs (rtw88, prototype)"
+msgstr "rtw_8723bs (rtw88, prototype)"
+
+msgctxt "#32102"
+msgid "r8723bs (kernel staging)"
+msgstr "r8723bs (kernel staging)"
