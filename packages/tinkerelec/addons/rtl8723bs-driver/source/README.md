@@ -15,8 +15,8 @@ Icon attribution: [Wireless connectivity icons created by Magnific - Flaticon](h
 
 ## Selectable kernel modules
 
-- 8723bs (included) = vendor driver patched for newer kernels (recommended)
-- rtw_8723bs (included) = rtw88 driver prototype
+- 8723bs (included, recommended) = vendor driver patched for newer kernels [(link to source)](https://github.com/s7a7ic/rtl8723bs_linux_driver)
+- rtw_8723bs (included) = rtw88 driver prototype by [MocLG (link to source)](https://github.com/MocLG/rtw88-rtl8723bs)
 - r8723bs = staging driver that already comes with the kernel
 
 ## Addon deinstallation

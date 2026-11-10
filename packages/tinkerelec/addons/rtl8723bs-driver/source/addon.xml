@@ -7,7 +7,7 @@
 		<import addon="xbmc.python" version="3.0.0"/>
 	</requires>
 	<extension point="xbmc.python.script" library="default.py">
-		<provides></provides>
+		<provides>executable</provides>
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<summary>WiFi driver selector for the Realtek RTL8723BS</summary>
