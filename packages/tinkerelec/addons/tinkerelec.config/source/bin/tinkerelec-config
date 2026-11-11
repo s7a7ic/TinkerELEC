@@ -3,31 +3,29 @@
 . /etc/profile
 oe_setup_addon script.tinkerelec.config
 
-function copyConfig {
-	fileList=$(find "${1}" -type f)
-
-	for file in ${fileList}; do
+copyConfig() {
+	while IFS= read -r file; do
 		local source="${file}"
 		local target="${2}/${file#${1}/}" # add filepath to target without source path
 
 		if [ ! -e "${target}" -a ! -L "${target}" ]; then
 			# create target_dir if it doesn't exist
-			local target_dir="$(dirname ${target})"
+			local target_dir="$(dirname "${target}")"
 			[ ! -e "${target_dir}" ] && mkdir -p "${target_dir}"
 			# copy file as its not existing in target
-			echo "Copy not exist: ${target}"
 			cp -a "${source}" "${target}"
 		else
 			if [ $(sha1sum "${target}" | cut -d ' ' -f 1) != $(sha1sum "${source}" | cut -d ' ' -f 1) ]; then
 				# overwrite file when its different
-				echo "Overwritten: ${target}"
 				cp -a "${source}" "${target}"
 			fi
 		fi
-	done
+	done << EOF
+$(find "${1}" -type f)
+EOF
 }
 
-function install_oemsplash() {
+install_oemsplash() {
 	if [ -e "${1}" ]; then
 		mount -o remount,rw /flash
 		cp "${1}" /flash/oemsplash.png
@@ -35,7 +33,7 @@ function install_oemsplash() {
 	fi
 }
 
-function create_script_link() {
+create_script_link() {
 	[ -z "${2}" ] && target="$(basename ${1})" || target="${2}"
 	[ -e "${1}" -a ! -e "${HOME}/.config/${target}" ] && ln -s "${1}" "${HOME}/.config/${target}"
 }
@@ -45,7 +43,7 @@ case "$1" in
 		copyConfig "${ADDON_DIR}/libreelec_config/config" "${HOME}/.config"
 		copyConfig "${ADDON_DIR}/kodi_config/buttonmaps" "${HOME}/.kodi/userdata/addon_data/peripheral.joystick/resources/buttonmaps/xml/linux"
 		copyConfig "${ADDON_DIR}/kodi_config/keymaps" "${HOME}/.kodi/userdata/keymaps"
-		chmod +x "${HOME}"/.config/scripts/*.sh
+		chmod +x "${HOME}/.config/scripts/"*.sh
 
 		ADDON_SPLASH="${ADDON_DIR}/libreelec_config/oemsplash.png"
 		if [ -e "${ADDON_SPLASH}" ]; then
