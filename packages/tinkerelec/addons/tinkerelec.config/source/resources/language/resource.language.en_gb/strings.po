@@ -9,6 +9,14 @@ msgctxt "#30000"
 msgid "TinkerELEC Config"
 msgstr ""
 
+msgctxt "#30200"
+msgid "Main"
+msgstr ""
+
+msgctxt "#30201"
+msgid "Prevent Idle"
+msgstr ""
+
 msgctxt "#30001"
 msgid "URL for curl"
 msgstr ""
@@ -33,6 +41,10 @@ msgctxt "#30103"
 msgid "Time on which the device wakes up every day by RTC wake alarm"
 msgstr ""
 
+msgctxt "#30004"
+msgid "Copy and apply configuration files"
+msgstr ""
+
 msgctxt "#30005"
 msgid "Inhibit TV Remote Control"
 msgstr ""
@@ -51,4 +63,36 @@ msgstr ""
 
 msgctxt "#30107"
 msgid "Save shell history to ~/.ash_history"
+msgstr ""
+
+msgctxt "#30008"
+msgid "Prevent idle on network activity"
+msgstr ""
+
+msgctxt "#30108"
+msgid "Prevent idle action on ssh, nfs or smb activity."
+msgstr ""
+
+msgctxt "#30009"
+msgid "Enabled"
+msgstr ""
+
+msgctxt "#30010"
+msgid "Time 1"
+msgstr ""
+
+msgctxt "#30011"
+msgid "Time 2"
+msgstr ""
+
+msgctxt "#30012"
+msgid "Time 3"
+msgstr ""
+
+msgctxt "#30013"
+msgid "From"
+msgstr ""
+
+msgctxt "#30014"
+msgid "Until"
 msgstr ""
