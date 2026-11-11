@@ -66,10 +66,10 @@ case "$1" in
     create_script_link ${HOME}/.config/scripts/autostop.sh
     create_script_link ${HOME}/.config/scripts/shutdown.sh
 
-    [ ! -e ${HOME}/.config/handle_ir ] && mkdir -p ${HOME}/.config/handle_ir || rm ${HOME}/.config/handle_ir/*
+    [ ! -e ${HOME}/.config/handle_ir ] && mkdir -p ${HOME}/.config/handle_ir
     create_script_link ${HOME}/.config/scripts/handle_ir.sh handle_ir/inhibit
     create_script_link ${HOME}/.config/scripts/handle_ir.sh handle_ir/power
-  ;;
+    ;;
 
   profile)
     export curl_url
@@ -79,5 +79,5 @@ case "$1" in
     export wake_time
 
     envsubst < ${ADDON_DIR}/libreelec_config/profile.template > ${HOME}/.profile
-  ;;
+    ;;
 esac

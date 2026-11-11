@@ -2,7 +2,6 @@ import os.path
 import subprocess
 import xbmc
 from xbmcaddon import Addon
-from xbmcgui import Dialog
 
 addon_dir = Addon().getAddonInfo('path')
 bin_folder = os.path.join(addon_dir, 'bin')
@@ -17,5 +16,5 @@ class Monitor(xbmc.Monitor):
         subprocess.call([util_script, 'profile'])
 
 if __name__ == '__main__':
-    Dialog().ok('Information', 'This addon has no GUI.')
+    Addon().openSettings()
     Monitor().waitForAbort()
