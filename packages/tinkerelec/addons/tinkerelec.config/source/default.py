@@ -1,5 +1,6 @@
 import os.path
 import subprocess
+import sys
 import xbmc
 import xbmcaddon
 from xbmcgui import Dialog

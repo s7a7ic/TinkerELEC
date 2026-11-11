@@ -16,7 +16,7 @@ usage() {
 
 check_extlinux() {
 	# if modified dtb is set in extlinux.conf then echo 1 else echo 0
-	grep -q ${DTB_FILE_NEW} /flash/extlinux/extlinux.conf && echo 1 || echo 0
+	grep -q "${DTB_FILE_NEW}" /flash/extlinux/extlinux.conf && echo 1 || echo 0
 }
 
 check_sha256() {
@@ -25,11 +25,11 @@ check_sha256() {
 	echo $?
 }
 
-case $1 in
+case "$1" in
 	check)
-		[ -z $DISTRO_DEVICE ] && exit 3
-		[ $DISTRO_DEVICE != "RK3288" -a $DISTRO_DEVICE != "TinkerBoard" ] && exit 3
-		if [ -f /flash/${DTB_FILE_NEW} ]; then
+		[ -z "${DISTRO_DEVICE}" ] && exit 3
+		[ "${DISTRO_DEVICE}" != "RK3288" -a "${DISTRO_DEVICE}" != "TinkerBoard" ] && exit 3
+		if [ -f "/flash/${DTB_FILE_NEW}" ]; then
 			if [ $(check_extlinux) = 0 ]; then
 				echo "DTB file is in /flash but not configured in extlinux.conf"
 			elif [ $(check_sha256) = 1 ]; then
@@ -47,7 +47,7 @@ case $1 in
 
 	install)
 		mount -o remount,rw /flash
-		cp ${PKG_PATH}/dtb/${DTB_FILE_NEW} /flash/
+		cp "${PKG_PATH}/dtb/${DTB_FILE_NEW}" /flash/
 		[ $(check_extlinux) = 0 ] && sed -e "s,${DTB_FILE_DEFAULT},${DTB_FILE_NEW},g" -i /flash/extlinux/extlinux.conf
 		mount -o remount,ro /flash
 		echo "DTB install finished, reboot required"
