@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 PKG_NAME="rtl8723bs-driver"
 PKG_VERSION="1.0"
 PKG_REV="2"
@@ -13,7 +15,7 @@ PKG_ADDON_PROJECTS="RK3288 TinkerBoard"
 PKG_MAINTAINER="s7a7ic"
 PKG_IS_KERNEL_PKG="yes"
 
-KVER="6.16.12"
+KVER=$(get_pkg_version linux)
 
 copy_modules() {
   local TARGET_DIR="$1"
