@@ -7,7 +7,7 @@ DTB_FILE_DEFAULT="rk3288-tinker-s.dtb"
 . /etc/os-release
 
 usage() {
-	echo "usage: $0 [check|install|uninstall]"
+	echo "usage: $(basename $0) [check|install|uninstall]"
 	echo ""
 	echo "  check     - check if dtb is installed"
 	echo "  install   - copy dtb into /flash and configure extlinux.conf"

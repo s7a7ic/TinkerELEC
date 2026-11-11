@@ -14,14 +14,12 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary>TinkerELEC system configuration</summary>
-    <description>
-This package configures LibreELEC for my specific use-case and is able to install, update or remove the patched DTB file for the NesPi+ Case.
-    </description>
+    <description>This package configures LibreELEC for my specific use-case and is able to install, update or remove the patched DTB file for the NesPi+ Case.</description>
     <disclaimer />
     <platform>all</platform>
-    <news>
-v1.0.0
-- initial release
+    <news>v1.0.1
+- integrated DTB installer
+- open settings as default action
     </news>
     <assets>
       <icon>resources/icon.png</icon>
