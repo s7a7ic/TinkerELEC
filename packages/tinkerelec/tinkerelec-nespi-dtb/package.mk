@@ -10,12 +10,11 @@ PKG_DEPENDS_TARGET="toolchain linux"
 PKG_TOOLCHAIN="manual"
 
 make_target() {
-  local KERNEL_DIR=$(get_build_dir linux)
-  cd ${KERNEL_DIR}
+  local KERNEL_DIR=$(kernel_path)
 
   # backup un-patched file
-  cp arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi \
-    arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi.unpatched
+  cp ${KERNEL_DIR}/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi \
+    ${KERNEL_DIR}/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi.unpatched
 
   # apply patches
   for patch in ${PKG_DIR}/patches/*; do
@@ -23,11 +22,11 @@ make_target() {
   done
 
   # build dtb
-  DTC_FLAGS=-@ kernel_make rockchip/rk3288-tinker-s.dtb
+  DTC_FLAGS=-@ kernel_make -C ${KERNEL_DIR} rockchip/rk3288-tinker-s.dtb
 
   # restore un-patched file
-  mv arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi.unpatched \
-    arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
+  mv ${KERNEL_DIR}/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi.unpatched \
+    ${KERNEL_DIR}/arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi
 
   cp ${KERNEL_DIR}/arch/arm/boot/dts/rockchip/rk3288-tinker-s.dtb \
     ${PKG_BUILD}/rk3288-tinker-s-nespi.dtb
