@@ -41,6 +41,10 @@ msgctxt "#30105"
 msgid "Time to inhibit controls via TV Remote in seconds"
 msgstr ""
 
+msgctxt "#30006"
+msgid "Run NesPi+ DTB Installer"
+msgstr ""
+
 msgctxt "#30007"
 msgid "Enable Shell History"
 msgstr ""

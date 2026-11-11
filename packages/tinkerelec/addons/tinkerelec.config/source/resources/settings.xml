@@ -3,6 +3,13 @@
   <section id="script.tinkerelec.config">
     <category id="tinkerelec" label="30000" help="">
       <group id="1">
+        <setting id="nespi_dtb_install" type="action" label="30006" help="">
+          <level>0</level>
+          <data>RunScript($ID,nespi)</data>
+          <control type="button" format="action"/>
+        </setting>
+      </group>
+      <group id="2" label="30000">
         <setting id="curl_url" type="string" label="30001" help="30101">
           <level>0</level>
           <default>https://my-curl-url:1880</default>
