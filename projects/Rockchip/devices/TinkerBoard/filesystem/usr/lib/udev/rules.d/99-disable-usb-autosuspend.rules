@@ -1,2 +1,2 @@
 # tinkerboard s: this rule fixes usb device detection when system is running
-ACTION=="add", SUBSYSTEM=="usb", TEST=="power/autosuspend" ATTR{power/autosuspend}="-1"
+ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="05e3", ATTR{idProduct}=="0608", TEST=="power/autosuspend" ATTR{power/autosuspend}="-1"
