@@ -2,8 +2,8 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ffmpegx"
-PKG_VERSION="8.1.2"
-PKG_SHA256="464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c"
+PKG_VERSION="9.0.2"
+PKG_SHA256="8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
 PKG_LICENSE="GPL-3.0-or-later"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="https://ffmpeg.org/releases/ffmpeg-${PKG_VERSION}.tar.xz"
@@ -34,6 +34,11 @@ fi
 if [ "${DISPLAYSERVER}" = "x11" ]; then
   PKG_DEPENDS_TARGET+=" libxcb libX11"
 fi
+
+# lame is a -sysroot package, so ffmpeg's libmp3lame check (a direct link
+# probe, not pkg-config) cannot see it. Add lame's install paths.
+TARGET_CFLAGS+=" -I$(get_install_dir lame)/usr/include"
+TARGET_LDFLAGS+=" -L$(get_install_dir lame)/usr/lib"
 
 pre_configure_target() {
   cd ${PKG_BUILD}

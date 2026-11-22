@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="kodi"
-PKG_VERSION="bd71b628f9632d17aef03b2322780f95a1ae292b"
-PKG_SHA256="caeba9dfa1eda6f5c80058bd59b81904d98c7d95c7c6ff214f8c01ed1093296c"
+PKG_VERSION="65c7e7899148c26c07e4b206d1b8269f886bb2a8"
+PKG_SHA256="cce12114318181fc4ce92e6d3b3c7e12c8b7694318d803c97f237cfefa980738"
 PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="http://www.kodi.tv"
 PKG_URL="https://github.com/xbmc/xbmc/archive/${PKG_VERSION}.tar.gz"
@@ -138,7 +138,8 @@ configure_package() {
 
   if [ "${KODI_DVDCSS_SUPPORT}" = yes ]; then
     KODI_DVDCSS="-DENABLE_DVDCSS=ON \
-                 -DLIBDVDCSS_URL=${SOURCES}/libdvdcss/libdvdcss-$(get_pkg_version libdvdcss).tar.gz"
+                 -DLIBDVDCSS_URL=${SOURCES}/libdvdcss/libdvdcss-$(get_pkg_version libdvdcss).tar.xz \
+                 -DLIBDVDCSS_HASH=SHA256=$(get_pkg_variable libdvdcss PKG_SHA256)"
   else
     KODI_DVDCSS="-DENABLE_DVDCSS=OFF"
   fi
@@ -239,13 +240,15 @@ configure_package() {
     KODI_LIRCCLIENT="-DENABLE_LIRCCLIENT=OFF"
   fi
 
-  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Rockchip" ]; then
+  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Amlogic" -o "${PROJECT}" = "Rockchip" ]; then
     PKG_PATCH_DIRS+=" drmprime-filter"
   fi
 
   KODI_LIBDVD="${KODI_DVDCSS} \
-               -DLIBDVDNAV_URL=${SOURCES}/libdvdnav/libdvdnav-$(get_pkg_version libdvdnav).tar.gz \
-               -DLIBDVDREAD_URL=${SOURCES}/libdvdread/libdvdread-$(get_pkg_version libdvdread).tar.gz"
+               -DLIBDVDNAV_URL=${SOURCES}/libdvdnav/libdvdnav-$(get_pkg_version libdvdnav).tar.xz \
+               -DLIBDVDNAV_HASH=SHA256=$(get_pkg_variable libdvdnav PKG_SHA256) \
+               -DLIBDVDREAD_URL=${SOURCES}/libdvdread/libdvdread-$(get_pkg_version libdvdread).tar.xz \
+               -DLIBDVDREAD_HASH=SHA256=$(get_pkg_variable libdvdread PKG_SHA256)"
 
   PKG_CMAKE_OPTS_TARGET="-DNATIVEPREFIX=${TOOLCHAIN} \
                          -DWITH_TEXTUREPACKER=${TOOLCHAIN}/bin/TexturePacker \
@@ -269,6 +272,7 @@ configure_package() {
                          -DENABLE_DEBUGFISSION=OFF \
                          -DENABLE_APP_AUTONAME=OFF \
                          -DENABLE_TESTING=OFF \
+                         -DENABLE_BLUETOOTH=OFF \
                          -DENABLE_LCMS2=OFF \
                          -DADDONS_CONFIGURE_AT_STARTUP=OFF \
                          -Dgroovy_SOURCE_DIR=$(get_build_dir groovy) \
@@ -434,6 +438,10 @@ post_makeinstall_target() {
     mkdir -p ${INSTALL}/usr/lib/udev/rules.d/
     cp ${PKG_DIR}/config/70-libinput-ignore-power-button.rules ${INSTALL}/usr/lib/udev/rules.d/
   fi
+
+  # install well-known XDG user directories config file
+  mkdir -p ${INSTALL}/usr/config
+  cp ${PKG_DIR}/config/user-dirs.dirs ${INSTALL}/usr/config
 
   # update addon manifest
   ADDON_MANIFEST=${INSTALL}/usr/share/kodi/system/addon-manifest.xml

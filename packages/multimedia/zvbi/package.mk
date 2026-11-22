@@ -2,8 +2,8 @@
 # Copyright (C) 2020-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="zvbi"
-PKG_VERSION="0.2.44"
-PKG_SHA256="bca620ab670328ad732d161e4ce8d9d9fc832533cb7440e98c50e112b805ac5e"
+PKG_VERSION="0.2.46"
+PKG_SHA256="817a26118e2654155ee761cd39414885986a4315fdb6617af5314090ddfffd10"
 PKG_LICENSE="LGPL-2.0-or-later"
 PKG_SITE="https://github.com/zapping-vbi/zvbi"
 PKG_URL="https://github.com/zapping-vbi/zvbi/archive/refs/tags/v${PKG_VERSION}.tar.gz"

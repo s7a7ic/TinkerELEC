@@ -2,8 +2,8 @@
 # Copyright (C) 2023-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="patchelf"
-PKG_VERSION="0.19.0"
-PKG_SHA256="b189d3ec57730757895b9e7d3a1f136d3af96ec9228ae6ef0a07c20a213f28f5"
+PKG_VERSION="0.19.3"
+PKG_SHA256="20dbe23e9dbc4ad769078a867ad002c04297a069ff93c95fb72242dd55d4dd6f"
 PKG_LICENSE="GPL-3.0-or-later"
 PKG_SITE="https://github.com/NixOS/patchelf"
 PKG_URL="https://github.com/NixOS/patchelf/releases/download/${PKG_VERSION}/patchelf-${PKG_VERSION}.tar.bz2"

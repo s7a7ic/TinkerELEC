@@ -3,8 +3,8 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mesa"
-PKG_VERSION="26.1.4"
-PKG_SHA256="072705caa9adf4740f1489194b13e278ad959166863b5271fe423a86353c9ab6"
+PKG_VERSION="26.3.1"
+PKG_SHA256="4e4e438eac7b840a9383988cbb7c08dad8041da544b9319fc26d319fa7348961"
 PKG_LICENSE="MIT"
 PKG_SITE="http://www.mesa3d.org/"
 PKG_URL="https://mesa.freedesktop.org/archive/mesa-${PKG_VERSION}.tar.xz"
@@ -12,10 +12,24 @@ PKG_DEPENDS_HOST="toolchain:host expat:host libclc:host libdrm:host llvm:host Ma
 PKG_DEPENDS_TARGET="toolchain expat libdrm Mako:host pyyaml:host"
 PKG_LONGDESC="Mesa is a 3-D graphics library with an API."
 
+# the prebuilt mesa:host tools published by mesa-reusable
+PKG_REUSABLE_VERSION="${OS_VERSION}-${PKG_VERSION}"
+PKG_REUSABLE_SOURCE_NAME="mesa-reusable-${PKG_REUSABLE_VERSION}-${MACHINE_HARDWARE_NAME}.tar"
+PKG_REUSABLE_URL="https://github.com/LibreELEC/mesa-reusable/releases/download/${PKG_REUSABLE_VERSION}/${PKG_REUSABLE_SOURCE_NAME}"
+
 get_graphicdrivers
 
 if [ "${DEVICE}" = "Dragonboard" ]; then
   PKG_DEPENDS_TARGET+=" libarchive libxml2 lua54"
+fi
+
+# workaround: on 32-bit arm gcc emits a VFP literal pool load that is more than
+# the 1020 byte vldr range away from its pool in the panfrost midgard compiler:
+# {standard input}: Error: co-processor offset out of range
+# dropping SLP vectorisation removes the 64-bit vector constants that overflow
+# the pool. seen with gcc 16.2.0 and mesa 26.2.2 on RK3288.
+if [ "${ARCH}" = "arm" ]; then
+  TARGET_CFLAGS+=" -fno-tree-slp-vectorize"
 fi
 
 PKG_MESON_OPTS_HOST="-Dglvnd=disabled \
@@ -77,7 +91,10 @@ if listcontains "${GRAPHIC_DRIVERS}" "imagination"; then
 fi
 
 if listcontains "${GRAPHIC_DRIVERS}" "(imagination|iris|panfrost)"; then
-  if [ "${USE_REUSABLE}" = "yes" ]; then
+  # preferred falls back to building mesa:host when no reusable archive is available
+  if [ "${USE_REUSABLE}" = "yes" ] ||
+     { [ "${USE_REUSABLE}" = "preferred" ] &&
+       [ -n "$(get_reusable_sha256 mesa-reusable ${PKG_REUSABLE_SOURCE_NAME} ${PKG_REUSABLE_URL})" ]; }; then
     PKG_DEPENDS_TARGET+=" mesa-reusable"
   else
     PKG_DEPENDS_TARGET+=" mesa:host"
@@ -121,6 +138,16 @@ else
   PKG_MESON_OPTS_TARGET+=" -Dvulkan-drivers="
 fi
 
+pre_configure_host() {
+  local msg="mesa-reusable ${PKG_REUSABLE_VERSION} is not available for ${MACHINE_HARDWARE_NAME}"
+
+  # say why mesa:host is being built when a reusable archive was preferred
+  if [ "${USE_REUSABLE}" = "preferred" ] &&
+     [ -z "$(get_reusable_sha256 mesa-reusable ${PKG_REUSABLE_SOURCE_NAME} ${PKG_REUSABLE_URL})" ]; then
+    build_msg "CLR_WARNING" "WARNING" "${msg}, building mesa:host"
+  fi
+}
+
 makeinstall_host() {
   host_files="src/compiler/clc/mesa_clc \
               src/compiler/spirv/vtn_bindgen2 \
@@ -133,8 +160,7 @@ makeinstall_host() {
     upx --lzma ${host_files}
 
     REUSABLE_SOURCES="${SOURCES}/mesa-reusable"
-    MESA_HOST="mesa-reusable-${OS_VERSION}-${PKG_VERSION}"
-    REUSABLE_SOURCE_NAME=${MESA_HOST}-${MACHINE_HARDWARE_NAME}.tar
+    REUSABLE_SOURCE_NAME="${PKG_REUSABLE_SOURCE_NAME}"
 
     mkdir -p "${TARGET_IMG}"
 

@@ -3,8 +3,8 @@
 
 PKG_NAME="Python3"
 # When changing PKG_VERSION remember to sync PKG_PYTHON_VERSION!
-PKG_VERSION="3.14.6"
-PKG_SHA256="143b1dddefaec3bd2e21e3b839b34a2b7fb9842272883c576420d605e9f30c63"
+PKG_VERSION="3.14.10"
+PKG_SHA256="de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032"
 PKG_LICENSE="PSF-2.0"
 PKG_SITE="https://www.python.org/"
 PKG_URL="https://www.python.org/ftp/python/${PKG_VERSION}/${PKG_NAME::-1}-${PKG_VERSION}.tar.xz"
@@ -117,7 +117,6 @@ pre_configure_target() {
   export PYTHON_MODULES_INCLUDE="${TARGET_INCDIR}"
   export PYTHON_MODULES_LIB="${TARGET_LIBDIR}"
   export DISABLED_EXTENSIONS="${PKG_PY_DISABLED_MODULES}"
-  export PKG_CONFIG_PATH="$(get_install_dir xz)/usr/lib/pkgconfig:${PKG_CONFIG_PATH}"
 }
 
 post_makeinstall_target() {

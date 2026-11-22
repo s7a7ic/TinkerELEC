@@ -10,9 +10,10 @@ Signed-off-by: Vanya Sergeev <vsergeev@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/configure.ac b/configure.ac
+index 74b12c3..ace65f2 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -5830,7 +5830,7 @@ fi]))
+@@ -5901,7 +5901,7 @@ fi]))
  dnl if ac_cv_func_getaddrinfo
  ])
  
@@ -21,3 +22,6 @@ diff --git a/configure.ac b/configure.ac
  then
    AS_VAR_IF([ipv6], [yes], [
      AC_MSG_ERROR([m4_normalize([
+-- 
+2.53.0
+

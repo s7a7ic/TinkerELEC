@@ -3,14 +3,14 @@
 # Copyright (C) 2018-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="audioencoder.vorbis"
-PKG_VERSION="22.0.2-Piers"
-PKG_SHA256="4c991528619881ffb023e430f680ef213656e51a455b4a8f05d92279c14b7213"
+PKG_VERSION="22.0.3-Piers"
+PKG_SHA256="7409360a8b540303cd3f9e6b21a52e21dfcfe2f516f8a92a94b4035a90c5efb6"
 PKG_REV="2"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://github.com/xbmc/audioencoder.vorbis"
 PKG_URL="https://github.com/xbmc/audioencoder.vorbis/archive/${PKG_VERSION}.tar.gz"
-PKG_DEPENDS_TARGET="toolchain kodi-platform libogg libvorbis"
+PKG_DEPENDS_TARGET="toolchain tinyxml ${MEDIACENTER}:host libogg libvorbis"
 PKG_SECTION=""
 PKG_SHORTDESC="audioencoder.vorbis: A audioencoder addon for Kodi"
 PKG_LONGDESC="audioencoder.vorbis is a audioencoder addon for Kodi"

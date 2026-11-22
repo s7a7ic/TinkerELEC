@@ -3,9 +3,9 @@
 # Copyright (C) 2016-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="mpd"
-PKG_VERSION="0.24.12"
-PKG_SHA256="14223ca883c35fbf711994bcf745726cecc9d898e3d3964265cf3a2c7519a360"
-PKG_REV="6"
+PKG_VERSION="0.24.20"
+PKG_SHA256="a1e12f22f1938bd9241aff6e2a925917357a494d143acc32f8dae5373e43c2b9"
+PKG_REV="1"
 PKG_ARCH="any"
 PKG_LICENSE="GPL-2.0-or-later"
 PKG_SITE="https://www.musicpd.org"
@@ -96,6 +96,16 @@ PKG_MESON_OPTS_TARGET="-Dadplug=disabled \
                        -Dzeroconf=avahi \
                        -Dzlib=enabled \
                        -Dzzip=disabled"
+
+# lame and libmad are -sysroot packages, so meson's find_library('mp3lame')
+# and find_library('mad') and their header probes (mpd does not use pkg-config
+# for either) cannot see them. Both plugins are C++, so the include goes to
+# cpp_args (TARGET_CXXFLAGS) and the library dir to the link args
+# (TARGET_LDFLAGS).
+TARGET_CXXFLAGS+=" -I$(get_install_dir lame)/usr/include"
+TARGET_LDFLAGS+=" -L$(get_install_dir lame)/usr/lib"
+TARGET_CXXFLAGS+=" -I$(get_install_dir libmad)/usr/include"
+TARGET_LDFLAGS+=" -L$(get_install_dir libmad)/usr/lib"
 
 addon() {
   mkdir -p ${ADDON_BUILD}/${PKG_ADDON_ID}/bin

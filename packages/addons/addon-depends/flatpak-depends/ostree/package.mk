@@ -2,13 +2,13 @@
 # Copyright (C) 2026-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ostree"
-PKG_VERSION="2026.2"
-PKG_SHA256="a281f2db631f3721ecd4b9e2779a1eaf56e2d03f2cc47629a9f0117f12016a83"
+PKG_VERSION="2026.7"
+PKG_SHA256="43e0295e869927edfd41e7cb9cdf5ca8f8515a6f1460af4b381f1f701168494c"
 PKG_LICENSE="LGPL-2.0-or-later"
 PKG_SITE="https://github.com/ostreedev/ostree"
 PKG_URL="https://github.com/ostreedev/ostree/releases/download/v${PKG_VERSION}/libostree-${PKG_VERSION}.tar.xz"
 PKG_DEPENDS_TARGET="toolchain curl e2fsprogs fuse3 glib gpgme libassuan libgpg-error libarchive xz zlib"
-PKG_DEPENDS_CONFIG="gpgme libassuan xz"
+PKG_DEPENDS_CONFIG="gpgme libassuan"
 PKG_LONGDESC="Operating system and container binary deployment and upgrades"
 PKG_BUILD_FLAGS="-sysroot"
 

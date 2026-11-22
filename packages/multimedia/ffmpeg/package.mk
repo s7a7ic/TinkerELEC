@@ -3,8 +3,8 @@
 # Copyright (C) 2017-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="ffmpeg"
-PKG_VERSION="8.1.2"
-PKG_SHA256="464beb5e7bf0c311e68b45ae2f04e9cc2af88851abb4082231742a74d97b524c"
+PKG_VERSION="9.0.2"
+PKG_SHA256="8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e"
 PKG_LICENSE="GPL-3.0-or-later"
 PKG_SITE="https://ffmpeg.org"
 PKG_URL="http://ffmpeg.org/releases/ffmpeg-${PKG_VERSION}.tar.xz"
@@ -18,10 +18,11 @@ PKG_FFMPEG_REQUEST_ENABLE="--enable-libudev --enable-v4l2-request"
 
 case "${PROJECT}" in
   Amlogic)
-    PKG_VERSION="3a4c4864e5790539ef00eeef8a229dbf19dc62e0"
-    PKG_FFMPEG_BRANCH="test/8.1.1/main"
-    PKG_SHA256="c1755a73a4ac9a004bbdcb1cbf6b75308de7a9e918cdf8630d6e50ff25b4e0ed"
-    PKG_URL="https://github.com/jc-kynesim/rpi-ffmpeg/archive/${PKG_VERSION}.tar.gz"
+    PKG_VERSION="ad8c2e36ee2d5a30442f6e4ca0e82df2622f8958"
+    PKG_SHA256="eed6678e9a1877a5bd36b7ea85c510a41f17c172f045153ec8f177bf477f4fc1"
+    PKG_URL="https://github.com/chewitt/ffmpeg/archive/${PKG_VERSION}.tar.gz"
+    PKG_FFMPEG_BRANCH="armsoc-9.0.2"
+    PKG_SOURCE_NAME="ffmpeg-${PKG_VERSION}.tar.gz"
     ;;
   Generic)
     PKG_FFMPEG_REQUEST_DISABLE=""
@@ -70,7 +71,7 @@ if [ "${V4L2_SUPPORT}" = "yes" ]; then
   PKG_NEED_UNPACK+=" $(get_pkg_directory libdrm)"
   PKG_FFMPEG_V4L2="--enable-v4l2_m2m --enable-libdrm"
 
-  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Rockchip" -o "${DEVICE}" = "iMX8" -o "${DEVICE}" = "RPi4" -o "${DEVICE}" = "RPi5" ]; then
+  if [ "${PROJECT}" = "Allwinner" -o "${PROJECT}" = "Amlogic" -o "${PROJECT}" = "Rockchip" -o "${DEVICE}" = "iMX8" -o "${DEVICE}" = "RPi4" -o "${DEVICE}" = "RPi5" ]; then
     PKG_DEPENDS_TARGET+=" systemd"
     PKG_NEED_UNPACK+=" $(get_pkg_directory systemd)"
     PKG_FFMPEG_V4L2+=" ${PKG_FFMPEG_REQUEST_ENABLE}"

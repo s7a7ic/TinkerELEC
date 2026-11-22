@@ -1,4 +1,4 @@
-From 9907350e9aa8b0e32a4d82f6541d5a962753df0e Mon Sep 17 00:00:00 2001
+From 762f53c176be838a36841327e15ead83b6bb7278 Mon Sep 17 00:00:00 2001
 From: Christian Hewitt <christianshewitt@gmail.com>
 Date: Tue, 24 Mar 2026 12:42:24 +0000
 Subject: [PATCH 06/39] WIP: media: dvb-frontends: add Availink AVL6862 driver

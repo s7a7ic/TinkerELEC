@@ -2,8 +2,8 @@
 # Copyright (C) 2026-present Team LibreELEC (https://libreelec.tv)
 
 PKG_NAME="neatvnc"
-PKG_VERSION="1.0.0"
-PKG_SHA256="993dedc30e72981650770c04438e9759537e4677010e2dab5e792c39afe74601"
+PKG_VERSION="1.0.4"
+PKG_SHA256="c40d74bb788a60519e6c926f04515502de7859abcfd74f2a18f97bd02f4dc231"
 PKG_LICENSE="ISC"
 PKG_SITE="https://github.com/any1/neatvnc"
 PKG_URL="https://github.com/any1/neatvnc/archive/v${PKG_VERSION}.tar.gz"
