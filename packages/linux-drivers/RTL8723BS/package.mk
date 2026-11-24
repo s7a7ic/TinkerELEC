@@ -1,8 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 PKG_NAME="RTL8723BS"
-PKG_VERSION="71ef48440677ad072aa1e7728a3410edcbdf9b97"
-PKG_SHA256="da46ebe16fa11eb2f5705a3ea2f717b7ba3d7894e3e62cf4f0555d5cb37b122c"
+PKG_VERSION="1aa0ab2269b0e4642b40345efa7fdafdbebbc5b9"
+PKG_SHA256="2a2617166fd47b4e8d44662af30c79d8cb86d29134a5920d55dae341c5193bcd"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/s7a7ic/rtl8723bs_linux_driver"
 PKG_URL="${PKG_SITE}/archive/${PKG_VERSION}.tar.gz"
