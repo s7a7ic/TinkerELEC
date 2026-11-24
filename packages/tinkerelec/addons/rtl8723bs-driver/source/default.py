@@ -20,7 +20,7 @@ LABELS  = [
 ]
 DEFAULT_MODULE = "8723bs"
 
-REQUIRED_KERNEL = "6.16.12"
+REQUIRED_KERNEL = "7.3.4"
 REQUIRED_ARCH = "armv7l"
 
 def check_platform():
