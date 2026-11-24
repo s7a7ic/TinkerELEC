@@ -2,11 +2,8 @@
 
 This is a fork[^fork] of the popular [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) distribution, optimized for the **ASUS Tinker Board S** (Rockchip RK3288).
 
-Previously I've released two images (TinkerELEC / LibreELEC) but decided to only publish the LibreELEC (unofficial) image to not cause confusion about what image to install.
-The TinkerELEC image is tied to my personal use-case, so it has no real benefit for a generic installation on a Tinker Board S. All previous releases and tags were removed.
-
 > [!CAUTION]
-> This fork was not tested on any other device than the **Tinker Board S**!
+> Not tested on any other device than the **Tinker Board S**!
 > Debian 12 (Bookworm) is used currently to build images from this source code.
 
 ## Reason
@@ -24,13 +21,15 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
   * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-2004-gbm-reduce-cpu-idle-load.patch)
   * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-2001-disable-resume-playerstate-after-suspend.patch)
 
-**Kernel 7.1.2**
+**Kernel 7.3.4**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
 * CONFIG_HZ set to 100 instead of 300 (smoother UI response, probably less cpu interrupt overhead)
 * Disabled XFS / BTRFS support
 
 **System / Image changes**
-* Alternative wireless driver for [RTL8723BS](packages/linux-drivers/RTL8723BS)
+* [Addon](packages/tinkerelec/addons/rtl8723bs-driver) for the selection of the prefered RTL8723BS WiFi driver
+  * Alternative wireless vendor driver: [RTL8723BS](packages/linux-drivers/RTL8723BS)
+  * Alternative rtw88 wireless driver [rtw88-rtl8723bs](packages/linux-drivers/rtw88-rtl8723bs) - credits to [MocLG](https://github.com/MocLG/rtw88-rtl8723bs)
 * Additional packages included in image: btop, emmctool, evtest, rsync
 * Some minor package cleanups
 
@@ -41,18 +40,12 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Enable HVEC and RGA node: [dts-rk3288-tinker-hevc-rga](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-hevc-rga.patch)
 * Full shutdown patch: [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 * USB device detection on running system: [disable autosuspend udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules)
-* Add eeprom node: [dts-rk3288-tinker-add-eeprom-node](projects/Rockchip/devices/TinkerBoard/patches/linux/default/dts-rk3288-tinker-add-eeprom-node.patch)
 
 ## Known Problems
 
 **Wireless LAN**
 * WPA3 isn't supported by the rtl8723bs driver (yet?)
 * Staging driver won't show all SSIDs, has random disconnects and can't reliably reconnect
-  * For this reason the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) and the alternative driver is used
-
-**Bluetooth**
-* Large error message in kodi.log after resume from suspend (bluetooth still works)
-  * SETTINGS: bluetooth.init_adapter # DBusError('org.bluez.Error.Busy -- ') ...
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
@@ -71,28 +64,30 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 * Fixed by [mfd-rk8xx-fix-shutdown-handler](projects/Rockchip/devices/TinkerBoard/patches/linux/default/rockchip-0060-mfd-rk8xx-fix-shutdown-handler.patch)
 
 **Wireless LAN (internal)**
-* Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 6.19)
-* Loading of the kernel staging driver is [blacklisted](projects/Rockchip/devices/TinkerBoard/filesystem/usr/config/modprobe.d/rtl8723bs-driver.conf) for TinkerBoard
-  * The prefered wireless driver can be changed in the `/storage/.config/modprobe.d/rtl8723bs-driver.conf` file
+* Stable WIFI connection with the [alternative driver](packages/linux-drivers/RTL8723BS) on newer kernels (6.12 - 7.3)
+* The [rtl8723bs-driver addon](packages/tinkerelec/addons/rtl8723bs-driver) is included for the selection of the prefered RTL8723BS WiFi driver.
 
 **Bluetooth (internal)**
 * On mainline kernel version below 6.16 it connects only to one device; every secondary device gets a timeout on connect
+* Large error message in kodi.log after resume from suspend (bluetooth still works)
+  * SETTINGS: bluetooth.init_adapter # DBusError('org.bluez.Error.Busy -- ')
+  * Fixed with [patch for LibreELEC-settings](packages/mediacenter/LibreELEC-settings/patches/libreelec-settings-handle-bt-adapter-busy.patch)
 
 **USB Device detection when system is running**
 * System didn't detect USB devices plugged in when fully booted and running
-* Fixed with [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
+* Fixed with the [udev rule](projects/Rockchip/devices/TinkerBoard/filesystem/usr/lib/udev/rules.d/99-disable-usb-autosuspend.rules), which disables USB autosuspend
 * (on kernel 6.12.23) fixed by [general-dwc2-fix-rk3288-reset-on-wake-quirk.patch](https://github.com/s7a7ic/TinkerELEC-Project/blob/main/patches/linux-6.12/general-dwc2-fix-rk3288-reset-on-wake-quirk.patch)
 
 **Audio over 3.5mm Jack**
 * Added required [config file](projects/Rockchip/devices/TinkerBoard/filesystem/usr/share/alsa/cards/USB-Audio.conf)
 * The output source in Kodi and pipewire is called "USB Audio ..."
 
-## Install to EMMC
+## Install to eMMC
 
-To install a TinkerELEC image from SDCARD onto the internal emmc storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool).
+To install the image from SDCARD onto the internal eMMC storage, you can use the [`emmctool` script](packages/tools/emmctool/scripts/emmctool).
 
 > [!CAUTION]
-> Use `emmctool` with care. Can wipe data from emmc/sdcard storage.
+> Use `emmctool` with care. Do a backup first to prevent losing data.
 
 ## Credits
 
