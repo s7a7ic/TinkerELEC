@@ -17,9 +17,9 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **Kodi 22 (Piers)**
 * Patches for Kodi
-  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/kodi-2002-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
-  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/kodi-2004-gbm-reduce-cpu-idle-load.patch)
-  * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/kodi-2001-disable-resume-playerstate-after-suspend.patch)
+  * [sleep timer (shutdown/suspend)](packages/mediacenter/kodi/patches/2002-default-shutdown-timer.patch) defaults to 30 minutes; prevents instant sleep action, when accidentialy pressing OK twice
+  * [reduced cpu load on idle](packages/mediacenter/kodi/patches/2004-gbm-reduce-cpu-idle-load.patch)
+  * don't restart [playback after resume from suspend](packages/mediacenter/kodi/patches/2001-disable-resume-playerstate-after-suspend.patch)
 
 **Kernel 7.3.4**
 * Enabled BFQ I/O scheduler for testing (not set as default scheduler)
@@ -49,7 +49,7 @@ I have the **ASUS Tinker Board S**, which has an integrated Wireless LAN and Blu
 
 **Kodi**
 * Playback after suspend won't always continue, depending on the add-on or media last played
-  * So it's disabled with this [patch](packages/mediacenter/kodi/patches/kodi-2001-disable-resume-playerstate-after-suspend.patch)
+  * So it's disabled with this [patch](packages/mediacenter/kodi/patches/2001-disable-resume-playerstate-after-suspend.patch)
 * Shadertoy visualization for music playback causes graphical glitches on menu icons and text
 * Libretro: Setting the "stretch" mode to "original" for games causes an extremly zoomed in Kodi UI and a restart is required (has to be changed back blindly)
 
